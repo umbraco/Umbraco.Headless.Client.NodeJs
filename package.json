@@ -1,12 +1,17 @@
 {
   "name": "@umbraco/headless-sdk",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "scripts": {
+    "build-dev": "tsc -w"
+  },
   "dependencies": {
+    "form-data": "^2.5.1",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
+    "@types/form-data": "^2.5.0",
     "@types/node-fetch": "^2.5.2",
     "typescript": "^3.6.3"
   }

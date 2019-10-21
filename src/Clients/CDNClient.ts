@@ -6,7 +6,7 @@ import {ContentResponseElement} from "../Responses";
 
 
 
-export class CDNClient {
+class CDNClient {
     constructor(private readonly client: Client) {
 
     }
@@ -26,22 +26,22 @@ export class CDNClient {
     /**
      * Fetch Content by id
      */
-    public byId = (id: string|number, options?: DepthOptions) => {
-        return this.makeRequest(Endpoints.cdn.byId(id, options))
+    public byId = <T extends ContentResponseElement>(id: string|number, options?: DepthOptions) => {
+        return this.makeRequest(Endpoints.cdn.byId<T>(id, options))
     }
 
     /**
      * Fetch Content by url
      */
-    public byUrl = (url: string, options?: DepthOptions) => {
-        return this.makeRequest(Endpoints.cdn.byUrl(url, options))
+    public byUrl =< T extends ContentResponseElement>(url: string, options?: DepthOptions) => {
+        return this.makeRequest(Endpoints.cdn.byUrl<T>(url, options))
     }
 
     /**
      * Fetch Content children
      */
-    public children = (id: string|number, options?: PageOptions) => {
-        return this.makeRequest(Endpoints.cdn.children(id, options))
+    public children = <T extends ContentResponseElement>(id: string|number, options?: PageOptions) => {
+        return this.makeRequest(Endpoints.cdn.children<T>(id, options))
     }
 
     /**
@@ -59,3 +59,5 @@ export class CDNClient {
     }
 
 }
+
+export {CDNClient}

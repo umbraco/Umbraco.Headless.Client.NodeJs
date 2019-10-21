@@ -17,8 +17,10 @@ var ManagerClient = /** @class */ (function () {
                 byId: function (id) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.byId(id)); },
                 children: function (id, options) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.children(id, options)); },
                 create: function (body) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.create(), body); },
+                publish: function (id) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.publish(id)); },
+                unPublish: function (id) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.unPublish(id)); },
                 update: function (id, body) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.update(id), body); },
-                delete: function (id) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.update(id)); }
+                delete: function (id) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.delete(id)); }
             };
         },
         enumerable: true,
@@ -43,7 +45,7 @@ var ManagerClient = /** @class */ (function () {
                 byId: function (id) { return _this.makeRequest(Endpoints_1.Endpoints.management.media.byId(id)); },
                 children: function (id, options) { return _this.makeRequest(Endpoints_1.Endpoints.management.media.children(id, options)); },
                 create: function (data) { return _this.makeRequest(Endpoints_1.Endpoints.management.media.create(), data); },
-                update: function (id, data) { return _this.makeRequest(Endpoints_1.Endpoints.management.media.update(id)); },
+                update: function (id, data) { return _this.makeRequest(Endpoints_1.Endpoints.management.media.update(id), data); },
                 delete: function (id) { return _this.makeRequest(Endpoints_1.Endpoints.management.media.delete(id)); },
             };
         },

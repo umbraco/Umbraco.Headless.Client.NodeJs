@@ -11,6 +11,7 @@ export interface ContentResponseElement {
     _hasChildren: boolean;
     _level: number;
     _createDate: string;
+    _deleteDate?: string;
     _id: string;
     _updateDate: string;
     _links: ContentResponseElementLinks;

@@ -1,0 +1,1 @@
+{"version":3,"file":"APIRequestError.js","sourceRoot":"","sources":["../src/APIRequestError.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;AAEA;IAAqC,mCAAK;IAEtC,yBAAY,OAAe,EAAS,QAAkB,EAAS,QAAa;QAA5E,YACI,kBAAM,OAAO,CAAC,SAGjB;QAJmC,cAAQ,GAAR,QAAQ,CAAU;QAAS,cAAQ,GAAR,QAAQ,CAAK;QAExE,KAAI,CAAC,IAAI,GAAG,iBAAiB,CAAA;;IAEjC,CAAC;IAEL,sBAAC;AAAD,CAAC,AARD,CAAqC,KAAK,GAQzC;AARY,0CAAe"}

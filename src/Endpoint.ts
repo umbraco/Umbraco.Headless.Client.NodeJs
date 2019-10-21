@@ -7,14 +7,14 @@ export enum EndpointSource {
 }
 
 
-export class Endpoint<R = any> {
+export class Endpoint<R = any, Options = any> {
 
     constructor(
         public readonly source: EndpointSource,
         public readonly path: string,
         public readonly urlParams: any,
         public readonly method: string,
-        public readonly options?: any
+        public readonly options?: Options
     ) {
 
     }

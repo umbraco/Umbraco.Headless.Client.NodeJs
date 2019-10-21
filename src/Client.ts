@@ -12,6 +12,7 @@ export interface ClientOptions {
 export class Client {
 
     private _baseUrl: string = null
+    private _apiKey: string = null
 
     constructor(public readonly options: ClientOptions) {
 
@@ -35,5 +36,12 @@ export class Client {
     private makeUrl = () => {
 
     }
+
+
+    public setAPIKey = (apikey: string) => {
+        this._apiKey = apikey
+    }
+
+    public getAPIKey = () => this._apiKey
 
 }

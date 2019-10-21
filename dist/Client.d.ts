@@ -9,6 +9,7 @@ export interface ClientOptions {
 export declare class Client {
     readonly options: ClientOptions;
     private _baseUrl;
+    private _apiKey;
     constructor(options: ClientOptions);
     readonly cdn: CDNClient;
     readonly media: MediaClient;
@@ -16,6 +17,8 @@ export declare class Client {
     /**
      * Makes request from and [Endpoint]
      */
-    makeRequest: <R>(endpoint: Endpoint<R>, data?: any) => ApiRequest<R>;
+    makeRequest: <R>(endpoint: Endpoint<R, any>, data?: any) => ApiRequest<R>;
     private makeUrl;
+    setAPIKey: (apikey: string) => void;
+    getAPIKey: () => string;
 }

@@ -21,6 +21,10 @@ exports.Endpoints = {
             byId: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}', { id: id }, 'get'); },
             children: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}/children', { id: id }, 'get', options); },
             create: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content', {}, 'post'); },
+            publish: function (id) {
+                return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}/publish', { id: id }, 'put');
+            },
+            unPublish: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}/unpublish', { id: id }, 'put'); },
             update: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}', { id: id }, 'put'); },
             delete: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}', { id: id }, 'delete'); },
         },
@@ -32,7 +36,7 @@ exports.Endpoints = {
             root: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/media', {}, 'get'); },
             byId: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/media/{id}', { id: id }, 'get'); },
             children: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/media/{id}/children', { id: id }, 'get', options); },
-            create: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/media', {}, 'post'); },
+            create: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/media', {}, 'post', { usingMultipart: true }); },
             update: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/media/{id}', { id: id }, 'put'); },
             delete: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/media/{id}', { id: id }, 'delete'); },
         },
@@ -49,9 +53,9 @@ exports.Endpoints = {
         },
         relation: {
             byId: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/relation/{id}', { id: id }, 'get'); },
-            byAlias: function (alias) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/relation/{alias}', { alias: alias }, 'get'); },
-            byChild: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/relation/child/{id}', { id: id }, 'get'); },
             byParent: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/relation/parent/{id}', { id: id }, 'get'); },
+            byChild: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/relation/child/{id}', { id: id }, 'get'); },
+            byAlias: function (alias) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/relation/{alias}', { alias: alias }, 'get'); },
             create: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/relation', {}, 'post'); },
             delete: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/relation/{id}', { id: id }, 'delete'); },
         },

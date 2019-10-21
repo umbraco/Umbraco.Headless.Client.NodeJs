@@ -1,26 +1,26 @@
 import { Client } from "../Client";
 import { DepthOptions, PageOptions } from "../RequestOptions";
 import { ContentResponseElement } from "../Responses";
-export declare class CDNClient {
+declare class CDNClient {
     private readonly client;
     constructor(client: Client);
     private makeRequest;
     /**
      * Fetch root content
      */
-    root: <T extends ContentResponseElement>() => import("..").ApiRequest<import("..").ApiResponse<import("../Responses").RootContentResponse<T>>>;
+    root: <T extends ContentResponseElement>() => import("..").ApiRequest<import("..").ApiResponse<import("../Responses").RootContentResponse<T>, any>>;
     /**
      * Fetch Content by id
      */
-    byId: (id: string | number, options?: DepthOptions) => import("..").ApiRequest<any>;
+    byId: <T extends ContentResponseElement>(id: string | number, options?: DepthOptions) => import("..").ApiRequest<import("..").ApiResponse<import("../Responses").RootContentResponse<T>, any>>;
     /**
      * Fetch Content by url
      */
-    byUrl: (url: string, options?: DepthOptions) => import("..").ApiRequest<any>;
+    byUrl: <T extends ContentResponseElement>(url: string, options?: DepthOptions) => import("..").ApiRequest<T>;
     /**
      * Fetch Content children
      */
-    children: (id: string | number, options?: PageOptions) => import("..").ApiRequest<any>;
+    children: <T extends ContentResponseElement>(id: string | number, options?: PageOptions) => import("..").ApiRequest<import("..").ApiPagedResponse<import("../Responses").RootContentResponse<T>>>;
     /**
      * Fetch Content ancestors
      */
@@ -30,3 +30,4 @@ export declare class CDNClient {
      */
     descendants: (id: string | number, options?: PageOptions) => import("..").ApiRequest<any>;
 }
+export { CDNClient };

@@ -7,6 +7,7 @@ var Client = /** @class */ (function () {
         var _this = this;
         this.options = options;
         this._baseUrl = null;
+        this._apiKey = null;
         this.cdn = new Clients_1.CDNClient(this);
         this.media = new Clients_1.MediaClient(this);
         this.manager = new Clients_1.ManagerClient(this);
@@ -18,6 +19,10 @@ var Client = /** @class */ (function () {
         };
         this.makeUrl = function () {
         };
+        this.setAPIKey = function (apikey) {
+            _this._apiKey = apikey;
+        };
+        this.getAPIKey = function () { return _this._apiKey; };
     }
     return Client;
 }());
