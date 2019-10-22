@@ -1,6 +1,9 @@
 import { Client } from "../Client";
 import { DepthOptions, PageOptions } from "../RequestOptions";
 import { ContentResponseElement } from "../Responses";
+/**
+ * CDNClient is used to fetch content related objects from Umbraco headless
+ */
 declare class CDNClient {
     private readonly client;
     constructor(client: Client);

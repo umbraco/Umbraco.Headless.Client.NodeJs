@@ -9,6 +9,9 @@ export interface ClientOptions {
 }
 
 
+/**
+ * Headless Client for managing API calls to the Umbraco Headless API
+ */
 export class Client {
 
     private _baseUrl: string = null
@@ -18,9 +21,19 @@ export class Client {
 
     }
 
-
+    /**
+     * Get CDN Client for fetching content related objects
+     */
     public readonly cdn = new CDNClient(this)
+
+    /**
+     * Get Media Client for fetching media related objects
+     */
     public readonly media = new MediaClient(this)
+
+    /**
+     * Get Manager Client for managing content on Umbraco headless
+     */
     public readonly manager = new ManagerClient(this)
 
 
@@ -38,6 +51,10 @@ export class Client {
     }
 
 
+    /**
+     * Sets the API to be used.
+     * @param apikey API Key
+     */
     public setAPIKey = (apikey: string) => {
         this._apiKey = apikey
     }

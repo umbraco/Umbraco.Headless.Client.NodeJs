@@ -105,7 +105,7 @@ export const Endpoints = {
         },
 
         memberGroup: {
-            byName: (name: string) => new Endpoint<ContentMemberGroupType>(EndpointSource.ContentManagement, '/member/group/{name}', {name}, 'post'),
+            byName: (name: string) => new Endpoint<ContentMemberGroupType>(EndpointSource.ContentManagement, '/member/group/{name}', {name}, 'get'),
             create: () => new Endpoint<ContentMemberGroupType>(EndpointSource.ContentManagement, '/member/group', {}, 'post'),
             delete: (name: string) => new Endpoint<ContentMemberGroupType>(EndpointSource.ContentManagement, '/member/group/{name}', {name}, 'delete'),
         },

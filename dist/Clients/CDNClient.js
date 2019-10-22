@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Endpoints_1 = require("../Endpoints");
+/**
+ * CDNClient is used to fetch content related objects from Umbraco headless
+ */
 var CDNClient = /** @class */ (function () {
     function CDNClient(client) {
         var _this = this;

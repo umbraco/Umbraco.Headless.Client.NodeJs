@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Endpoints_1 = require("../Endpoints");
+/**
+ * Client to fetch media related objects form Umbraco headless
+ */
 var MediaClient = /** @class */ (function () {
     function MediaClient(client) {
         var _this = this;

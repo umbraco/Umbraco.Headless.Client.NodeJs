@@ -71,7 +71,7 @@ exports.Endpoints = {
             delete: function (username) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/member/{username}', { username: username }, 'delete'); },
         },
         memberGroup: {
-            byName: function (name) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/member/group/{name}', { name: name }, 'post'); },
+            byName: function (name) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/member/group/{name}', { name: name }, 'get'); },
             create: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/member/group', {}, 'post'); },
             delete: function (name) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/member/group/{name}', { name: name }, 'delete'); },
         },

@@ -6,7 +6,10 @@ export enum EndpointSource {
 
 }
 
-
+/**
+ * This class describes how and endpoint might will look,
+ * it's not possible to change value
+ */
 export class Endpoint<R = any, Options = any> {
 
     constructor(
@@ -19,6 +22,9 @@ export class Endpoint<R = any, Options = any> {
 
     }
 
+    /**
+     * Replace path with urlParams
+     */
     getPath = () => {
         const keys = Object.keys(this.urlParams)
         if(keys.length === 0) {

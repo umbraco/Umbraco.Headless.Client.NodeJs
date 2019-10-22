@@ -3,6 +3,9 @@ import {Endpoint} from "../Endpoint";
 import {Endpoints} from "../Endpoints";
 import {PageOptions} from "../RequestOptions";
 
+/**
+ * Client to fetch media related objects form Umbraco headless
+ */
 export class MediaClient {
 
     constructor(

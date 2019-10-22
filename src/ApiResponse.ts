@@ -1,5 +1,3 @@
-import {ContentResponseElement} from "./Responses";
-
 export interface ApiResponse<Response = any, Links = any> {
 
     _links: Links

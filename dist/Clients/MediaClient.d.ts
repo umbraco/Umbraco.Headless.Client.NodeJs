@@ -1,5 +1,8 @@
 import { Client } from "../Client";
 import { PageOptions } from "../RequestOptions";
+/**
+ * Client to fetch media related objects form Umbraco headless
+ */
 export declare class MediaClient {
     private readonly client;
     constructor(client: Client);
