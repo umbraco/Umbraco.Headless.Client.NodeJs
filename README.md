@@ -255,6 +255,11 @@ client.cdn.byUrl(url: string)
 client.cdn.children(url: string)
 client.cdn.ancestors(id: string)
 client.cdn.descendants(id: string)
+
+// TS Example:
+import {ContentResponseElement} from '@umbraco/headless-sdk'
+
+client.cdn.root<T extends ContentResponseElement>(): ApiRequest<T>
 ```
 
 ### Media
