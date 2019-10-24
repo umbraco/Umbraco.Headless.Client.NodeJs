@@ -13,7 +13,6 @@ app.set("view engine", "ejs");
 app.set("views", path_1.join(process.cwd(), 'Views'));
 app.get('/', function (req, res) { return res.redirect('/home'); });
 app.get('/home', Controllers_1.HomeController.index);
-app.get('/home/test', Controllers_1.HomeController.createRandomBlogPost);
 app.get('/home/blog', Controllers_1.BlogController.index);
 app.get('/home/blog/:sku', Controllers_1.BlogController.show);
 app.get('/home/products', Controllers_1.ProductController.index);

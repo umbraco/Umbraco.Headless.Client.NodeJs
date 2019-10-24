@@ -72,24 +72,24 @@ exports.index = function (req, res) { return __awaiter(_this, void 0, void 0, fu
     });
 }); };
 exports.blog = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var rootData, data, home, children, topMenuLinks, contentElement, blogPostsResp, blogPosts, footerCTA, siteName, title, pageTitle;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, client.cdn.root().promise()];
+    var _a, rootData, data, home, _b, children, blogPostsResp, topMenuLinks, contentElement, blogPosts, footerCTA, siteName, title, pageTitle;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0: return [4 /*yield*/, Promise.all([
+                    client.cdn.root().promise(),
+                    client.cdn.byUrl("/home/blog").promise()
+                ])];
             case 1:
-                rootData = _a.sent();
-                return [4 /*yield*/, client.cdn.byUrl("/home/blog").promise()];
-            case 2:
-                data = _a.sent();
+                _a = _c.sent(), rootData = _a[0], data = _a[1];
                 home = rootData._embedded.content.find(function (c) { return c.contentTypeAlias === "home"; });
-                return [4 /*yield*/, client.cdn.children(home._id).promise()];
-            case 3:
-                children = _a.sent();
+                return [4 /*yield*/, Promise.all([
+                        client.cdn.children(home._id).promise(),
+                        client.cdn.children(data._id).promise()
+                    ])];
+            case 2:
+                _b = _c.sent(), children = _b[0], blogPostsResp = _b[1];
                 topMenuLinks = ApplicationController_1.makeTopNavLinks(children._embedded.content);
                 contentElement = rootData._embedded.content[0];
-                return [4 /*yield*/, client.cdn.children(data._id).promise()];
-            case 4:
-                blogPostsResp = _a.sent();
                 blogPosts = blogPostsResp._embedded.content;
                 footerCTA = {
                     url: contentElement.footerCTALink._url,
@@ -108,73 +108,6 @@ exports.blog = function (req, res) { return __awaiter(_this, void 0, void 0, fun
                     blogPosts: blogPosts
                 });
                 return [2 /*return*/];
-        }
-    });
-}); };
-var blogPostCreate = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var make, response, id, published, unPublish, e_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                make = client.manager.content.create({
-                    contentTypeAlias: 'blogpost',
-                    parentId: '8007e923-e62a-4ac1-a33f-caf3052582f4',
-                    name: {
-                        $invariant: 'Demo Post'
-                    },
-                    pageTitle: {
-                        $invariant: "This blog post"
-                    },
-                    excerpt: {
-                        $invariant: "Test is a test excerpt"
-                    },
-                    bodyText: {
-                        $invariant: "lorem ipsim"
-                    },
-                    umbNaviHide: {
-                        $invariant: '0'
-                    }
-                });
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 5, , 6]);
-                return [4 /*yield*/, make.promise()];
-            case 2:
-                response = _a.sent();
-                id = response._id;
-                return [4 /*yield*/, client.manager.content.publish(id).promise()];
-            case 3:
-                published = _a.sent();
-                return [4 /*yield*/, client.manager.content.unPublish(id).promise()];
-            case 4:
-                unPublish = _a.sent();
-                res.json({ response: response, published: published, unPublish: unPublish });
-                return [3 /*break*/, 6];
-            case 5:
-                e_1 = _a.sent();
-                res.status(e_1.response.status).json({ message: e_1.message, json: e_1.jsonData });
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
-        }
-    });
-}); };
-exports.createRandomBlogPost = function (req, res, next) { return __awaiter(_this, void 0, void 0, function () {
-    var languages, e_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, client.manager.member.byUsername("simon+demo@houseofcode.io").promise()];
-            case 1:
-                languages = _a.sent();
-                console.log("Response", languages);
-                res.json({ data: languages });
-                return [3 /*break*/, 3];
-            case 2:
-                e_2 = _a.sent();
-                res.json({ data: e_2.jsonData });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
         }
     });
 }); };

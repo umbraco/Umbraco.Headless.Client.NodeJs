@@ -14,7 +14,6 @@ app.set("views", join(process.cwd(), 'Views'))
 
 app.get('/', (req, res) => res.redirect('/home'))
 app.get('/home', HomeController.index)
-app.get('/home/test', HomeController.createRandomBlogPost)
 
 app.get('/home/blog', BlogController.index)
 app.get('/home/blog/:sku', BlogController.show)
