@@ -14,7 +14,6 @@ export interface ClientOptions {
  */
 export class Client {
 
-    private _baseUrl: string = null
     private _apiKey: string = null
 
     constructor(public readonly options: ClientOptions) {
@@ -42,12 +41,6 @@ export class Client {
      */
     public makeRequest = <R>(endpoint: Endpoint<R>, data?: any) => {
         return new ApiRequest<R>(this, endpoint, data)
-    }
-
-
-
-    private makeUrl = () => {
-
     }
 
 

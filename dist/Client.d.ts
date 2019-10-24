@@ -11,7 +11,6 @@ export interface ClientOptions {
  */
 export declare class Client {
     readonly options: ClientOptions;
-    private _baseUrl;
     private _apiKey;
     constructor(options: ClientOptions);
     /**
@@ -30,7 +29,6 @@ export declare class Client {
      * Makes request from and [Endpoint]
      */
     makeRequest: <R>(endpoint: Endpoint<R, any>, data?: any) => ApiRequest<R>;
-    private makeUrl;
     /**
      * Sets the API to be used.
      * @param apikey API Key

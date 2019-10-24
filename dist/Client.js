@@ -9,7 +9,6 @@ var Client = /** @class */ (function () {
     function Client(options) {
         var _this = this;
         this.options = options;
-        this._baseUrl = null;
         this._apiKey = null;
         /**
          * Get CDN Client for fetching content related objects
@@ -28,8 +27,6 @@ var Client = /** @class */ (function () {
          */
         this.makeRequest = function (endpoint, data) {
             return new ApiRequest_1.ApiRequest(_this, endpoint, data);
-        };
-        this.makeUrl = function () {
         };
         /**
          * Sets the API to be used.

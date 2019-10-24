@@ -1,5 +1,4 @@
 import { Client } from "../Client";
-import { PageOptions } from "../RequestOptions";
 /**
  * Client to fetch media related objects form Umbraco headless
  */
@@ -18,5 +17,5 @@ export declare class MediaClient {
     /**
      * Fetch media children
      */
-    children: (id: string | number, options?: PageOptions) => import("..").ApiRequest<any>;
+    children: (id: string | number, options?: import("../RequestOptions").PageOptions) => import("..").ApiRequest<any>;
 }

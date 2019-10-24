@@ -5,7 +5,6 @@ import {
     APIContentChildrenOptions,
     APIContentPublishOptions,
     APIContentUnPublishOptions, APIMediaChildrenOptions,
-    PageOptions
 } from "../RequestOptions";
 import {
     ContentCreateMemberType,
@@ -14,14 +13,11 @@ import {
     ContentMemberCreateGroupType,
     ContentMemberGroupType,
     ContentMemberType, ContentMemberTypeType,
-    ContentMemberTypeTypeGroup,
     ContentResponseElement,
     ContentTypeBase,
     CreateContentBody,
     CreateContentLanguageType,
-    MediaTypeContentManagerRoot
 } from "../Responses";
-import {ApiRequest} from "../ApiRequest";
 
 
 /**
