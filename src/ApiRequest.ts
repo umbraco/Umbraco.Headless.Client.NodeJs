@@ -5,12 +5,7 @@ import {APIRequestError} from "./APIRequestError";
 import FormData, {} from 'form-data'
 import {MultipartOptions} from "./RequestOptions";
 
-
-const HOSTNAME = 's1.umbraco.io'
-
 export class ApiRequest<R = any> {
-
-
 
     constructor(
         private client: Client,
@@ -18,16 +13,8 @@ export class ApiRequest<R = any> {
         public data?: any
     ) {}
 
-
-
-
-
     public promise = async (): Promise<R> => {
         const projectAlias = this.client.options.projectAlias
-        let url = `https://${projectAlias}.${HOSTNAME}`
-
-
-
 
         const requestInit: RequestInit = {
             headers: {
@@ -39,23 +26,15 @@ export class ApiRequest<R = any> {
             }
         }
 
-        switch (this.endpoint.source) {
-            case EndpointSource.CDN:
-                url += `/cdn`
-                break
-            case EndpointSource.ContentManagement:
+        if(this.endpoint.source === EndpointSource.ContentManagement) {
+            if(this.client.getAPIKey() === null) {
+                throw new Error("API Key is missing")
+            }
 
-                if(this.client.getAPIKey() === null) {
-                    throw new Error("API Key is missing")
-                }
-
-                requestInit.headers["api-key"] = `${this.client.getAPIKey()}`
-                break
-
-
+            requestInit.headers["api-key"] = `${this.client.getAPIKey()}`
         }
 
-        url += this.endpoint.getPath()
+        const url = Endpoint.getURLAddress(this.endpoint)
 
         console.log("URL:", url)
 
@@ -79,24 +58,6 @@ export class ApiRequest<R = any> {
             if(!requestInit.body) {
                 requestInit.body = JSON.stringify(this.data)
             }
-
-
-            // if((this.endpoint.options !== undefined && this.endpoint.options as MultipartOptions).usingMultipart === true) {
-            //     if(this.data instanceof FormData) {
-            //         requestInit.headers["Content-Type"] = `multipart/form-data; boundary=${this.data.getBoundary()}`
-            //
-            //
-            //         requestInit.body = this.data
-            //     } else {
-            //         throw new Error("Expected a FormData as body")
-            //     }
-            // }
-            // else {
-            //     requestInit.body = JSON.stringify(this.data)
-            // }
-
-
-
         }
         requestInit.method = method
 
@@ -110,9 +71,5 @@ export class ApiRequest<R = any> {
 
 
         return jsonResponse as R
-
-
     }
-
-
 }

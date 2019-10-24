@@ -35,6 +35,20 @@ var Endpoint = /** @class */ (function () {
             return path;
         };
     }
+    Endpoint.getURLAddress = function (endpoint) {
+        var url = 'https://{API_TYPE}.umbraco.io' + endpoint.getPath();
+        var apiType;
+        switch (endpoint.source) {
+            case EndpointSource.CDN:
+                apiType = "cdn";
+                break;
+            case EndpointSource.ContentManagement:
+                apiType = "api";
+                break;
+        }
+        url = url.replace("{API_TYPE}", apiType);
+        return url;
+    };
     return Endpoint;
 }());
 exports.Endpoint = Endpoint;

@@ -18,4 +18,5 @@ export declare class Endpoint<R = any, Options = any> {
      * Replace path with urlParams
      */
     getPath: () => string;
+    static getURLAddress: (endpoint: Endpoint<any, any>) => string;
 }

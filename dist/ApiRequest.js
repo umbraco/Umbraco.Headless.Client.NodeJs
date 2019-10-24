@@ -43,7 +43,6 @@ var Endpoint_1 = require("./Endpoint");
 var node_fetch_1 = __importDefault(require("node-fetch"));
 var APIRequestError_1 = require("./APIRequestError");
 var form_data_1 = __importDefault(require("form-data"));
-var HOSTNAME = 's1.umbraco.io';
 var ApiRequest = /** @class */ (function () {
     function ApiRequest(client, endpoint, data) {
         var _this = this;
@@ -51,12 +50,11 @@ var ApiRequest = /** @class */ (function () {
         this.endpoint = endpoint;
         this.data = data;
         this.promise = function () { return __awaiter(_this, void 0, void 0, function () {
-            var projectAlias, url, requestInit, method, requestOptions, response, jsonResponse;
+            var projectAlias, requestInit, url, method, requestOptions, response, jsonResponse;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         projectAlias = this.client.options.projectAlias;
-                        url = "https://" + projectAlias + "." + HOSTNAME;
                         requestInit = {
                             headers: {
                                 'Content-Type': 'application/json',
@@ -66,18 +64,13 @@ var ApiRequest = /** @class */ (function () {
                                 'api-version': '2'
                             }
                         };
-                        switch (this.endpoint.source) {
-                            case Endpoint_1.EndpointSource.CDN:
-                                url += "/cdn";
-                                break;
-                            case Endpoint_1.EndpointSource.ContentManagement:
-                                if (this.client.getAPIKey() === null) {
-                                    throw new Error("API Key is missing");
-                                }
-                                requestInit.headers["api-key"] = "" + this.client.getAPIKey();
-                                break;
+                        if (this.endpoint.source === Endpoint_1.EndpointSource.ContentManagement) {
+                            if (this.client.getAPIKey() === null) {
+                                throw new Error("API Key is missing");
+                            }
+                            requestInit.headers["api-key"] = "" + this.client.getAPIKey();
                         }
-                        url += this.endpoint.getPath();
+                        url = Endpoint_1.Endpoint.getURLAddress(this.endpoint);
                         console.log("URL:", url);
                         console.log("Header fields");
                         console.log(requestInit);
@@ -98,19 +91,6 @@ var ApiRequest = /** @class */ (function () {
                             if (!requestInit.body) {
                                 requestInit.body = JSON.stringify(this.data);
                             }
-                            // if((this.endpoint.options !== undefined && this.endpoint.options as MultipartOptions).usingMultipart === true) {
-                            //     if(this.data instanceof FormData) {
-                            //         requestInit.headers["Content-Type"] = `multipart/form-data; boundary=${this.data.getBoundary()}`
-                            //
-                            //
-                            //         requestInit.body = this.data
-                            //     } else {
-                            //         throw new Error("Expected a FormData as body")
-                            //     }
-                            // }
-                            // else {
-                            //     requestInit.body = JSON.stringify(this.data)
-                            // }
                         }
                         requestInit.method = method;
                         return [4 /*yield*/, node_fetch_1.default(url, requestInit)];
