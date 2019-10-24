@@ -1,0 +1,16 @@
+import { HyperlinksOption } from "./HyperlinksOption";
+import { ContentTypeOptions } from "./ContentTypeOptions";
+import { DepthOptions } from "./DepthOptions";
+import { PageOptions } from "./PageOptions";
+import { CultureOptions } from "./CultureOptions";
+export declare type CDNContentRootOptions = HyperlinksOption & ContentTypeOptions;
+export declare type CDNContentByIdOptions = HyperlinksOption & DepthOptions;
+export declare type CDNContentByURLOptions = HyperlinksOption & DepthOptions;
+export declare type CDNContentAncestorsOptions = HyperlinksOption & ContentTypeOptions;
+export declare type CDNContentChildrenOptions = HyperlinksOption & ContentTypeOptions & PageOptions;
+export declare type CDNContentDescendantsOptions = HyperlinksOption & ContentTypeOptions & PageOptions;
+export declare type CDNMediaChildrenOptions = PageOptions;
+export declare type APIContentChildrenOptions = PageOptions;
+export declare type APIContentPublishOptions = CultureOptions;
+export declare type APIContentUnPublishOptions = CultureOptions;
+export declare type APIMediaChildrenOptions = PageOptions;

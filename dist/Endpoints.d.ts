@@ -1,15 +1,15 @@
 import { Endpoint } from "./Endpoint";
-import { DepthOptions, MultipartOptions, PageOptions } from "./RequestOptions";
+import { CDNContentByIdOptions, CDNContentChildrenOptions, CDNContentRootOptions, MultipartOptions, PageOptions } from "./RequestOptions";
 import { ApiPagedResponse, ApiResponse } from "./ApiResponse";
 import { ContentManagerMediaType, ContentResponseElement, ContentTypeBase, ContentTypeBaseResponse, RootContentResponse, ContentManagerMediaTypeBase, MediaTypeContentManagerRoot, MediaTypeContentManager, ContentLanguageRootType, ContentLanguageType, ContentRelationType, ContentRelationRootType, ContentRelationTypeType, ContentMemberType, ContentMemberGroupType, ContentMemberTypeTypeGroup, ContentMemberTypeType } from "./Responses";
 export declare const Endpoints: {
     cdn: {
-        root: <T extends ContentResponseElement>() => Endpoint<ApiResponse<RootContentResponse<T>, any>, any>;
-        byId: <T_1 extends ContentResponseElement>(id: string | number, options?: DepthOptions) => Endpoint<ApiResponse<RootContentResponse<T_1>, any>, any>;
-        byUrl: <T_2 extends ContentResponseElement>(url: string, options?: DepthOptions) => Endpoint<T_2, any>;
-        children: <T_3 extends ContentResponseElement>(id: string | number, options?: PageOptions) => Endpoint<ApiPagedResponse<RootContentResponse<T_3>>, any>;
-        ancestors: (id: string | number) => Endpoint<any, any>;
-        descendants: (id: string | number, options?: PageOptions) => Endpoint<any, PageOptions>;
+        root: <T extends ContentResponseElement>(options?: CDNContentRootOptions) => Endpoint<ApiResponse<RootContentResponse<T>, any>, any>;
+        byId: <T_1 extends ContentResponseElement>(id: string | number, options?: CDNContentByIdOptions) => Endpoint<ApiResponse<RootContentResponse<T_1>, any>, any>;
+        byUrl: <T_2 extends ContentResponseElement>(url: string, options?: CDNContentByIdOptions) => Endpoint<T_2, any>;
+        children: <T_3 extends ContentResponseElement>(id: string | number, options?: CDNContentChildrenOptions) => Endpoint<ApiPagedResponse<RootContentResponse<T_3>>, any>;
+        ancestors: (id: string | number, options?: CDNContentRootOptions) => Endpoint<any, CDNContentRootOptions>;
+        descendants: (id: string | number, options?: CDNContentChildrenOptions) => Endpoint<any, CDNContentChildrenOptions>;
     };
     media: {
         root: () => Endpoint<any, any>;
@@ -22,8 +22,8 @@ export declare const Endpoints: {
             byId: <R_1 extends ContentResponseElement>(id: string | number) => Endpoint<R_1, any>;
             children: <R_2 extends ContentResponseElement>(id: string | number, options?: PageOptions) => Endpoint<ApiResponse<RootContentResponse<R_2>, any>, any>;
             create: <R_3 extends ContentResponseElement>() => Endpoint<R_3, any>;
-            publish: <R_4 extends ContentResponseElement>(id: string | number) => Endpoint<R_4, any>;
-            unPublish: <R_5 extends ContentResponseElement>(id: string | number) => Endpoint<R_5, any>;
+            publish: <R_4 extends ContentResponseElement>(id: string | number, options?: import("./RequestOptions").CultureOptions) => Endpoint<R_4, import("./RequestOptions").CultureOptions>;
+            unPublish: <R_5 extends ContentResponseElement>(id: string | number, options?: import("./RequestOptions").CultureOptions) => Endpoint<R_5, any>;
             update: <R_6 extends ContentResponseElement>(id: string | number) => Endpoint<R_6, any>;
             delete: (id: string | number) => Endpoint<any, any>;
         };

@@ -1,7 +1,12 @@
 import {Client} from "../Client";
 import {Endpoint} from "../Endpoint";
 import {Endpoints} from "../Endpoints";
-import {PageOptions} from "../RequestOptions";
+import {
+    APIContentChildrenOptions,
+    APIContentPublishOptions,
+    APIContentUnPublishOptions, APIMediaChildrenOptions,
+    PageOptions
+} from "../RequestOptions";
 import {
     ContentCreateMemberType,
     ContentLanguageType,
@@ -56,7 +61,7 @@ export class ManagerClient {
              * @param id GUID part of an Umbraco UDI
              * @param options Request options if with page
              */
-            children: <R extends ContentResponseElement>(id: string|number, options?: PageOptions) => this.makeRequest(Endpoints.management.content.children(id, options)),
+            children: <R extends ContentResponseElement>(id: string|number, options?: APIContentChildrenOptions) => this.makeRequest(Endpoints.management.content.children(id, options)),
 
             /**
              * Create a content object
@@ -67,14 +72,16 @@ export class ManagerClient {
             /**
              * Publish a content object
              * @param id GUID part of an Umbraco UDI
+             * @param options Request options
              */
-            publish: <R extends ContentResponseElement>(id: string) => this.makeRequest(Endpoints.management.content.publish<R>(id) as Endpoint<R>),
+            publish: <R extends ContentResponseElement>(id: string, options?: APIContentPublishOptions) => this.makeRequest(Endpoints.management.content.publish<R>(id, options) as Endpoint<R, APIContentPublishOptions>),
 
             /**
              * Un-publish a content object
              * @param id GUID part of an Umbraco UDI
+             * @param options Request options
              */
-            unPublish: <R extends ContentResponseElement>(id: string) => this.makeRequest(Endpoints.management.content.unPublish<R>(id)),
+            unPublish: <R extends ContentResponseElement>(id: string, options?: APIContentUnPublishOptions) => this.makeRequest(Endpoints.management.content.unPublish<R>(id, options)),
 
             /**
              * Update a content object
@@ -131,7 +138,7 @@ export class ManagerClient {
              * @param id GUID part of an Umbraco UDI
              * @param options Request options if with page
              */
-            children: <R extends ContentManagerMediaType>(id: string|number, options?: PageOptions) => this.makeRequest(Endpoints.management.media.children<R>(id, options)),
+            children: <R extends ContentManagerMediaType>(id: string|number, options?: APIMediaChildrenOptions) => this.makeRequest(Endpoints.management.media.children<R>(id, options)),
 
             /**
              * Create a media object

@@ -14,8 +14,8 @@ var CDNClient = /** @class */ (function () {
         /**
          * Fetch root content
          */
-        this.root = function () {
-            return _this.makeRequest(Endpoints_1.Endpoints.cdn.root());
+        this.root = function (options) {
+            return _this.makeRequest(Endpoints_1.Endpoints.cdn.root(options));
         };
         /**
          * Fetch Content by id
@@ -38,8 +38,8 @@ var CDNClient = /** @class */ (function () {
         /**
          * Fetch Content ancestors
          */
-        this.ancestors = function (id) {
-            return _this.makeRequest(Endpoints_1.Endpoints.cdn.ancestors(id));
+        this.ancestors = function (id, options) {
+            return _this.makeRequest(Endpoints_1.Endpoints.cdn.ancestors(id, options));
         };
         /**
          * Fetch Content descendants

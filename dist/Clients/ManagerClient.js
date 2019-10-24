@@ -42,13 +42,15 @@ var ManagerClient = /** @class */ (function () {
                 /**
                  * Publish a content object
                  * @param id GUID part of an Umbraco UDI
+                 * @param options Request options
                  */
-                publish: function (id) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.publish(id)); },
+                publish: function (id, options) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.publish(id, options)); },
                 /**
                  * Un-publish a content object
                  * @param id GUID part of an Umbraco UDI
+                 * @param options Request options
                  */
-                unPublish: function (id) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.unPublish(id)); },
+                unPublish: function (id, options) { return _this.makeRequest(Endpoints_1.Endpoints.management.content.unPublish(id, options)); },
                 /**
                  * Update a content object
                  * @param id GUID part of an Umbraco UDI

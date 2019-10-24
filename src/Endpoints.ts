@@ -1,5 +1,12 @@
 import {Endpoint, EndpointSource} from "./Endpoint";
-import {DepthOptions, MultipartOptions, PageOptions} from "./RequestOptions";
+import {
+    APIContentChildrenOptions, APIContentPublishOptions, APIContentUnPublishOptions, APIMediaChildrenOptions,
+    CDNContentAncestorsOptions,
+    CDNContentByIdOptions, CDNContentByURLOptions, CDNContentChildrenOptions, CDNContentDescendantsOptions,
+    CDNContentRootOptions, CDNMediaChildrenOptions,
+    MultipartOptions,
+    PageOptions
+} from "./RequestOptions";
 import {ApiPagedResponse, ApiResponse} from "./ApiResponse";
 import {
     ContentManagerMediaType,
@@ -27,30 +34,30 @@ export const Endpoints = {
 
     cdn: {
 
-        root: <T extends ContentResponseElement>() => new Endpoint<RCR<T>>(EndpointSource.CDN, '/content', {}, 'get'),
-        byId: <T extends ContentResponseElement>(id: string | number, options?: DepthOptions) => new Endpoint<RCR<T>>(EndpointSource.CDN, '/content/{id}', {id}, 'get', options),
-        byUrl: <T extends ContentResponseElement>(url: string, options?: DepthOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/url?url={url}', {url}, 'get', options),
-        children: <T extends ContentResponseElement>(id: string | number, options?: PageOptions) => new Endpoint<ApiPagedResponse<RootContentResponse<T>>>(EndpointSource.CDN, '/content/{id}/children', {id}, 'get', options),
-        ancestors: (id: string | number) => new Endpoint(EndpointSource.CDN, '/content/{id}/ancestors', {id}, 'get'),
-        descendants: (id: string | number, options?: PageOptions) => new Endpoint(EndpointSource.CDN, '/content/{id}/descendants', {id}, 'get', options)
+        root: <T extends ContentResponseElement>(options?: CDNContentRootOptions) => new Endpoint<RCR<T>>(EndpointSource.CDN, '/content', {}, 'get', options),
+        byId: <T extends ContentResponseElement>(id: string | number, options?: CDNContentByIdOptions) => new Endpoint<RCR<T>>(EndpointSource.CDN, '/content/{id}', {id}, 'get', options),
+        byUrl: <T extends ContentResponseElement>(url: string, options?: CDNContentByURLOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/url?url={url}', {url}, 'get', options),
+        children: <T extends ContentResponseElement>(id: string | number, options?: CDNContentChildrenOptions) => new Endpoint<ApiPagedResponse<RootContentResponse<T>>>(EndpointSource.CDN, '/content/{id}/children', {id}, 'get', options),
+        ancestors: (id: string | number, options?: CDNContentAncestorsOptions) => new Endpoint(EndpointSource.CDN, '/content/{id}/ancestors', {id}, 'get', options),
+        descendants: (id: string | number, options?: CDNContentDescendantsOptions) => new Endpoint(EndpointSource.CDN, '/content/{id}/descendants', {id}, 'get', options)
     },
 
     media: {
         root: () => new Endpoint(EndpointSource.CDN, "/media", {}, 'get'),
         byId: (id: string | number) => new Endpoint(EndpointSource.CDN, '/media/{id}', {id}, 'get'),
-        children: (id: string | number, options?: PageOptions) => new Endpoint(EndpointSource.CDN, '/media/{id}/children', {id}, 'get', options),
+        children: (id: string | number, options?: CDNMediaChildrenOptions) => new Endpoint(EndpointSource.CDN, '/media/{id}/children', {id}, 'get', options),
     },
 
     management: {
         content: {
             root: <R extends ContentResponseElement>() => new Endpoint<RCR<R>>(EndpointSource.ContentManagement, "/content", {}, 'get'),
             byId: <R extends ContentResponseElement>(id: string | number) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', {id}, 'get'),
-            children: <R extends ContentResponseElement>(id: string | number, options?: PageOptions) => new Endpoint<RCR<R>>(EndpointSource.ContentManagement, '/content/{id}/children', {id}, 'get', options),
+            children: <R extends ContentResponseElement>(id: string | number, options?: APIContentChildrenOptions) => new Endpoint<RCR<R>>(EndpointSource.ContentManagement, '/content/{id}/children', {id}, 'get', options),
             create: <R extends ContentResponseElement>() => new Endpoint<R>(EndpointSource.ContentManagement, '/content', {}, 'post'),
-            publish: <R extends ContentResponseElement>(id: string | number) => {
-               return new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/publish', {id}, 'put') as Endpoint<R>
+            publish: <R extends ContentResponseElement>(id: string | number, options?: APIContentPublishOptions) => {
+               return new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/publish', {id}, 'put', options) as Endpoint<R, APIContentPublishOptions>
             },
-            unPublish: <R extends ContentResponseElement>(id: number|string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/unpublish', {id}, 'put'),
+            unPublish: <R extends ContentResponseElement>(id: number|string, options?: APIContentUnPublishOptions) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/unpublish', {id}, 'put', options),
             update: <R extends ContentResponseElement>(id: number | string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', {id}, 'put'),
             delete: (id: number | string) => new Endpoint(EndpointSource.ContentManagement, '/content/{id}', {id}, 'delete'),
         },
@@ -61,7 +68,7 @@ export const Endpoints = {
         media: {
             root:  <R extends ContentManagerMediaType>() => new Endpoint<CMT<R>>(EndpointSource.ContentManagement, '/media', {}, 'get'),
             byId: <R extends ContentManagerMediaType>(id: string|number) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', {id}, 'get'),
-            children: <R extends ContentManagerMediaType>(id: string|number, options?: PageOptions) => new Endpoint<CMT<R>>(EndpointSource.ContentManagement, '/media/{id}/children', {id}, 'get', options),
+            children: <R extends ContentManagerMediaType>(id: string|number, options?: APIMediaChildrenOptions) => new Endpoint<CMT<R>>(EndpointSource.ContentManagement, '/media/{id}/children', {id}, 'get', options),
             create: () => new Endpoint<any, MultipartOptions>(EndpointSource.ContentManagement, '/media', {}, 'post', {usingMultipart: true}),
             update: (id: string|number) => new Endpoint(EndpointSource.ContentManagement, '/media/{id}', {id}, 'put'),
             delete: (id: string|number) => new Endpoint(EndpointSource.ContentManagement, '/media/{id}', {id}, 'delete'),

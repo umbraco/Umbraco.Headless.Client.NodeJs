@@ -1,7 +1,7 @@
 import {Client} from "../Client";
 import {Endpoint} from "../Endpoint";
 import {Endpoints} from "../Endpoints";
-import {PageOptions} from "../RequestOptions";
+import {CDNMediaChildrenOptions, PageOptions} from "../RequestOptions";
 
 /**
  * Client to fetch media related objects form Umbraco headless
@@ -36,7 +36,7 @@ export class MediaClient {
     /**
      * Fetch media children
      */
-    public children = (id: string|number, options?: PageOptions) => {
+    public children = (id: string|number, options?: CDNMediaChildrenOptions) => {
         return this.makeRequest(Endpoints.media.children(id, options))
     }
 

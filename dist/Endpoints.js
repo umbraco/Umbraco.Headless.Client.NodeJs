@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Endpoint_1 = require("./Endpoint");
 exports.Endpoints = {
     cdn: {
-        root: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content', {}, 'get'); },
+        root: function (options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content', {}, 'get', options); },
         byId: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/{id}', { id: id }, 'get', options); },
         byUrl: function (url, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/url?url={url}', { url: url }, 'get', options); },
         children: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/{id}/children', { id: id }, 'get', options); },
-        ancestors: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/{id}/ancestors', { id: id }, 'get'); },
+        ancestors: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/{id}/ancestors', { id: id }, 'get', options); },
         descendants: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/{id}/descendants', { id: id }, 'get', options); }
     },
     media: {
@@ -21,10 +21,10 @@ exports.Endpoints = {
             byId: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}', { id: id }, 'get'); },
             children: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}/children', { id: id }, 'get', options); },
             create: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content', {}, 'post'); },
-            publish: function (id) {
-                return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}/publish', { id: id }, 'put');
+            publish: function (id, options) {
+                return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}/publish', { id: id }, 'put', options);
             },
-            unPublish: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}/unpublish', { id: id }, 'put'); },
+            unPublish: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}/unpublish', { id: id }, 'put', options); },
             update: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}', { id: id }, 'put'); },
             delete: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/content/{id}', { id: id }, 'delete'); },
         },

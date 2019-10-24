@@ -36,13 +36,15 @@ export declare class ManagerClient {
         /**
          * Publish a content object
          * @param id GUID part of an Umbraco UDI
+         * @param options Request options
          */
-        publish: <R_4 extends ContentResponseElement>(id: string) => ApiRequest<R_4>;
+        publish: <R_4 extends ContentResponseElement>(id: string, options?: import("../RequestOptions").CultureOptions) => ApiRequest<R_4>;
         /**
          * Un-publish a content object
          * @param id GUID part of an Umbraco UDI
+         * @param options Request options
          */
-        unPublish: <R_5 extends ContentResponseElement>(id: string) => ApiRequest<R_5>;
+        unPublish: <R_5 extends ContentResponseElement>(id: string, options?: import("../RequestOptions").CultureOptions) => ApiRequest<R_5>;
         /**
          * Update a content object
          * @param id GUID part of an Umbraco UDI
