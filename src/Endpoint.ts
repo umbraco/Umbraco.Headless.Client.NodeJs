@@ -44,4 +44,25 @@ export class Endpoint<R = any, Options = any> {
         return path
     }
 
+
+    static getURLAddress = (endpoint: Endpoint) => {
+        let url = 'https://{API_TYPE}.umbraco.io' + endpoint.getPath()
+
+        let apiType: string
+        switch(endpoint.source) {
+            case EndpointSource.CDN:
+                apiType = "cdn"
+                break
+
+            case EndpointSource.ContentManagement:
+                apiType = "api"
+                break
+        }
+
+        url = url.replace("{API_TYPE}", apiType)
+
+        return url
+
+    }
+
 }
