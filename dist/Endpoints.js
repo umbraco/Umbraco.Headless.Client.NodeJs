@@ -8,7 +8,9 @@ exports.Endpoints = {
         byUrl: function (url, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/url?url={url}', { url: url }, 'get', options); },
         children: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/{id}/children', { id: id }, 'get', options); },
         ancestors: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/{id}/ancestors', { id: id }, 'get', options); },
-        descendants: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/{id}/descendants', { id: id }, 'get', options); }
+        descendants: function (id, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/{id}/descendants', { id: id }, 'get', options); },
+        byContentType: function (contentType, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/type?contentType={contentType}', { contentType: contentType }, 'get', options); },
+        search: function (term, options) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, '/content/search?term={term}', { term: term }, 'get', options); },
     },
     media: {
         root: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.CDN, "/media", {}, 'get'); },

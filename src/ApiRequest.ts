@@ -44,7 +44,6 @@ export class ApiRequest<R = any> {
                 url += `/cdn`
                 break
             case EndpointSource.ContentManagement:
-                url += '/api'
 
                 if(this.client.getAPIKey() === null) {
                     throw new Error("API Key is missing")

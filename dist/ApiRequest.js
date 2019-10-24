@@ -71,7 +71,6 @@ var ApiRequest = /** @class */ (function () {
                                 url += "/cdn";
                                 break;
                             case Endpoint_1.EndpointSource.ContentManagement:
-                                url += '/api';
                                 if (this.client.getAPIKey() === null) {
                                     throw new Error("API Key is missing");
                                 }

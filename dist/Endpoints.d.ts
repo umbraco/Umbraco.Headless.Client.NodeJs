@@ -1,7 +1,7 @@
 import { Endpoint } from "./Endpoint";
-import { CDNContentByIdOptions, CDNContentChildrenOptions, CDNContentRootOptions, MultipartOptions, PageOptions } from "./RequestOptions";
+import { CDNContentByContentTypeOptions, CDNContentByIdOptions, CDNContentChildrenOptions, CDNContentRootOptions, MultipartOptions } from "./RequestOptions";
 import { ApiPagedResponse, ApiResponse } from "./ApiResponse";
-import { ContentManagerMediaType, ContentResponseElement, ContentTypeBase, ContentTypeBaseResponse, RootContentResponse, ContentManagerMediaTypeBase, MediaTypeContentManagerRoot, MediaTypeContentManager, ContentLanguageRootType, ContentLanguageType, ContentRelationType, ContentRelationRootType, ContentRelationTypeType, ContentMemberType, ContentMemberGroupType, ContentMemberTypeTypeGroup, ContentMemberTypeType } from "./Responses";
+import { ContentLanguageRootType, ContentLanguageType, ContentManagerMediaType, ContentManagerMediaTypeBase, ContentMemberGroupType, ContentMemberType, ContentMemberTypeType, ContentMemberTypeTypeGroup, ContentRelationRootType, ContentRelationType, ContentRelationTypeType, ContentResponseElement, ContentTypeBase, ContentTypeBaseResponse, MediaTypeContentManager, MediaTypeContentManagerRoot, RootContentResponse } from "./Responses";
 export declare const Endpoints: {
     cdn: {
         root: <T extends ContentResponseElement>(options?: CDNContentRootOptions) => Endpoint<ApiResponse<RootContentResponse<T>, any>, any>;
@@ -10,17 +10,19 @@ export declare const Endpoints: {
         children: <T_3 extends ContentResponseElement>(id: string | number, options?: CDNContentChildrenOptions) => Endpoint<ApiPagedResponse<RootContentResponse<T_3>>, any>;
         ancestors: (id: string | number, options?: CDNContentRootOptions) => Endpoint<any, CDNContentRootOptions>;
         descendants: (id: string | number, options?: CDNContentChildrenOptions) => Endpoint<any, CDNContentChildrenOptions>;
+        byContentType: (contentType: string, options?: CDNContentByContentTypeOptions) => Endpoint<any, CDNContentByContentTypeOptions>;
+        search: (term: string, options?: CDNContentByContentTypeOptions) => Endpoint<any, CDNContentByContentTypeOptions>;
     };
     media: {
         root: () => Endpoint<any, any>;
         byId: (id: string | number) => Endpoint<any, any>;
-        children: (id: string | number, options?: PageOptions) => Endpoint<any, PageOptions>;
+        children: (id: string | number, options?: import("./RequestOptions").PageOptions) => Endpoint<any, import("./RequestOptions").PageOptions>;
     };
     management: {
         content: {
             root: <R extends ContentResponseElement>() => Endpoint<ApiResponse<RootContentResponse<R>, any>, any>;
             byId: <R_1 extends ContentResponseElement>(id: string | number) => Endpoint<R_1, any>;
-            children: <R_2 extends ContentResponseElement>(id: string | number, options?: PageOptions) => Endpoint<ApiResponse<RootContentResponse<R_2>, any>, any>;
+            children: <R_2 extends ContentResponseElement>(id: string | number, options?: import("./RequestOptions").PageOptions) => Endpoint<ApiResponse<RootContentResponse<R_2>, any>, any>;
             create: <R_3 extends ContentResponseElement>() => Endpoint<R_3, any>;
             publish: <R_4 extends ContentResponseElement>(id: string | number, options?: import("./RequestOptions").CultureOptions) => Endpoint<R_4, import("./RequestOptions").CultureOptions>;
             unPublish: <R_5 extends ContentResponseElement>(id: string | number, options?: import("./RequestOptions").CultureOptions) => Endpoint<R_5, any>;
@@ -34,7 +36,7 @@ export declare const Endpoints: {
         media: {
             root: <R_9 extends ContentManagerMediaType>() => Endpoint<ApiResponse<ContentManagerMediaTypeBase<R_9>, any>, any>;
             byId: <R_10 extends ContentManagerMediaType>(id: string | number) => Endpoint<R_10, any>;
-            children: <R_11 extends ContentManagerMediaType>(id: string | number, options?: PageOptions) => Endpoint<ApiResponse<ContentManagerMediaTypeBase<R_11>, any>, any>;
+            children: <R_11 extends ContentManagerMediaType>(id: string | number, options?: import("./RequestOptions").PageOptions) => Endpoint<ApiResponse<ContentManagerMediaTypeBase<R_11>, any>, any>;
             create: () => Endpoint<any, MultipartOptions>;
             update: (id: string | number) => Endpoint<any, any>;
             delete: (id: string | number) => Endpoint<any, any>;

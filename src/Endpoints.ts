@@ -1,29 +1,37 @@
 import {Endpoint, EndpointSource} from "./Endpoint";
 import {
-    APIContentChildrenOptions, APIContentPublishOptions, APIContentUnPublishOptions, APIMediaChildrenOptions,
-    CDNContentAncestorsOptions,
-    CDNContentByIdOptions, CDNContentByURLOptions, CDNContentChildrenOptions, CDNContentDescendantsOptions,
-    CDNContentRootOptions, CDNMediaChildrenOptions,
-    MultipartOptions,
-    PageOptions
+    APIContentChildrenOptions,
+    APIContentPublishOptions,
+    APIContentUnPublishOptions,
+    APIMediaChildrenOptions,
+    CDNContentAncestorsOptions, CDNContentByContentTypeOptions,
+    CDNContentByIdOptions,
+    CDNContentByURLOptions,
+    CDNContentChildrenOptions,
+    CDNContentDescendantsOptions,
+    CDNContentRootOptions, CDNContentSearchOptions,
+    CDNMediaChildrenOptions,
+    MultipartOptions
 } from "./RequestOptions";
 import {ApiPagedResponse, ApiResponse} from "./ApiResponse";
 import {
+    ContentLanguageRootType,
+    ContentLanguageType,
     ContentManagerMediaType,
+    ContentManagerMediaTypeBase,
+    ContentMemberGroupType,
+    ContentMemberType,
+    ContentMemberTypeType,
+    ContentMemberTypeTypeGroup,
+    ContentRelationRootType,
+    ContentRelationType,
+    ContentRelationTypeType,
     ContentResponseElement,
     ContentTypeBase,
     ContentTypeBaseResponse,
-    RootContentResponse,
-    ContentManagerMediaTypeBase,
-    MediaTypeContentManagerRoot,
     MediaTypeContentManager,
-    ContentLanguageRootType,
-    ContentLanguageType,
-    ContentRelationType,
-    ContentRelationRootType,
-    ContentRelationTypeType,
-    ContentMemberType,
-    ContentMemberGroupType, ContentMemberTypeTypeGroup, ContentMemberTypeType
+    MediaTypeContentManagerRoot,
+    RootContentResponse
 } from "./Responses";
 
 type RCR<T extends ContentResponseElement> = ApiResponse<RootContentResponse<T>>
@@ -39,7 +47,9 @@ export const Endpoints = {
         byUrl: <T extends ContentResponseElement>(url: string, options?: CDNContentByURLOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/url?url={url}', {url}, 'get', options),
         children: <T extends ContentResponseElement>(id: string | number, options?: CDNContentChildrenOptions) => new Endpoint<ApiPagedResponse<RootContentResponse<T>>>(EndpointSource.CDN, '/content/{id}/children', {id}, 'get', options),
         ancestors: (id: string | number, options?: CDNContentAncestorsOptions) => new Endpoint(EndpointSource.CDN, '/content/{id}/ancestors', {id}, 'get', options),
-        descendants: (id: string | number, options?: CDNContentDescendantsOptions) => new Endpoint(EndpointSource.CDN, '/content/{id}/descendants', {id}, 'get', options)
+        descendants: (id: string | number, options?: CDNContentDescendantsOptions) => new Endpoint(EndpointSource.CDN, '/content/{id}/descendants', {id}, 'get', options),
+        byContentType: (contentType: string, options?: CDNContentByContentTypeOptions) => new Endpoint(EndpointSource.CDN, '/content/type?contentType={contentType}',{contentType}, 'get', options),
+        search: (term: string, options?: CDNContentSearchOptions) => new Endpoint(EndpointSource.CDN, '/content/search?term={term}',{term}, 'get', options),
     },
 
     media: {

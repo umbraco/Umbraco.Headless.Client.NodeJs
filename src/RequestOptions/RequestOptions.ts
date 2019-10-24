@@ -11,6 +11,9 @@ export type CDNContentByURLOptions = HyperlinksOption & DepthOptions
 export type CDNContentAncestorsOptions = HyperlinksOption & ContentTypeOptions
 export type CDNContentChildrenOptions = HyperlinksOption & ContentTypeOptions & PageOptions
 export type CDNContentDescendantsOptions = HyperlinksOption & ContentTypeOptions & PageOptions
+export type CDNContentByContentTypeOptions = HyperlinksOption & PageOptions
+export type CDNContentSearchOptions = HyperlinksOption & PageOptions
+
 export type CDNMediaChildrenOptions = PageOptions
 
 export type APIContentChildrenOptions = PageOptions
