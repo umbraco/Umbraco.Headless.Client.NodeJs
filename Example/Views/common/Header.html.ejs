@@ -1,0 +1,31 @@
+<div class="navbar navbar-primary is-transparent" id="main_nav">
+    <div class="container">
+        <div class="navbar-brand">
+            <a href="/" class="navbar-item">
+                Sample Site
+            </a>
+
+            <div class="navbar-trigger navbar-item">
+                Menu
+            </div>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <% topMenuLinks.forEach(elm => { %>
+                <div class="navbar-item ">
+                    <a href="<%= elm.url %>" class="navbar-link ">
+                        <%= elm.name%>
+                    </a>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<header class="site-header site-header--has-background"
+        style="background: white">
+
+</header>
