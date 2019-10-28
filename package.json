@@ -7,7 +7,8 @@
     "node": "10.x"
   },
   "scripts": {
-    "build-dev": "tsc -w"
+    "build-dev": "tsc -w",
+    "start": "cd Example && yarn"
   },
   "dependencies": {
     "form-data": "^2.5.1",
