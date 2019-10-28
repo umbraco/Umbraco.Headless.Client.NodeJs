@@ -3,6 +3,9 @@
   "version": "1.0.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
     "build-dev": "tsc -w"
   },
