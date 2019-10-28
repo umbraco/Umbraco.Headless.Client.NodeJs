@@ -40,24 +40,24 @@ var getUmbracoClient_1 = require("../getUmbracoClient");
 var ApplicationController_1 = require("./ApplicationController");
 var client = getUmbracoClient_1.getUmbracoClient();
 exports.index = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var rootData, data, home, children, topMenuLinks, contentElement, blogPostsResp, blogPosts, footerCTA, siteName, title, pageTitle;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, client.cdn.root().promise()];
+    var _a, rootData, data, home, _b, children, blogPostsResp, topMenuLinks, contentElement, blogPosts, footerCTA, siteName, title, pageTitle;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0: return [4 /*yield*/, Promise.all([
+                    client.cdn.root().promise(),
+                    client.cdn.byUrl("/home/blog").promise()
+                ])];
             case 1:
-                rootData = _a.sent();
-                return [4 /*yield*/, client.cdn.byUrl("/home/blog").promise()];
-            case 2:
-                data = _a.sent();
+                _a = _c.sent(), rootData = _a[0], data = _a[1];
                 home = rootData._embedded.content.find(function (c) { return c.contentTypeAlias === "home"; });
-                return [4 /*yield*/, client.cdn.children(home._id).promise()];
-            case 3:
-                children = _a.sent();
+                return [4 /*yield*/, Promise.all([
+                        client.cdn.children(home._id).promise(),
+                        client.cdn.children(data._id).promise()
+                    ])];
+            case 2:
+                _b = _c.sent(), children = _b[0], blogPostsResp = _b[1];
                 topMenuLinks = ApplicationController_1.makeTopNavLinks(children._embedded.content);
                 contentElement = rootData._embedded.content[0];
-                return [4 /*yield*/, client.cdn.children(data._id).promise()];
-            case 4:
-                blogPostsResp = _a.sent();
                 blogPosts = blogPostsResp._embedded.content;
                 footerCTA = {
                     url: contentElement.footerCTALink._url,
@@ -80,19 +80,19 @@ exports.index = function (req, res) { return __awaiter(_this, void 0, void 0, fu
     });
 }); };
 exports.show = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var rootData, home, children, blogPostData, topMenuLinks, footerCTA;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var rootData, home, _a, children, blogPostData, topMenuLinks, footerCTA;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0: return [4 /*yield*/, client.cdn.root().promise()];
             case 1:
-                rootData = _a.sent();
+                rootData = _b.sent();
                 home = rootData._embedded.content.find(function (c) { return c.contentTypeAlias === "home"; });
-                return [4 /*yield*/, client.cdn.children(home._id).promise()];
+                return [4 /*yield*/, Promise.all([
+                        client.cdn.children(home._id).promise(),
+                        client.cdn.byUrl(req.path).promise()
+                    ])];
             case 2:
-                children = _a.sent();
-                return [4 /*yield*/, client.cdn.byUrl(req.path).promise()];
-            case 3:
-                blogPostData = _a.sent();
+                _a = _b.sent(), children = _a[0], blogPostData = _a[1];
                 topMenuLinks = ApplicationController_1.makeTopNavLinks(children._embedded.content);
                 footerCTA = {
                     url: home.footerCTALink._url,

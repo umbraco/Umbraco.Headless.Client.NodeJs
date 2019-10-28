@@ -3,21 +3,28 @@ import {BlogContentType, ChildContentType, HomeContentType} from "../UmbracoResp
 import {BlogPostContentType} from "../UmbracoResponses/ContentTypes/BlogPostContentType";
 import {getUmbracoClient} from "../getUmbracoClient";
 import {makeTopNavLinks} from "./ApplicationController";
-import {URL} from "url";
 
 
 const client = getUmbracoClient()
 
 export const index = async (req: Request, res: Response) => {
-    const rootData = await client.cdn.root<HomeContentType>().promise()
-    const data = await client.cdn.byUrl<BlogContentType>("/home/blog").promise()
+
+    const [rootData, data] = await Promise.all([
+        client.cdn.root<HomeContentType>().promise(),
+        client.cdn.byUrl<BlogContentType>("/home/blog").promise()
+    ])
+
     const home = rootData._embedded.content.find(c => c.contentTypeAlias === "home")
-    const children = await client.cdn.children<ChildContentType>(home._id).promise()
+
+    const [children, blogPostsResp] = await Promise.all([
+        client.cdn.children<ChildContentType>(home._id).promise(),
+        client.cdn.children<BlogPostContentType>(data._id).promise()
+
+    ])
 
     const topMenuLinks = makeTopNavLinks(children._embedded.content)
     const contentElement = rootData._embedded.content[0];
 
-    const blogPostsResp = await client.cdn.children<BlogPostContentType>(data._id).promise()
     const blogPosts = blogPostsResp._embedded.content
 
     const footerCTA = {
@@ -46,9 +53,11 @@ export const index = async (req: Request, res: Response) => {
 export const show = async (req: Request, res: Response) => {
     const rootData = await client.cdn.root<HomeContentType>().promise()
     const home = rootData._embedded.content.find(c => c.contentTypeAlias === "home")
-    const children = await client.cdn.children<ChildContentType>(home._id).promise()
 
-    const blogPostData = await client.cdn.byUrl<BlogPostContentType>(req.path).promise()
+    const [children, blogPostData] = await Promise.all([
+        client.cdn.children<ChildContentType>(home._id).promise(),
+        client.cdn.byUrl<BlogPostContentType>(req.path).promise()
+    ])
 
     const topMenuLinks = makeTopNavLinks(children._embedded.content)
 

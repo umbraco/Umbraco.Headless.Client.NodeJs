@@ -6,10 +6,10 @@ const PORT = process.env["PORT"] || 8080
 
 const app = express()
 
-app.use(express.static(join(process.cwd(), 'public')))
+app.use(express.static(join(__dirname, 'public')))
 
 app.set("view engine", "ejs")
-app.set("views", join(process.cwd(), 'Views'))
+app.set("views", join(__dirname, '..', 'Views'))
 
 
 app.get('/', (req, res) => res.redirect('/home'))
