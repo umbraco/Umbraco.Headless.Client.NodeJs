@@ -1,6 +1,7 @@
 import express from 'express'
 import {BlogController, HomeController, ProductController} from "./Controllers";
 import {join} from 'path'
+import { getUmbracoClient } from './getUmbracoClient';
 
 const PORT = process.env["PORT"] || 8080
 
@@ -23,6 +24,20 @@ app.get('/home/products', ProductController.index)
 
 app.get(/\/home\/products\/([A-Za-z0-9_-]+\/?)$/, ProductController.show)
 //app.get('/home/products/:sku', ProductController.show)
+
+
+app.get("/test", async (req, res) => {
+
+
+    const client = getUmbracoClient()
+    const content = await client.manager.content.root()
+
+
+    res.json({
+        content: content
+    })
+
+})
 
 
 app.use((err, req, res, next) => {

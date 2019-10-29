@@ -1,6 +1,6 @@
-import {CTALink} from "@umbraco/headless-sdk";
+import {Content} from "@umbraco/headless-sdk";
 
-export interface HomeContentHeaderCTALink extends CTALink {
+export interface HomeContentHeaderCTALink extends Content {
     contentTypeAlias: 'products'
     name: string
     parentId: string

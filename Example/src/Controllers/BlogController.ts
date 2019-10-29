@@ -10,22 +10,22 @@ const client = getUmbracoClient()
 export const index = async (req: Request, res: Response) => {
 
     const [rootData, data] = await Promise.all([
-        client.cdn.root<HomeContentType>().promise(),
-        client.cdn.byUrl<BlogContentType>("/home/blog").promise()
+        client.delivery.content.root<HomeContentType>(),
+        client.delivery.content.byUrl<BlogContentType>("/home/blog")
     ])
 
-    const home = rootData._embedded.content.find(c => c.contentTypeAlias === "home")
+    const home = rootData.find(c => c.contentTypeAlias === "home")
 
     const [children, blogPostsResp] = await Promise.all([
-        client.cdn.children<ChildContentType>(home._id).promise(),
-        client.cdn.children<BlogPostContentType>(data._id).promise()
+        client.delivery.content.children<ChildContentType>(home._id),
+        client.delivery.content.children<BlogPostContentType>(data._id)
 
     ])
 
-    const topMenuLinks = makeTopNavLinks(children._embedded.content)
-    const contentElement = rootData._embedded.content[0];
+    const topMenuLinks = makeTopNavLinks(children.items)
+    const contentElement = rootData[0];
 
-    const blogPosts = blogPostsResp._embedded.content
+    const blogPosts = blogPostsResp.items
 
     const footerCTA = {
         url: contentElement.footerCTALink._url,
@@ -51,15 +51,17 @@ export const index = async (req: Request, res: Response) => {
 
 
 export const show = async (req: Request, res: Response) => {
-    const rootData = await client.cdn.root<HomeContentType>().promise()
-    const home = rootData._embedded.content.find(c => c.contentTypeAlias === "home")
+    const rootData = await client.delivery.content.root<HomeContentType>()
+    const home = rootData.find(c => c.contentTypeAlias === "home")
 
     const [children, blogPostData] = await Promise.all([
-        client.cdn.children<ChildContentType>(home._id).promise(),
-        client.cdn.byUrl<BlogPostContentType>(req.path).promise()
+        client.delivery.content.children<ChildContentType>(home._id),
+        client.delivery.content.byUrl<BlogPostContentType>(req.path)
     ])
 
-    const topMenuLinks = makeTopNavLinks(children._embedded.content)
+    debugger
+
+    const topMenuLinks = makeTopNavLinks(children.items)
 
     const footerCTA = {
         url: home.footerCTALink._url,

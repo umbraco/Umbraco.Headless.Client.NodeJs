@@ -1,11 +1,11 @@
-import {CDNClient, ManagerClient, MediaClient} from "./Clients";
+import {CDNClient, ManagerClient, MediaClient} from "./Clients/index";
 import {Endpoint} from "./Endpoint";
 import {ApiRequest} from "./ApiRequest";
+import { DeliveryClient } from "./Clients/DeliveryClient";
 
 export interface ClientOptions {
-    baseUrl?: string
     projectAlias: string
-    language: string
+    language?: string
 }
 
 
@@ -14,21 +14,16 @@ export interface ClientOptions {
  */
 export class Client {
 
-    private _apiKey: string = null
+    private _apiKey: string|null = null
 
     constructor(public readonly options: ClientOptions) {
 
     }
 
     /**
-     * Get CDN Client for fetching content related objects
+     * Get Delivery client for fetching content and media from CDN
      */
-    public readonly cdn = new CDNClient(this)
-
-    /**
-     * Get Media Client for fetching media related objects
-     */
-    public readonly media = new MediaClient(this)
+    public readonly delivery = new DeliveryClient(this)
 
     /**
      * Get Manager Client for managing content on Umbraco headless
@@ -39,8 +34,27 @@ export class Client {
     /**
      * Makes request from and [Endpoint]
      */
-    public makeRequest = <R>(endpoint: Endpoint<R>, data?: any) => {
-        return new ApiRequest<R>(this, endpoint, data)
+    public makeRequest = async <R extends any>(endpoint: Endpoint<R>, data?: any) => {
+
+
+        const response = await new ApiRequest<R>(this, endpoint, data).promise()
+        const items = this.getEmbeddedData(response)
+        const pageData = this.getPagedData(response)
+        
+
+        if(pageData) {
+            return {
+                ...pageData,
+                items
+            }
+        } else if (!pageData && items) {
+            return items
+        } else {
+            return response
+        }
+        
+
+        
     }
 
 
@@ -53,5 +67,38 @@ export class Client {
     }
 
     public getAPIKey = () => this._apiKey
+
+    private getEmbeddedData = (response: any) => {
+        if(response.hasOwnProperty('_embedded')) {
+            const keys = Object.keys(response._embedded)
+            const keyCount = keys.length
+            if(keyCount === 1) {
+                const key = keys[0]
+                return response._embedded[key]
+            }
+        }
+
+        return null
+    }
+
+    private getPagedData = (response: any) => {
+        const lookForProps = ["_totalItems", "_totalPages", "_page", "_pageSize"]
+        const keys = Object.keys(response)
+
+        for(let i=0;i<lookForProps.length;i++) {
+            const needle = lookForProps[i]
+            if (keys.indexOf(needle) === -1) return null
+        }
+
+        const object: any = {}
+        lookForProps.forEach(key => {
+            object[key.replace(/^_/, '')] = response[key]
+        })
+
+        return object
+
+
+
+    }
 
 }

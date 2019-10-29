@@ -12,8 +12,8 @@ export declare class Endpoint<R = any, Options = any> {
     readonly path: string;
     readonly urlParams: any;
     readonly method: string;
-    readonly options?: Options;
-    constructor(source: EndpointSource, path: string, urlParams: any, method: string, options?: Options);
+    readonly options?: Options | undefined;
+    constructor(source: EndpointSource, path: string, urlParams: any, method: string, options?: Options | undefined);
     /**
      * Replace path with urlParams
      */

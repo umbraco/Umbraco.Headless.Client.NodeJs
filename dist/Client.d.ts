@@ -1,10 +1,9 @@
-import { CDNClient, ManagerClient, MediaClient } from "./Clients";
+import { ManagerClient } from "./Clients/index";
 import { Endpoint } from "./Endpoint";
-import { ApiRequest } from "./ApiRequest";
+import { DeliveryClient } from "./Clients/DeliveryClient";
 export interface ClientOptions {
-    baseUrl?: string;
     projectAlias: string;
-    language: string;
+    language?: string;
 }
 /**
  * Headless Client for managing API calls to the Umbraco Headless API
@@ -14,13 +13,9 @@ export declare class Client {
     private _apiKey;
     constructor(options: ClientOptions);
     /**
-     * Get CDN Client for fetching content related objects
+     * Get Delivery client for fetching content and media from CDN
      */
-    readonly cdn: CDNClient;
-    /**
-     * Get Media Client for fetching media related objects
-     */
-    readonly media: MediaClient;
+    readonly delivery: DeliveryClient;
     /**
      * Get Manager Client for managing content on Umbraco headless
      */
@@ -28,11 +23,13 @@ export declare class Client {
     /**
      * Makes request from and [Endpoint]
      */
-    makeRequest: <R>(endpoint: Endpoint<R, any>, data?: any) => ApiRequest<R>;
+    makeRequest: <R extends any>(endpoint: Endpoint<R, any>, data?: any) => Promise<any>;
     /**
      * Sets the API to be used.
      * @param apikey API Key
      */
     setAPIKey: (apikey: string) => void;
-    getAPIKey: () => string;
+    getAPIKey: () => string | null;
+    private getEmbeddedData;
+    private getPagedData;
 }

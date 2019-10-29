@@ -5,7 +5,7 @@ import {
     APIContentChildrenOptions,
     APIContentPublishOptions,
     APIContentUnPublishOptions, APIMediaChildrenOptions,
-} from "../RequestOptions";
+} from "../RequestOptions/index";
 import {
     ContentCreateMemberType,
     ContentLanguageType,
@@ -17,7 +17,7 @@ import {
     ContentTypeBase,
     CreateContentBody,
     CreateContentLanguageType,
-} from "../Responses";
+} from "../Responses/index";
 
 
 /**
@@ -158,7 +158,7 @@ export class ManagerClient {
     }
 
     /**
-     * MediaType API
+     * Media API
      */
     get mediaType() {
         return {

@@ -9,13 +9,13 @@ export declare class MediaClient {
     /**
      * Fetch root media
      */
-    root: () => import("..").ApiRequest<any>;
+    root: () => Promise<any>;
     /**
      * Fetch media by id
      */
-    byId: (id: string | number) => import("..").ApiRequest<any>;
+    byId: (id: string | number) => Promise<any>;
     /**
      * Fetch media children
      */
-    children: (id: string | number, options?: import("../RequestOptions").PageOptions) => import("..").ApiRequest<any>;
+    children: (id: string | number, options?: import("../RequestOptions").PageOptions | undefined) => Promise<any>;
 }

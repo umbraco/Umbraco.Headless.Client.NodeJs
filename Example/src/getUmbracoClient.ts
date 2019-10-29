@@ -9,7 +9,7 @@ export const getUmbracoClient = () => {
             projectAlias: 'headless-house-of-code',
             language: 'en-US'
         })
-        headlessClient.setAPIKey("czt7Xiu4WdXlLqBlFtop")
+        headlessClient.setAPIKey("PhKPlGdKn6RYm0F82IEi")
         // debugger
 
     }

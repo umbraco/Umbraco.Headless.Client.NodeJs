@@ -6,8 +6,8 @@ import {
     CDNContentByIdOptions,
     CDNContentByURLOptions, CDNContentChildrenOptions, CDNContentDescendantsOptions,
     CDNContentRootOptions, CDNContentSearchOptions,
-} from "../RequestOptions";
-import {ContentResponseElement} from "../Responses";
+} from "../RequestOptions/index";
+import {ContentResponseElement} from "../Responses/index";
 
 
 /**

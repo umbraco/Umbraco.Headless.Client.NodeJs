@@ -7,16 +7,16 @@ import {makeTopNavLinks} from "./ApplicationController";
 const client = getUmbracoClient()
 
 export const index = async (req: Request, res: Response) => {
-    const homeData = await client.cdn.root<HomeContentType>().promise()
-    const home = homeData._embedded.content.find(c => c.contentTypeAlias === 'home')
-    const homeChildren = await client.cdn.children<ChildContentType>(home._id).promise()
+    const homeData = await client.delivery.content.root<HomeContentType>()
+    const home = homeData.find(c => c.contentTypeAlias === 'home')
+    const homeChildren = await client.delivery.content.children<ChildContentType>(home._id)
+    
+    const topMenuLinks = makeTopNavLinks(homeChildren.items)
 
-    const topMenuLinks = makeTopNavLinks(homeChildren._embedded.content)
+    const pageContent = await client.delivery.content.byUrl(req.path)
+    const children = await client.delivery.content.children<ProductContentType>(pageContent._id)
 
-    const pageContent = await client.cdn.byUrl(req.path).promise()
-    const children = await client.cdn.children<ProductContentType>(pageContent._id).promise()
-
-    const products = children._embedded.content.map(item => ({
+    const products = children.items.map(item => ({
         name: item.productName,
         price: item.price,
         url: item._url,
@@ -48,14 +48,14 @@ export const index = async (req: Request, res: Response) => {
 
 
 export const show = async (req: Request, res: Response) => {
-    const homeData = await client.cdn.root<HomeContentType>().promise()
-    const home = homeData._embedded.content.find(c => c.contentTypeAlias === 'home')
+    const homeData = await client.delivery.content.root<HomeContentType>()
+    const home = homeData.find(c => c.contentTypeAlias === 'home')
 
-    const homeChildren = await client.cdn.children<ChildContentType>(home._id).promise()
-    const topMenuLinks = makeTopNavLinks(homeChildren._embedded.content)
+    const homeChildren = await client.delivery.content.children<ChildContentType>(home._id)
+    const topMenuLinks = makeTopNavLinks(homeChildren.items)
 
 
-    const productContent = await client.cdn.byUrl<ProductContentType>(req.path).promise()
+    const productContent = await client.delivery.content.byUrl<ProductContentType>(req.path)
     productContent.photos.umbracoFile.src
 
     res.render('product/show.html.ejs', {

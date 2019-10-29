@@ -1,5 +1,5 @@
 import {Client} from "../Client";
-import {ContentResponseElement, CTALink, MediaType} from "../Responses";
+import {ContentResponseElement, Content, Media} from "../Responses/index";
 
 const client = new Client({
     projectAlias: 'headless-house-of-code',
@@ -7,7 +7,7 @@ const client = new Client({
 })
 
 
-interface HomeContentHeaderCTALink extends CTALink {
+interface HomeContentHeaderContent extends Content {
     contentTypeAlias: 'products'
     name: string
     parentId: string
@@ -21,7 +21,7 @@ interface HomeContentHeaderCTALink extends CTALink {
     featuredProducts: any
 }
 
-interface HomeContentFooterCTALink extends CTALink {
+interface HomeContentFooterContent extends Content {
     contentTypeAlias: 'blog'
     name: string
     parentId: string
@@ -35,7 +35,7 @@ interface HomeContentFooterCTALink extends CTALink {
     disqusShortname: string
 }
 
-interface ImageMediaType extends MediaType {
+interface ImageMedia extends Media {
     mediaTypeAlias: 'Image'
     name: string
     parentId: string
@@ -56,20 +56,20 @@ interface ImageMediaType extends MediaType {
 
 }
 
-interface HomeContentType extends ContentResponseElement {
+interface HomeContent extends ContentResponseElement {
     contentType: 'home'
     name: string
     sortOrder: number
     heroHeader: string
     heroDescription: string
     heroCTACaption: string
-    heroCTALink: HomeContentHeaderCTALink
+    heroCTALink: HomeContentHeaderContent
     bodyText: string
     footerHeader: string
     footerDescription: string
     footerCTACaption: string
-    footerCTALink: HomeContentFooterCTALink
-    heroBackgroundImage: ImageMediaType
+    footerCTALink: HomeContentFooterContent
+    heroBackgroundImage: ImageMedia
     font: string
     colorTheme: string
     sitename: string

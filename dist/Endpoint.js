@@ -45,6 +45,9 @@ var Endpoint = /** @class */ (function () {
             case EndpointSource.ContentManagement:
                 apiType = "api";
                 break;
+            default:
+                apiType = "cdn";
+                break;
         }
         url = url.replace("{API_TYPE}", apiType);
         return url;

@@ -11,9 +11,9 @@ const client = getUmbracoClient()
 
 
 export const index = async (req: Request, res: Response) => {
-    const rootContent = await client.cdn.root<HomeContentType>().promise()
-    const home = rootContent._embedded.content.find(c => c.contentTypeAlias === "home")
-    const children = await client.cdn.children<ChildContentType>(home._id).promise()
+    const rootContent = await client.delivery.content.root<HomeContentType>()
+    const home = rootContent.find(c => c.contentTypeAlias === "home")
+    const children = await client.delivery.content.children<ChildContentType>(home._id)
 
     console.log({children})
 
@@ -22,7 +22,7 @@ export const index = async (req: Request, res: Response) => {
         title: home.footerCTACaption
     }
 
-    const topMenuLinks = makeTopNavLinks(children._embedded.content)
+    const topMenuLinks = makeTopNavLinks(children.items)
 
     res.render("home/index.html.ejs", {
         name: home.sitename,
@@ -41,14 +41,14 @@ export const index = async (req: Request, res: Response) => {
 export const blog = async (req: Request, res: Response) => {
 
     const [rootData, data] = await Promise.all([
-        client.cdn.root<HomeContentType>().promise(),
-        client.cdn.byUrl<BlogContentType>("/home/blog").promise()
+        client.delivery.content.root<HomeContentType>(),
+        client.delivery.content.byUrl<BlogContentType>("/home/blog")
     ])
-    const home = rootData._embedded.content.find(c => c.contentTypeAlias === "home")
+    const home = rootData.find(c => c.contentTypeAlias === "home")
 
     const [children, blogPostsResp] = await Promise.all([
-        client.cdn.children<ChildContentType>(home._id).promise(),
-        client.cdn.children<BlogPostContentType>(data._id).promise()
+        client.delivery.content.children<ChildContentType>(home._id),
+        client.delivery.content.children<BlogPostContentType>(data._id)
     ])
 
     const topMenuLinks = makeTopNavLinks(children._embedded.content)

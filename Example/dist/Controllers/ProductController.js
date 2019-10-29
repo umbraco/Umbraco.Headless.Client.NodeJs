@@ -43,21 +43,21 @@ exports.index = function (req, res) { return __awaiter(_this, void 0, void 0, fu
     var homeData, home, homeChildren, topMenuLinks, pageContent, children, products, cols;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, client.cdn.root().promise()];
+            case 0: return [4 /*yield*/, client.delivery.content.root()];
             case 1:
                 homeData = _a.sent();
-                home = homeData._embedded.content.find(function (c) { return c.contentTypeAlias === 'home'; });
-                return [4 /*yield*/, client.cdn.children(home._id).promise()];
+                home = homeData.find(function (c) { return c.contentTypeAlias === 'home'; });
+                return [4 /*yield*/, client.delivery.content.children(home._id)];
             case 2:
                 homeChildren = _a.sent();
-                topMenuLinks = ApplicationController_1.makeTopNavLinks(homeChildren._embedded.content);
-                return [4 /*yield*/, client.cdn.byUrl(req.path).promise()];
+                topMenuLinks = ApplicationController_1.makeTopNavLinks(homeChildren.items);
+                return [4 /*yield*/, client.delivery.content.byUrl(req.path)];
             case 3:
                 pageContent = _a.sent();
-                return [4 /*yield*/, client.cdn.children(pageContent._id).promise()];
+                return [4 /*yield*/, client.delivery.content.children(pageContent._id)];
             case 4:
                 children = _a.sent();
-                products = children._embedded.content.map(function (item) { return ({
+                products = children.items.map(function (item) { return ({
                     name: item.productName,
                     price: item.price,
                     url: item._url,
@@ -88,15 +88,15 @@ exports.show = function (req, res) { return __awaiter(_this, void 0, void 0, fun
     var homeData, home, homeChildren, topMenuLinks, productContent;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, client.cdn.root().promise()];
+            case 0: return [4 /*yield*/, client.delivery.content.root()];
             case 1:
                 homeData = _a.sent();
-                home = homeData._embedded.content.find(function (c) { return c.contentTypeAlias === 'home'; });
-                return [4 /*yield*/, client.cdn.children(home._id).promise()];
+                home = homeData.find(function (c) { return c.contentTypeAlias === 'home'; });
+                return [4 /*yield*/, client.delivery.content.children(home._id)];
             case 2:
                 homeChildren = _a.sent();
-                topMenuLinks = ApplicationController_1.makeTopNavLinks(homeChildren._embedded.content);
-                return [4 /*yield*/, client.cdn.byUrl(req.path).promise()];
+                topMenuLinks = ApplicationController_1.makeTopNavLinks(homeChildren.items);
+                return [4 /*yield*/, client.delivery.content.byUrl(req.path)];
             case 3:
                 productContent = _a.sent();
                 productContent.photos.umbracoFile.src;

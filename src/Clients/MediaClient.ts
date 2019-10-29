@@ -1,7 +1,7 @@
 import {Client} from "../Client";
 import {Endpoint} from "../Endpoint";
 import {Endpoints} from "../Endpoints";
-import {CDNMediaChildrenOptions} from "../RequestOptions";
+import {CDNMediaChildrenOptions} from "../RequestOptions/index";
 
 /**
  * Client to fetch media related objects form Umbraco headless

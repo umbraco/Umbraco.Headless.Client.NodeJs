@@ -43,11 +43,11 @@ exports.index = function (req, res) { return __awaiter(_this, void 0, void 0, fu
     var rootContent, home, children, footerCTA, topMenuLinks;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, client.cdn.root().promise()];
+            case 0: return [4 /*yield*/, client.delivery.content.root()];
             case 1:
                 rootContent = _a.sent();
-                home = rootContent._embedded.content.find(function (c) { return c.contentTypeAlias === "home"; });
-                return [4 /*yield*/, client.cdn.children(home._id).promise()];
+                home = rootContent.find(function (c) { return c.contentTypeAlias === "home"; });
+                return [4 /*yield*/, client.delivery.content.children(home._id)];
             case 2:
                 children = _a.sent();
                 console.log({ children: children });
@@ -55,7 +55,7 @@ exports.index = function (req, res) { return __awaiter(_this, void 0, void 0, fu
                     url: home.footerCTALink._url,
                     title: home.footerCTACaption
                 };
-                topMenuLinks = ApplicationController_1.makeTopNavLinks(children._embedded.content);
+                topMenuLinks = ApplicationController_1.makeTopNavLinks(children.items);
                 res.render("home/index.html.ejs", {
                     name: home.sitename,
                     address: home.footerAddress,
@@ -76,15 +76,15 @@ exports.blog = function (req, res) { return __awaiter(_this, void 0, void 0, fun
     return __generator(this, function (_c) {
         switch (_c.label) {
             case 0: return [4 /*yield*/, Promise.all([
-                    client.cdn.root().promise(),
-                    client.cdn.byUrl("/home/blog").promise()
+                    client.delivery.content.root(),
+                    client.delivery.content.byUrl("/home/blog")
                 ])];
             case 1:
                 _a = _c.sent(), rootData = _a[0], data = _a[1];
-                home = rootData._embedded.content.find(function (c) { return c.contentTypeAlias === "home"; });
+                home = rootData.find(function (c) { return c.contentTypeAlias === "home"; });
                 return [4 /*yield*/, Promise.all([
-                        client.cdn.children(home._id).promise(),
-                        client.cdn.children(data._id).promise()
+                        client.delivery.content.children(home._id),
+                        client.delivery.content.children(data._id)
                     ])];
             case 2:
                 _b = _c.sent(), children = _b[0], blogPostsResp = _b[1];

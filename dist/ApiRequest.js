@@ -38,11 +38,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var Endpoint_1 = require("./Endpoint");
 var node_fetch_1 = __importDefault(require("node-fetch"));
 var APIRequestError_1 = require("./APIRequestError");
-var form_data_1 = __importDefault(require("form-data"));
+var FormData = __importStar(require("form-data"));
+var debug_1 = __importDefault(require("debug"));
+var log = debug_1.default("umbraco:headless:api");
 var ApiRequest = /** @class */ (function () {
     function ApiRequest(client, endpoint, data) {
         var _this = this;
@@ -50,37 +59,37 @@ var ApiRequest = /** @class */ (function () {
         this.endpoint = endpoint;
         this.data = data;
         this.promise = function () { return __awaiter(_this, void 0, void 0, function () {
-            var projectAlias, requestInit, url, method, requestOptions, response, jsonResponse;
+            var projectAlias, headers, requestInit, url, method, requestOptions, response, jsonResponse;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         projectAlias = this.client.options.projectAlias;
+                        headers = {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json+hal;v=2',
+                            'umb-project-alias': projectAlias,
+                            'api-version': '2'
+                        };
+                        if (this.client.options.language) {
+                            headers["Accept-Language"] = this.client.options.language;
+                        }
                         requestInit = {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json+hal;v=2',
-                                'umb-project-alias': projectAlias,
-                                'Accept-Language': this.client.options.language,
-                                'api-version': '2'
-                            }
+                            headers: {}
                         };
                         if (this.endpoint.source === Endpoint_1.EndpointSource.ContentManagement) {
                             if (this.client.getAPIKey() === null) {
                                 throw new Error("API Key is missing");
                             }
-                            requestInit.headers["api-key"] = "" + this.client.getAPIKey();
+                            headers["api-key"] = "" + this.client.getAPIKey();
                         }
                         url = Endpoint_1.Endpoint.getURLAddress(this.endpoint);
-                        console.log("URL:", url);
-                        console.log("Header fields");
-                        console.log(requestInit);
                         method = this.endpoint.method.toLowerCase();
                         if ((method === "post" || method === 'put') && !!this.data) {
                             requestOptions = this.endpoint.options;
                             if (typeof requestOptions !== "undefined") {
                                 if (requestOptions.usingMultipart) {
-                                    if (this.data instanceof form_data_1.default) {
-                                        requestInit.headers["Content-Type"] = "multipart/form-data; boundary=" + this.data.getBoundary();
+                                    if (this.data.prototype === FormData.prototype) {
+                                        headers["Content-Type"] = "multipart/form-data; boundary=" + this.data.getBoundary();
                                         requestInit.body = this.data;
                                     }
                                     else {
@@ -92,7 +101,10 @@ var ApiRequest = /** @class */ (function () {
                                 requestInit.body = JSON.stringify(this.data);
                             }
                         }
+                        requestInit.headers = headers;
                         requestInit.method = method;
+                        log("Request init");
+                        log(requestInit);
                         return [4 /*yield*/, node_fetch_1.default(url, requestInit)];
                     case 1:
                         response = _a.sent();

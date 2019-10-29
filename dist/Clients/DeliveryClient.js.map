@@ -1,0 +1,1 @@
+{"version":3,"file":"DeliveryClient.js","sourceRoot":"","sources":["../../src/Clients/DeliveryClient.ts"],"names":[],"mappings":";;AACA,yCAAwC;AACxC,6CAA4C;AAE5C;IAKI,wBAAoB,MAAc;QAAd,WAAM,GAAN,MAAM,CAAQ;QAHlC,YAAO,GAAG,IAAI,qBAAS,CAAC,IAAI,CAAC,MAAM,CAAC,CAAA;QACpC,UAAK,GAAG,IAAI,yBAAW,CAAC,IAAI,CAAC,MAAM,CAAC,CAAA;IAEC,CAAC;IAE1C,qBAAC;AAAD,CAAC,AAPD,IAOC;AAPY,wCAAc"}

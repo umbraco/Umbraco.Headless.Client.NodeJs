@@ -1,6 +1,6 @@
-import {MediaType} from "@umbraco/headless-sdk";
+import {Media} from "@umbraco/headless-sdk";
 
-export interface ImageMediaType extends MediaType {
+export interface ImageMediaType extends Media {
     mediaTypeAlias: 'Image'
     name: string
     parentId: string

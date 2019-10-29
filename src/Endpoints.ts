@@ -12,7 +12,7 @@ import {
     CDNContentRootOptions, CDNContentSearchOptions,
     CDNMediaChildrenOptions,
     MultipartOptions
-} from "./RequestOptions";
+} from "./RequestOptions/index";
 import {ApiPagedResponse, ApiResponse} from "./ApiResponse";
 import {
     ContentLanguageRootType,
@@ -32,7 +32,7 @@ import {
     MediaTypeContentManager,
     MediaTypeContentManagerRoot,
     RootContentResponse
-} from "./Responses";
+} from "./Responses/index";
 
 type RCR<T extends ContentResponseElement> = ApiResponse<RootContentResponse<T>>
 type CTR<T extends ContentTypeBase> = ApiResponse<ContentTypeBaseResponse<T>>

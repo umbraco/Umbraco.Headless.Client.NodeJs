@@ -134,7 +134,7 @@ var ManagerClient = /** @class */ (function () {
     });
     Object.defineProperty(ManagerClient.prototype, "mediaType", {
         /**
-         * MediaType API
+         * Media API
          */
         get: function () {
             var _this = this;

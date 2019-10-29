@@ -1,4 +1,4 @@
-export interface MediaType {
+export interface Media {
     _creatorName: string
     _url: string
     _writerName: string

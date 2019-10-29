@@ -1,4 +1,4 @@
-export interface CTALink {
+export interface Content {
     _creatorName: string
     _url: string
     _writerName: string
