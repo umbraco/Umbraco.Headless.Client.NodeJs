@@ -31,7 +31,7 @@ app.get("/test", async (req, res) => {
 
     const client = getUmbracoClient()
     const content = await client.manager.content.root()
-
+    
     debugger
 
 
