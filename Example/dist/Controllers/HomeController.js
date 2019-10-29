@@ -88,9 +88,9 @@ exports.blog = function (req, res) { return __awaiter(_this, void 0, void 0, fun
                     ])];
             case 2:
                 _b = _c.sent(), children = _b[0], blogPostsResp = _b[1];
-                topMenuLinks = ApplicationController_1.makeTopNavLinks(children._embedded.content);
-                contentElement = rootData._embedded.content[0];
-                blogPosts = blogPostsResp._embedded.content;
+                topMenuLinks = ApplicationController_1.makeTopNavLinks(children.items);
+                contentElement = rootData[0];
+                blogPosts = blogPostsResp;
                 footerCTA = {
                     url: contentElement.footerCTALink._url,
                     title: contentElement.footerCTACaption

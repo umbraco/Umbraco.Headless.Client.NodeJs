@@ -23,7 +23,7 @@ export declare class Client {
     /**
      * Makes request from and [Endpoint]
      */
-    makeRequest: <R extends any>(endpoint: Endpoint<R, any>, data?: any) => Promise<any>;
+    makeRequest: <R extends any>(endpoint: Endpoint<R, any>, data?: any) => Promise<R>;
     /**
      * Sets the API to be used.
      * @param apikey API Key

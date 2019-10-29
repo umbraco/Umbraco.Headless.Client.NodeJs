@@ -18,7 +18,7 @@ class CDNClient {
 
     }
 
-    private makeRequest = <R>(endpoint: Endpoint<R>, data?: any) => {
+    private makeRequest = <R>(endpoint: Endpoint<R>, data?: any): Promise<R> => {
         return this.client.makeRequest<R>(endpoint, data)
     }
 

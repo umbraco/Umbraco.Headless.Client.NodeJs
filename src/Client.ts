@@ -34,7 +34,7 @@ export class Client {
     /**
      * Makes request from and [Endpoint]
      */
-    public makeRequest = async <R extends any>(endpoint: Endpoint<R>, data?: any) => {
+    public makeRequest = async <R extends any>(endpoint: Endpoint<R>, data?: any): Promise<R> => {
 
 
         const response = await new ApiRequest<R>(this, endpoint, data).promise()

@@ -15,6 +15,7 @@ export const index = async (req: Request, res: Response) => {
     const home = rootContent.find(c => c.contentTypeAlias === "home")
     const children = await client.delivery.content.children<ChildContentType>(home._id)
 
+
     console.log({children})
 
     const footerCTA = {
@@ -51,10 +52,10 @@ export const blog = async (req: Request, res: Response) => {
         client.delivery.content.children<BlogPostContentType>(data._id)
     ])
 
-    const topMenuLinks = makeTopNavLinks(children._embedded.content)
-    const contentElement = rootData._embedded.content[0];
+    const topMenuLinks = makeTopNavLinks(children.items)
+    const contentElement = rootData[0];
 
-    const blogPosts = blogPostsResp._embedded.content
+    const blogPosts = blogPostsResp
 
     const footerCTA = {
         url: contentElement.footerCTALink._url,

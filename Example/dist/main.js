@@ -64,6 +64,7 @@ app.get("/test", function (req, res) { return __awaiter(_this, void 0, void 0, f
                 return [4 /*yield*/, client.manager.content.root()];
             case 1:
                 content = _a.sent();
+                debugger;
                 res.json({
                     content: content
                 });
