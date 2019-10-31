@@ -1,7 +1,6 @@
-import {CDNClient, ManagerClient, MediaClient} from "./Clients/index";
+import { ManagementClient, DeliveryClient} from "./Clients";
 import {Endpoint} from "./Endpoint";
 import {ApiRequest} from "./ApiRequest";
-import { DeliveryClient } from "./Clients/DeliveryClient";
 
 export interface ClientOptions {
     projectAlias: string
@@ -28,7 +27,7 @@ export class Client {
     /**
      * Get Manager Client for managing content on Umbraco headless
      */
-    public readonly manager = new ManagerClient(this)
+    public readonly management = new ManagementClient(this)
 
 
     /**

@@ -23,7 +23,7 @@ import {
 /**
  * {ManagerClient} is being used to manage content from Umbraco headless application
  */
-export class ManagerClient {
+export class ManagementClient {
 
     constructor(
         private readonly client: Client

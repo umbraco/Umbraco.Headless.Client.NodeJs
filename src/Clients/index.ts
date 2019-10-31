@@ -1,3 +1,4 @@
-export * from './CDNClient'
+export * from './ContentClient'
 export * from './MediaClient'
-export * from './ManagerClient'
+export * from './ManagementClient'
+export * from './DeliveryClient'

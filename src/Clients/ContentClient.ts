@@ -13,7 +13,7 @@ import {ContentResponseElement} from "../Responses/index";
 /**
  * CDNClient is used to fetch content related objects from Umbraco headless
  */
-class CDNClient {
+class ContentClient {
     constructor(private readonly client: Client) {
 
     }
@@ -98,4 +98,4 @@ class CDNClient {
 
 }
 
-export {CDNClient}
+export {ContentClient}
