@@ -12,52 +12,47 @@ import {
     CDNContentRootOptions, CDNContentSearchOptions,
     CDNMediaChildrenOptions,
     MultipartOptions
-} from "./RequestOptions/index";
-import {ApiPagedResponse, ApiResponse} from "./ApiResponse";
+} from "./RequestOptions";
 import {
-    ContentLanguageRootType,
     ContentLanguageType,
     ContentManagerMediaType,
-    ContentManagerMediaTypeBase,
     ContentMemberGroupType,
     ContentMemberType,
     ContentMemberTypeType,
-    ContentMemberTypeTypeGroup,
-    ContentRelationRootType,
     ContentRelationType,
     ContentRelationTypeType,
     ContentResponseElement,
     ContentTypeBase,
-    ContentTypeBaseResponse,
     MediaTypeContentManager,
     MediaTypeContentManagerRoot,
-    RootContentResponse,
     PagedResponse
-} from "./Responses/index";
+} from "./Responses";
 
-type RCR<T extends ContentResponseElement> = ApiResponse<RootContentResponse<T>>
-type CTR<T extends ContentTypeBase> = ApiResponse<ContentTypeBaseResponse<T>>
-type CMT<T extends ContentManagerMediaType> = ApiResponse<ContentManagerMediaTypeBase<T>>
 
 export const Endpoints = {
 
-    cdn: {
+    delivery: {
 
-        root: <T extends ContentResponseElement>(options?: CDNContentRootOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content', {}, 'get', options),
-        byId: <T extends ContentResponseElement>(id: string | number, options?: CDNContentByIdOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/{id}', {id}, 'get', options),
-        byUrl: <T extends ContentResponseElement>(url: string, options?: CDNContentByURLOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/url?url={url}', {url}, 'get', options),
-        children: <T extends ContentResponseElement>(id: string | number, options?: CDNContentChildrenOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/{id}/children', {id}, 'get', options),
-        ancestors: <T extends ContentResponseElement>(id: string | number, options?: CDNContentAncestorsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/ancestors', {id}, 'get', options),
-        descendants: <T extends ContentResponseElement>(id: string | number, options?: CDNContentDescendantsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/descendants', {id}, 'get', options),
-        byContentType: <T extends ContentResponseElement>(contentType: string, options?: CDNContentByContentTypeOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/type?contentType={contentType}',{contentType}, 'get', options),
-        search: <T extends ContentResponseElement>(term: string, options?: CDNContentSearchOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/search?term={term}',{term}, 'get', options),
+        content: {
+            root: <T extends ContentResponseElement>(options?: CDNContentRootOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content', {}, 'get', options),
+            byId: <T extends ContentResponseElement>(id: string | number, options?: CDNContentByIdOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/{id}', {id}, 'get', options),
+            byUrl: <T extends ContentResponseElement>(url: string, options?: CDNContentByURLOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/url?url={url}', {url}, 'get', options),
+            children: <T extends ContentResponseElement>(id: string | number, options?: CDNContentChildrenOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/{id}/children', {id}, 'get', options),
+            ancestors: <T extends ContentResponseElement>(id: string | number, options?: CDNContentAncestorsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/ancestors', {id}, 'get', options),
+            descendants: <T extends ContentResponseElement>(id: string | number, options?: CDNContentDescendantsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/descendants', {id}, 'get', options),
+            byContentType: <T extends ContentResponseElement>(contentType: string, options?: CDNContentByContentTypeOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/type?contentType={contentType}',{contentType}, 'get', options),
+            search: <T extends ContentResponseElement>(term: string, options?: CDNContentSearchOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/search?term={term}',{term}, 'get', options),
+        },
+
+        media: {
+            root: () => new Endpoint(EndpointSource.CDN, "/media", {}, 'get'),
+            byId: (id: string | number) => new Endpoint(EndpointSource.CDN, '/media/{id}', {id}, 'get'),
+            children: (id: string | number, options?: CDNMediaChildrenOptions) => new Endpoint(EndpointSource.CDN, '/media/{id}/children', {id}, 'get', options),
+        },
+
+
     },
 
-    media: {
-        root: () => new Endpoint(EndpointSource.CDN, "/media", {}, 'get'),
-        byId: (id: string | number) => new Endpoint(EndpointSource.CDN, '/media/{id}', {id}, 'get'),
-        children: (id: string | number, options?: CDNMediaChildrenOptions) => new Endpoint(EndpointSource.CDN, '/media/{id}/children', {id}, 'get', options),
-    },
 
     management: {
         content: {

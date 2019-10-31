@@ -1,5 +1,5 @@
 import { Client } from "../Client";
-import { ContentClient } from "./CDNClient";
+import { ContentClient } from "./ContentClient";
 import { MediaClient } from "./MediaClient";
 
 export class DeliveryClient {
