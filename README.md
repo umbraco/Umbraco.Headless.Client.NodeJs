@@ -54,18 +54,6 @@ async function main() {
 
 ```
 
-## ApiRequest
-```typescript
-export declare class ApiRequest<R = any> {
-    private client;
-    endpoint: Endpoint;
-    data?: any;
-    constructor(client: Client, endpoint: Endpoint, data?: any);
-    promise: () => Promise<R>;
-}
-
-```
-
 ## Available clients
 
 All client calls will return an instance of `ApiRequest` class.
