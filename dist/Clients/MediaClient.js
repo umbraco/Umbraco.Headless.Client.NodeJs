@@ -15,19 +15,19 @@ var MediaClient = /** @class */ (function () {
          * Fetch root media
          */
         this.root = function () {
-            return _this.makeRequest(Endpoints_1.Endpoints.media.root());
+            return _this.makeRequest(Endpoints_1.Endpoints.delivery.media.root());
         };
         /**
          * Fetch media by id
          */
         this.byId = function (id) {
-            return _this.makeRequest(Endpoints_1.Endpoints.media.byId(id));
+            return _this.makeRequest(Endpoints_1.Endpoints.delivery.media.byId(id));
         };
         /**
          * Fetch media children
          */
         this.children = function (id, options) {
-            return _this.makeRequest(Endpoints_1.Endpoints.media.children(id, options));
+            return _this.makeRequest(Endpoints_1.Endpoints.delivery.media.children(id, options));
         };
     }
     return MediaClient;

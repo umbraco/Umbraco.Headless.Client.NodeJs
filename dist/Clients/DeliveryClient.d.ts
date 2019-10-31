@@ -1,9 +1,9 @@
 import { Client } from "../Client";
-import { CDNClient } from "./CDNClient";
+import { ContentClient } from "./ContentClient";
 import { MediaClient } from "./MediaClient";
 export declare class DeliveryClient {
     private client;
-    content: CDNClient;
+    content: ContentClient;
     media: MediaClient;
     constructor(client: Client);
 }

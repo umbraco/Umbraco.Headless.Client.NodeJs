@@ -30,10 +30,9 @@ export default client
 
 // rootLinks.ts
 async function rootLinks(client: Client) {
-    const rootContent = await client.cdn.root().promise()
-    const contents = rootContent._embedded.content
+    const rootContent = await client.delivery.content.root()
     
-    const childPages = contents.map(child => ({
+    const childPages = rootContent.map(child => ({
         url: child._url,
         name: child.name
     }))
@@ -73,44 +72,12 @@ All client calls will return an instance of `ApiRequest` class.
 
 For fetching content the promise method must be called example below:
 ````
-client.cdn.root().promise()
+client.delivery.content.root()
     .then(response => {
         console.log(response)
         /*
         OUTPUT:
-        {
-          _links: {
-            self: {
-              href: 'https://cdn.umbraco.io/content'
-            },
-            ancestors: {
-              href: 'https://cdn.umbraco.io/content/{id}/ancestors',
-              templated: true
-            },
-            children: {
-              href: 'https://cdn.umbraco.io/content/{id}/children{?page,pageSize}',
-              templated: true
-            },
-            content: [
-              {
-                href: 'https://cdn.umbraco.io/content/{id}{?depth}',
-                templated: true
-              },
-              {
-                href: 'https://cdn.umbraco.io/content/6eb240ce-8f78-4467-ab51-68918cde2866'
-              }
-            ],
-            descendants: {
-              href: 'https://cdn.umbraco.io/content/{id}/descendants{?page,pageSize}',
-              templated: true
-            },
-            url: {
-              href: 'https://cdn.umbraco.io/content/url{?url,depth}',
-              templated: true
-            }
-          },
-          _embedded: {
-            content: [
+        [
               {
                 _creatorName: 'Morten Christensen',
                 _url: '/home/',
@@ -240,117 +207,116 @@ client.cdn.root().promise()
                 logo: null
               }
             ]
-          }
-        }
         */
     })
 ````
 
+## Delivery
 
-### CDN
+### Content
 ```
-client.cdn.root()
-client.cdn.byId(id: string)
-client.cdn.byUrl(url: string)
-client.cdn.children(url: string)
-client.cdn.ancestors(id: string)
-client.cdn.descendants(id: string)
+client.delivery.content.root()
+client.delivery.content.byId(id: string)
+client.delivery.content.byUrl(url: string)
+client.delivery.content.children(url: string)
+client.delivery.content.ancestors(id: string)
+client.delivery.content.descendants(id: string)
 
 // TS Example:
 import {ContentResponseElement} from '@umbraco/headless-sdk'
 
-client.cdn.root<T extends ContentResponseElement>(): ApiRequest<T>
+client.delivery.content.root<T extends ContentResponseElement>(): ApiRequest<T>
 ```
 
 ### Media
 ```
-client.media.root()
-client.media.byId(id: string)
-client.media.children(id: string)
+client.delivery.media.root()
+client.delivery.media.byId(id: string)
+client.delivery.media.children(id: string)
 ```
 
-### Content Manager
+### Content Management
 #### Content
 ```
-client.manager.content.root()
-client.manager.content.byId(id: string)
-client.manager.content.children(id: string)
-client.manager.content.create(body: CreateContentBody)
-client.manager.content.publish(id: string)
-client.manager.content.unPublish(id: string)
-client.manager.content.update(id: string, body: ContentResponseElement)
-client.manager.content.delete(id: string)
+client.management.content.root()
+client.management.content.byId(id: string)
+client.management.content.children(id: string)
+client.management.content.create(body: CreateContentBody)
+client.management.content.publish(id: string)
+client.management.content.unPublish(id: string)
+client.management.content.update(id: string, body: ContentResponseElement)
+client.management.content.delete(id: string)
 ```
 
 #### Content Type
 ```
-client.manager.contentType.all()
-client.manager.contentType.byAlias(alias: string)
+client.management.contentType.all()
+client.management.contentType.byAlias(alias: string)
 ```
 
 #### Media
 ```
-client.manager.media.root()
-client.manager.media.byId(id: string)
-client.manager.media.children(id: string)
-client.manager.media.create(body: any)
-client.manager.media.update(id: string, body: any)
-client.manager.media.delete(id: string)
+client.management.media.root()
+client.management.media.byId(id: string)
+client.management.media.children(id: string)
+client.management.media.create(body: any)
+client.management.media.update(id: string, body: any)
+client.management.media.delete(id: string)
 ```
 
 #### Media Type
 ```
-client.manager.mediaType.all()
-client.manager.mediaType.byAlias()
+client.management.mediaType.all()
+client.management.mediaType.byAlias()
 ```
 
 
 #### Language
 ```
-client.manager.language.all()
-client.manager.language.byISOCode(isoCode: string)
-client.manager.language.create(data: CreateContentLanguageType)
-client.manager.language.update(isoCode: string, data: CreateContentLanguageType)
-client.manager.language.delete(isoCode: string)
+client.management.language.all()
+client.management.language.byISOCode(isoCode: string)
+client.management.language.create(data: CreateContentLanguageType)
+client.management.language.update(isoCode: string, data: CreateContentLanguageType)
+client.management.language.delete(isoCode: string)
 ```
 
 #### Relation
 ```
-client.manager.relation.byId(id: string)
-client.manager.relation.byAlias(alias: string)
-client.manager.relation.byChild(id: string)
-client.manager.relation.byParent(id: string)
-client.manager.relation.create(data: any)
-client.manager.relation.delete(id: string)
+client.management.relation.byId(id: string)
+client.management.relation.byAlias(alias: string)
+client.management.relation.byChild(id: string)
+client.management.relation.byParent(id: string)
+client.management.relation.create(data: any)
+client.management.relation.delete(id: string)
 ```
 
 #### Relation Type
 ```
-client.manager.relationType.byAlias(alias: string)
+client.management.relationType.byAlias(alias: string)
 ```
 
 
 #### Member
 ```
-client.manager.member.byUsername(username: string)
-client.manager.member.create(data: ContentCreateMemberType)
-client.manager.member.update(username: string, data: ContentCreateMemberType)
-client.manager.member.addGroup(username: string, groupName: string)
-client.manager.member.removeGroup(username: string, groupName: string)
-client.manager.member.delete(username: string)
+client.management.member.byUsername(username: string)
+client.management.member.create(data: ContentCreateMemberType)
+client.management.member.update(username: string, data: ContentCreateMemberType)
+client.management.member.addGroup(username: string, groupName: string)
+client.management.member.removeGroup(username: string, groupName: string)
+client.management.member.delete(username: string)
 ```
 
 #### Member Group
 ```
-client.manager.memberGroup.byName(name: string)
-client.manager.memberGroup.create(data: ContentMemberCreateGroupType)
-client.manager.memberGroup.delete(name: string)
+client.management.memberGroup.byName(name: string)
+client.management.memberGroup.create(data: ContentMemberCreateGroupType)
+client.management.memberGroup.delete(name: string)
 ```
 
 #### Member Type
 ```
-client.manager.memberType.all()
-client.manager.memberType.byAlias(alias: string)
+client.management.memberType.all()
+client.management.memberType.byAlias(alias: string)
 ```
 
 

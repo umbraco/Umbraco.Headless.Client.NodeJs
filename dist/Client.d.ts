@@ -1,6 +1,5 @@
-import { ManagerClient } from "./Clients/index";
+import { ManagementClient, DeliveryClient } from "./Clients";
 import { Endpoint } from "./Endpoint";
-import { DeliveryClient } from "./Clients/DeliveryClient";
 export interface ClientOptions {
     projectAlias: string;
     language?: string;
@@ -19,7 +18,7 @@ export declare class Client {
     /**
      * Get Manager Client for managing content on Umbraco headless
      */
-    readonly manager: ManagerClient;
+    readonly management: ManagementClient;
     /**
      * Makes request from and [Endpoint]
      */
