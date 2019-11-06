@@ -1,15 +1,13 @@
 # Umbraco.Headless.Client.NodeJs
-Umbraco headless NodeJs client
 
+Umbracopeeadless NodeJs client
 
 ## Install
 
-    yarn add @umbraco/headless-sdk
-    
-or
+```bash
+> npm install @umbraco/headless-sdk
+```
 
-    npm install --dev @umbraco/headless-sdk
-    
 ## Usage
 
 Create a client, then call commands on it
@@ -20,8 +18,8 @@ Create a client, then call commands on it
 import {Client} from '@umbraco/headless-sdk'
 
 const client = new Client({
-    projectAlias: 'headless-house-of-code',
-    language: 'en-US'
+  projectAlias: 'headless-house-of-code',
+  language: 'en-US'
 })
 
 client.setAPIKey(`FF00FF1133FF==`)
@@ -29,26 +27,26 @@ export default client
 
 // rootLinks.ts
 async function rootLinks(client: Client) {
-    const rootContent = await client.delivery.content.root()
-    
-    const childPages = rootContent.map(child => ({
-        url: child._url,
-        name: child.name
-    }))
-    
-    return childPages
+  const rootContent = await client.delivery.content.root()
+
+  const childPages = rootContent.map(child => ({
+    url: child._url,
+    name: child.name
+  }))
+
+  return childPages
 }
 
 function linkGenerator(links: {url: string, name: string}[]) {
-    return links.map(link => {
-        return `<a href="${link.url}">${link.name}</a>`
-    })
+  return links.map(link => {
+    return `<a href="${link.url}">${link.name}</a>`
+  })
 }
 
 async function main() {
-    const rootLinks = await rootLinks(require('./client').default)
-    const links = linkGenerator(rootLinks)
-    console.log(links)
+  const rootLinks = await rootLinks(require('./client').default)
+  const links = linkGenerator(rootLinks)
+  console.log(links)
 }
 
 ```
@@ -58,17 +56,19 @@ async function main() {
 All client calls will return an instance of `ApiRequest` class.
 
 For fetching content the promise method must be called example below:
-````
-client.delivery.content.root()
-    .then(response => {
-        console.log(response)
-    })
-````
 
-## Delivery
+```ts
+client.delivery.content.root()
+  .then(response => {
+    console.log(response)
+  })
+```
+
+## Content Delivery
 
 ### Content
-```
+
+```ts
 client.delivery.content.root()
 client.delivery.content.byId(id: string)
 client.delivery.content.byUrl(url: string)
@@ -83,15 +83,18 @@ client.delivery.content.root<T extends ContentResponseElement>(): ApiRequest<T>
 ```
 
 ### Media
-```
+
+```ts
 client.delivery.media.root()
 client.delivery.media.byId(id: string)
 client.delivery.media.children(id: string)
 ```
 
 ### Content Management
+
 #### Content
-```
+
+```ts
 client.management.content.root()
 client.management.content.byId(id: string)
 client.management.content.children(id: string)
@@ -103,13 +106,15 @@ client.management.content.delete(id: string)
 ```
 
 #### Content Type
-```
+
+```ts
 client.management.contentType.all()
 client.management.contentType.byAlias(alias: string)
 ```
 
 #### Media
-```
+
+```ts
 client.management.media.root()
 client.management.media.byId(id: string)
 client.management.media.children(id: string)
@@ -119,14 +124,15 @@ client.management.media.delete(id: string)
 ```
 
 #### Media Type
-```
+
+```ts
 client.management.mediaType.all()
 client.management.mediaType.byAlias()
 ```
 
-
 #### Language
-```
+
+```ts
 client.management.language.all()
 client.management.language.byISOCode(isoCode: string)
 client.management.language.create(data: CreateContentLanguageType)
@@ -135,7 +141,8 @@ client.management.language.delete(isoCode: string)
 ```
 
 #### Relation
-```
+
+```ts
 client.management.relation.byId(id: string)
 client.management.relation.byAlias(alias: string)
 client.management.relation.byChild(id: string)
@@ -145,13 +152,15 @@ client.management.relation.delete(id: string)
 ```
 
 #### Relation Type
-```
+
+```ts
 client.management.relationType.byAlias(alias: string)
 ```
 
 
 #### Member
-```
+
+```ts
 client.management.member.byUsername(username: string)
 client.management.member.create(data: ContentCreateMemberType)
 client.management.member.update(username: string, data: ContentCreateMemberType)
@@ -161,18 +170,19 @@ client.management.member.delete(username: string)
 ```
 
 #### Member Group
-```
+
+```ts
 client.management.memberGroup.byName(name: string)
 client.management.memberGroup.create(data: ContentMemberCreateGroupType)
 client.management.memberGroup.delete(name: string)
 ```
 
 #### Member Type
-```
+
+```ts
 client.management.memberType.all()
 client.management.memberType.byAlias(alias: string)
 ```
-
 
 # intro 
 
