@@ -1,0 +1,6 @@
+<section class="hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)){% if content.heroImage %}, url({{ content.heroImage._url }}?width=1980&amp;height=430&amp;mode=crop){% endif %}">
+  <h1 class="hero__title">{{ content.heroTitle }}</h1>
+  {% if content.heroSubtitle %}
+    <h2 class="hero__subtitle">{{ content.heroSubtitle }}</h2>
+  {% endif %}
+</section>

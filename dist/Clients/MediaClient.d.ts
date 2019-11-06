@@ -17,5 +17,5 @@ export declare class MediaClient {
     /**
      * Fetch media children
      */
-    children: (id: string | number, options?: import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/RequestOptions/PageOptions").PageOptions | undefined) => Promise<any>;
+    children: (id: string | number, options?: import("../RequestOptions").PageOptions | undefined) => Promise<any>;
 }

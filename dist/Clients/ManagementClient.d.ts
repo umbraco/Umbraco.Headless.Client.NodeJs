@@ -19,36 +19,36 @@ export declare class ManagementClient {
          * Gets a single published content by its id
          * @param id GUID part of an Umbraco UDI
          */
-        byId: <R extends ContentResponseElement>(id: string | number) => Promise<R>;
+        byId: <R_1 extends ContentResponseElement>(id: string | number) => Promise<R_1>;
         /**
          * Get all children of a content object
          * @param id GUID part of an Umbraco UDI
          * @param options Request options if with page
          */
-        children: <R extends ContentResponseElement>(id: string | number, options?: import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/RequestOptions/PageOptions").PageOptions | undefined) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/PagedResponse").PagedResponse<ContentResponseElement>>;
+        children: <R_2 extends ContentResponseElement>(id: string | number, options?: import("../RequestOptions").PageOptions | undefined) => Promise<import("../Responses").PagedResponse<ContentResponseElement>>;
         /**
          * Create a content object
          * @param body Data which needs to be used for creating Content
          */
-        create: <R extends ContentResponseElement>(body: CreateContentBody) => Promise<R>;
+        create: <R_3 extends ContentResponseElement>(body: CreateContentBody) => Promise<R_3>;
         /**
          * Publish a content object
          * @param id GUID part of an Umbraco UDI
          * @param options Request options
          */
-        publish: <R extends ContentResponseElement>(id: string, options?: import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/RequestOptions/CultureOptions").CultureOptions | undefined) => Promise<R>;
+        publish: <R_4 extends ContentResponseElement>(id: string, options?: import("../RequestOptions").CultureOptions | undefined) => Promise<R_4>;
         /**
          * Un-publish a content object
          * @param id GUID part of an Umbraco UDI
          * @param options Request options
          */
-        unPublish: <R extends ContentResponseElement>(id: string, options?: import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/RequestOptions/CultureOptions").CultureOptions | undefined) => Promise<R>;
+        unPublish: <R_5 extends ContentResponseElement>(id: string, options?: import("../RequestOptions").CultureOptions | undefined) => Promise<R_5>;
         /**
          * Update a content object
          * @param id GUID part of an Umbraco UDI
          * @param body Data which needs to be used for updating content
          */
-        update: <R extends ContentResponseElement>(id: string | number, body: Partial<R>) => Promise<R>;
+        update: <R_6 extends ContentResponseElement>(id: string | number, body: Partial<R_6>) => Promise<R_6>;
         /**
          * Delete a content object
          * @param id GUID part of an Umbraco UDI
@@ -81,13 +81,13 @@ export declare class ManagementClient {
          * Find media object by id
          * @param id GUID part of an Umbraco UDI
          */
-        byId: <R extends ContentManagerMediaType>(id: string | number) => Promise<R>;
+        byId: <R_1 extends ContentManagerMediaType>(id: string | number) => Promise<R_1>;
         /**
          * Fetch all children for content object
          * @param id GUID part of an Umbraco UDI
          * @param options Request options if with page
          */
-        children: <R extends ContentManagerMediaType>(id: string | number, options?: import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/RequestOptions/PageOptions").PageOptions | undefined) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/PagedResponse").PagedResponse<R>>;
+        children: <R_2 extends ContentManagerMediaType>(id: string | number, options?: import("../RequestOptions").PageOptions | undefined) => Promise<import("../Responses").PagedResponse<R_2>>;
         /**
          * Create a media object
          * @param data Data for creating media object
@@ -112,12 +112,12 @@ export declare class ManagementClient {
         /**
          * Fetch all media types
          */
-        all: () => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/ContentManagerMediaType").MediaTypeContentManagerRoot>;
+        all: () => Promise<import("../Responses").MediaTypeContentManagerRoot>;
         /**
          * Find media type by alias
          * @param alias Alias of the media type querying for
          */
-        byAlias: (alias: string) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/ContentManagerMediaType").MediaTypeContentManager>;
+        byAlias: (alias: string) => Promise<import("../Responses").MediaTypeContentManager>;
     };
     /**
      * Language API
@@ -131,23 +131,23 @@ export declare class ManagementClient {
          * Find language by ISO code
          * @param id ISO Code for the language (e.g. en-US)
          */
-        byISOCode: <R extends ContentLanguageType>(id: string) => Promise<R>;
+        byISOCode: <R_1 extends ContentLanguageType>(id: string) => Promise<R_1>;
         /**
          * Create a language
          * @param data Data for creating language object
          */
-        create: <R extends ContentLanguageType>(data: CreateContentLanguageType) => Promise<R>;
+        create: <R_2 extends ContentLanguageType>(data: CreateContentLanguageType) => Promise<R_2>;
         /**
          * Update a language
          * @param id ISO Code for the language (e.g. en-US)
          * @param data Data for updating language object
          */
-        update: <R extends ContentLanguageType>(id: string, data: CreateContentLanguageType) => Promise<R>;
+        update: <R_3 extends ContentLanguageType>(id: string, data: CreateContentLanguageType) => Promise<R_3>;
         /**
          * Delete a language
          * @param id ISO Code for the language (e.g. en-US)
          */
-        delete: <R extends ContentLanguageType>(id: string) => Promise<R>;
+        delete: <R_4 extends ContentLanguageType>(id: string) => Promise<R_4>;
     };
     /**
      * Relation API
@@ -157,32 +157,32 @@ export declare class ManagementClient {
          * Find relation by id
          * @param id GUID part of an Umbraco UDI
          */
-        byId: (id: string) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/ContentRelationType").ContentRelationType>;
+        byId: (id: string) => Promise<import("../Responses").ContentRelationType>;
         /**
          * Find relation by alias
          * @param alias Alias of the relation querying for
          */
-        byAlias: (alias: string) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/ContentRelationType").ContentRelationType[]>;
+        byAlias: (alias: string) => Promise<import("../Responses").ContentRelationType[]>;
         /**
          * Fetch child for relation with id
          * @param id GUID part of an Umbraco UDI
          */
-        byChild: (id: string) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/ContentRelationType").ContentRelationType[]>;
+        byChild: (id: string) => Promise<import("../Responses").ContentRelationType[]>;
         /**
          * Fetch parent for relation with id
          * @param id GUID part of an Umbraco UDI
          */
-        byParent: (id: string) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/ContentRelationType").ContentRelationType[]>;
+        byParent: (id: string) => Promise<import("../Responses").ContentRelationType[]>;
         /**
          * Create a relation
          * @param data Data for creating relation object
          */
-        create: (data: any) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/ContentRelationType").ContentRelationType>;
+        create: (data: any) => Promise<import("../Responses").ContentRelationType>;
         /**
          * Delete relation with id
          * @param id GUID part of an Umbraco UDI
          */
-        delete: (id: string) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/ContentRelationType").ContentRelationType>;
+        delete: (id: string) => Promise<import("../Responses").ContentRelationType>;
     };
     /**
      * RelationType API
@@ -192,7 +192,7 @@ export declare class ManagementClient {
          * Fetch relation type by alias
          * @param alias Alias for the relation type queryed for
          */
-        byAlias: (alias: string) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/ContentRelationType").ContentRelationTypeType>;
+        byAlias: (alias: string) => Promise<import("../Responses").ContentRelationTypeType>;
     };
     /**
      * Member API
@@ -207,13 +207,13 @@ export declare class ManagementClient {
          * Create a new member
          * @param data Data for creating a new member
          */
-        create: <R extends ContentMemberType>(data: ContentCreateMemberType) => Promise<R>;
+        create: <R_1 extends ContentMemberType>(data: ContentCreateMemberType) => Promise<R_1>;
         /**
          * Update user by username
          * @param username Username for the user to be updated
          * @param data Data for the user to be updated
          */
-        update: <R extends ContentMemberType>(username: string, data: ContentCreateMemberType) => Promise<R>;
+        update: <R_2 extends ContentMemberType>(username: string, data: ContentCreateMemberType) => Promise<R_2>;
         /**
          * Add group to user
          * @param username Username on the user who gets the group added
@@ -264,6 +264,6 @@ export declare class ManagementClient {
          * Find by alias
          * @param alias Alias for the member type to be found.
          */
-        byAlias: <R extends ContentMemberTypeType>(alias: string) => Promise<R>;
+        byAlias: <R_1 extends ContentMemberTypeType>(alias: string) => Promise<R_1>;
     };
 }
