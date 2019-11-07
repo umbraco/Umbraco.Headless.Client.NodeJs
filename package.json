@@ -1,6 +1,6 @@
 {
   "name": "@umbraco/headless-client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Node.js client library for the Umbraco Headless APIs",
   "license": "MIT",
   "repository": {
