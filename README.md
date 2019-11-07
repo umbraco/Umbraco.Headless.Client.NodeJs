@@ -15,7 +15,7 @@ Create a client, then call commands on it
 ```typescript
 
 // client.ts
-import {Client} from '@umbraco/headless-sdk'
+import {Client} from '@umbraco/headless-client'
 
 const client = new Client({
   projectAlias: 'headless-house-of-code',
@@ -77,7 +77,7 @@ client.delivery.content.ancestors(id: string)
 client.delivery.content.descendants(id: string)
 
 // TS Example:
-import {ContentResponseElement} from '@umbraco/headless-sdk'
+import {ContentResponseElement} from '@umbraco/headless-client'
 
 client.delivery.content.root<T extends ContentResponseElement>(): ApiRequest<T>
 ```
