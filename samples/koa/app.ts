@@ -4,7 +4,7 @@ import views from 'koa-views';
 import logger from 'koa-logger';
 import serve from "koa-static";
 import Koa from 'koa';
-import { Client } from "@umbraco/headless-sdk";
+import { Client } from "@umbraco/headless-client";
 
 const app = new Koa();
 const client = new Client({

@@ -1,6 +1,22 @@
 {
-  "name": "@umbraco/headless-sdk",
-  "version": "1.0.3",
+  "name": "@umbraco/headless-client",
+  "version": "0.1.0",
+  "description": "Node.js client library for the Umbraco Headless APIs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umbraco/Umbraco.Headless.Client.NodeJs.git"
+  },
+  "keywords": [
+    "umbraco",
+    "cms",
+    "headless",
+    "cloud"
+  ],
+  "author": "Umbraco (https://www.umbraco.com)",
+  "bugs": {
+    "url": "https://github.com/umbraco/Umbraco.Headless.Client.NodeJs/issues"
+  },
+  "homepage": "https://github.com/umbraco/Umbraco.Headless.Client.NodeJs#readme",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "engines": {

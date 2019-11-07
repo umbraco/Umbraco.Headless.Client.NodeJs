@@ -5,7 +5,7 @@ Umbracopeeadless NodeJs client
 ## Install
 
 ```bash
-> npm install @umbraco/headless-sdk
+> npm install @umbraco/headless-client
 ```
 
 ## Usage

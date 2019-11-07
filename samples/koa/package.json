@@ -13,7 +13,7 @@
     "apiKey": ""
   },
   "dependencies": {
-    "@umbraco/headless-sdk": "../../",
+    "@umbraco/headless-client": "../../",
     "koa": "^2.11.0",
     "koa-logger": "^3.2.1",
     "koa-static": "^5.0.0",
