@@ -1,6 +1,6 @@
 # Umbraco.Headless.Client.NodeJs
 
-Umbracopeeadless NodeJs client
+Node.js client library for the Umbraco Headless APIs
 
 ## Install
 
