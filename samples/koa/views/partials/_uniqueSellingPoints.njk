@@ -1,0 +1,23 @@
+{% if cotent.uniqueSellingPointsTitle or content.uniqueSellingPoints %}
+<article class="usp-container">
+  {% if content.uniqueSellingPointsTitle %}
+    <h1 class="usp-container__title">{{ content.uniqueSellingPointsTitle }}</h1>
+  {% endif %}
+  {% if content.uniqueSellingPoints %}
+    <div class="usp-item-container">
+    {% for usp in content.uniqueSellingPoints %}
+      <section class="usp">
+        <h2 class="usp__title">{{ usp.title }}</h2>
+        {% if usp.image %}
+          <img class="usp__image" src="{{ usp.image._url }}" alt="">
+        {% endif %}
+        <p class="usp__text">{{ usp.text }}</p>
+        {% if usp.link %}
+          <a href="{{ usp.link.url }}" target="{{ usp.link.target }}" rel="noopener" class="usp__link">{{ usp.link.name }}</a>
+        {% endif %}
+    </section>
+    {% endfor %}
+  </div>
+{% endif %}
+</article>
+{% endif %}

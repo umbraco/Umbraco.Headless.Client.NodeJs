@@ -30,7 +30,7 @@ declare class ContentClient {
      * @param id GUID part of an Umbraco UDI
      * @param options Request options
      */
-    children: <T extends ContentResponseElement>(id: string | number, options?: CDNContentChildrenOptions | undefined) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/PagedResponse").PagedResponse<T>>;
+    children: <T extends ContentResponseElement>(id: string | number, options?: CDNContentChildrenOptions | undefined) => Promise<import("../Responses").PagedResponse<T>>;
     /**
      * Fetch Content ancestors
      * @param id GUID part of an Umbraco UDI
@@ -49,13 +49,13 @@ declare class ContentClient {
      * @param contentType Content type needed to be displayed
      * @param options Request options
      */
-    byContentType: (contentType: string, options?: CDNContentByContentTypeOptions | undefined) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/PagedResponse").PagedResponse<ContentResponseElement>>;
+    byContentType: (contentType: string, options?: CDNContentByContentTypeOptions | undefined) => Promise<import("../Responses").PagedResponse<ContentResponseElement>>;
     /**
      * Search for content containing term
      * TODO: Fix add missing types all around this call
      * @param term Term to search for
      * @param options Request options
      */
-    search: (term: string, options?: CDNContentByContentTypeOptions | undefined) => Promise<import("../../../../../../../Users/askilada/code/Umbraco/headless-js-sdk/src/Responses/PagedResponse").PagedResponse<ContentResponseElement>>;
+    search: (term: string, options?: CDNContentByContentTypeOptions | undefined) => Promise<import("../Responses").PagedResponse<ContentResponseElement>>;
 }
 export { ContentClient };

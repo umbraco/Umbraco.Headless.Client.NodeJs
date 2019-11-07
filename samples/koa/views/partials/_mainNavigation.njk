@@ -1,0 +1,7 @@
+<nav class="page-header__nav-container" aria-label="Primary">
+  <ul class="nav">
+    {% for item in mainNavigation %}
+      <li class="nav__item"><a class="nav__item-link {% if item.isCurrent %}nav__item-link--current{% endif %}" href="{{ item.url }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
