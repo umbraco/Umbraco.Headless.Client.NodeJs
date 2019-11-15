@@ -11,7 +11,7 @@ const client = new Client({
   projectAlias: process.env.UMBRACO__PROJECTALIAS || require('./package.json').umbraco.projectAlias
 })
 
-const apiKey = process.env.UMBRACE__APIKEY || require('./package.json').umbraco.apiKey;
+const apiKey = process.env.UMBRACO__APIKEY || require('./package.json').umbraco.apiKey;
 if (apiKey) {
   client.setAPIKey(apiKey);
 }
