@@ -14,11 +14,13 @@ Node.js Koa sample site for Umbraco Headless.
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/)
+To run this sample you will need the following tools installed
 
-## Start the application
+- [Node.js](https://nodejs.org/en/) 10 or newer
 
-Before running the application,  `package.json` needs to be updated with your Umbrace Headless
+## Getting Started
+
+Before running the application,  `package.json` needs to be updated with your Umbraco Headless
  project alias (the project alias can be found in the [Umbraco Cloud Portal](https://www.s1.umbraco.io)). If the Content Delivery API is protected the `apiKey` also needs to be updated.
 
 ```json
@@ -34,13 +36,20 @@ In order to use the sample you will need an Umbraco Headless project with conten
 
 The `ApiKey` is not used in this sample and can thus be left blank. If you chose to protect the content exposed via the Content Delivery API then you will need an API-Key, but its an option that has to be actively turned on (or off - its off by default) via the Umbraco Backoffice in the Headless tree in the Settings section.
 
-### 1. Using the command line
+### Installation
 
-Run the following to restore packages and run the site.
+To install dependencies, run the following command
 
 ```bash
 > npm install
+```
+
+### Usage
+
+Run the following command to start the site
+
+```bash
 > npm start
 ```
 
-you should now be able to browse the site by visiting `http://localhost:3000`
+This will start the Koa webserver listening on `http://localhost:3000`
