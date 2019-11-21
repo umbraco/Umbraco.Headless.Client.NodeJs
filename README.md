@@ -1,6 +1,8 @@
-# Umbraco.Headless.Client.NodeJs
+# NodeJS Client Library for Umbraco Heartcore
 
-Node.js client library for the Umbraco Headless APIs
+Umbraco Heartcore is the headless cms version of Umbraco as a service.
+
+This repository contains the Node.js client library for the Umbraco Heartcore REST APIs.
 
 ## Install
 
