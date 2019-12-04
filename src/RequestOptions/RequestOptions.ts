@@ -5,14 +5,14 @@ import {PageOptions} from "./PageOptions";
 import {CultureOptions} from "./CultureOptions";
 
 
-export type CDNContentRootOptions = HyperlinksOption & ContentTypeOptions
-export type CDNContentByIdOptions = HyperlinksOption & DepthOptions
-export type CDNContentByURLOptions = HyperlinksOption & DepthOptions
-export type CDNContentAncestorsOptions = HyperlinksOption & ContentTypeOptions
-export type CDNContentChildrenOptions = HyperlinksOption & ContentTypeOptions & PageOptions
-export type CDNContentDescendantsOptions = HyperlinksOption & ContentTypeOptions & PageOptions
-export type CDNContentByContentTypeOptions = HyperlinksOption & PageOptions
-export type CDNContentSearchOptions = HyperlinksOption & PageOptions
+export type CDNContentRootOptions = HyperlinksOption & ContentTypeOptions & CultureOptions
+export type CDNContentByIdOptions = HyperlinksOption & DepthOptions  & CultureOptions
+export type CDNContentByURLOptions = HyperlinksOption & DepthOptions  & CultureOptions
+export type CDNContentAncestorsOptions = HyperlinksOption & ContentTypeOptions  & CultureOptions
+export type CDNContentChildrenOptions = HyperlinksOption & ContentTypeOptions & PageOptions  & CultureOptions
+export type CDNContentDescendantsOptions = HyperlinksOption & ContentTypeOptions & PageOptions  & CultureOptions
+export type CDNContentByContentTypeOptions = HyperlinksOption & PageOptions  & CultureOptions
+export type CDNContentSearchOptions = HyperlinksOption & PageOptions  & CultureOptions
 
 export type CDNMediaChildrenOptions = PageOptions
 

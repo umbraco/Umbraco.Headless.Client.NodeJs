@@ -42,6 +42,15 @@ export class ApiRequest<R = any> {
             headers["api-key"] = `${this.client.getAPIKey()}`
         }
 
+
+        const options = this.endpoint.options
+        log("options", options)
+        if(options && options.culture) {
+            headers["Accept-Language"] = options.culture
+        }
+
+
+
         const url = Endpoint.getURLAddress(this.endpoint)
 
 

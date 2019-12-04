@@ -1,6 +1,6 @@
 import { Client } from "../Client";
-import { CDNContentByContentTypeOptions, CDNContentByIdOptions, CDNContentChildrenOptions, CDNContentRootOptions } from "../RequestOptions/index";
-import { ContentResponseElement } from "../Responses/index";
+import { CDNContentByContentTypeOptions, CDNContentByIdOptions, CDNContentChildrenOptions, CDNContentRootOptions } from "../RequestOptions";
+import { ContentResponseElement } from "../Responses";
 /**
  * CDNClient is used to fetch content related objects from Umbraco headless
  */

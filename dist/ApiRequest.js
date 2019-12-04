@@ -59,7 +59,7 @@ var ApiRequest = /** @class */ (function () {
         this.endpoint = endpoint;
         this.data = data;
         this.promise = function () { return __awaiter(_this, void 0, void 0, function () {
-            var projectAlias, headers, requestInit, url, method, requestOptions, response, jsonResponse;
+            var projectAlias, headers, requestInit, options, url, method, requestOptions, response, jsonResponse;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -81,6 +81,11 @@ var ApiRequest = /** @class */ (function () {
                                 throw new Error("API Key is missing");
                             }
                             headers["api-key"] = "" + this.client.getAPIKey();
+                        }
+                        options = this.endpoint.options;
+                        log("options", options);
+                        if (options && options.culture) {
+                            headers["Accept-Language"] = options.culture;
                         }
                         url = Endpoint_1.Endpoint.getURLAddress(this.endpoint);
                         method = this.endpoint.method.toLowerCase();
