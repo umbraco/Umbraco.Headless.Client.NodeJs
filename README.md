@@ -20,8 +20,7 @@ Create a client, then call commands on it
 import {Client} from '@umbraco/headless-client'
 
 const client = new Client({
-  projectAlias: 'headless-house-of-code',
-  language: 'en-US'
+  projectAlias: 'headless-house-of-code'
 })
 
 client.setAPIKey(`FF00FF1133FF==`)
