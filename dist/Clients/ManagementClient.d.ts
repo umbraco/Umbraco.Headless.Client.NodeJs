@@ -266,4 +266,21 @@ export declare class ManagementClient {
          */
         byAlias: <R_1 extends ContentMemberTypeType>(alias: string) => Promise<R_1>;
     };
+    /**
+     * Forms API
+     */
+    readonly forms: {
+        /**
+         * Fetch all forms
+         */
+        all: () => Promise<import("../Responses").Form[]>;
+        /**
+         * Get form by id
+         */
+        byId: (id: string) => Promise<import("../Responses").Form>;
+        /**
+         * Submit a new form entry
+         */
+        submitEntry: (formId: string, data: object) => Promise<any>;
+    };
 }

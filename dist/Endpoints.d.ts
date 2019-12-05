@@ -1,6 +1,6 @@
 import { Endpoint } from "./Endpoint";
 import { CDNContentByContentTypeOptions, CDNContentByIdOptions, CDNContentChildrenOptions, CDNContentRootOptions, MultipartOptions } from "./RequestOptions";
-import { ContentLanguageType, ContentManagerMediaType, ContentMemberGroupType, ContentMemberType, ContentMemberTypeType, ContentRelationType, ContentRelationTypeType, ContentResponseElement, ContentTypeBase, MediaTypeContentManager, MediaTypeContentManagerRoot, PagedResponse } from "./Responses";
+import { ContentLanguageType, ContentManagerMediaType, ContentMemberGroupType, ContentMemberType, ContentMemberTypeType, ContentRelationType, ContentRelationTypeType, ContentResponseElement, ContentTypeBase, MediaTypeContentManager, MediaTypeContentManagerRoot, PagedResponse, Form } from "./Responses";
 export declare const Endpoints: {
     delivery: {
         content: {
@@ -80,6 +80,11 @@ export declare const Endpoints: {
         memberType: {
             all: <R_20 extends ContentMemberTypeType>() => Endpoint<R_20[], any>;
             byAlias: <R_21 extends ContentMemberTypeType>(alias: string) => Endpoint<R_21, any>;
+        };
+        forms: {
+            all: () => Endpoint<Form[], any>;
+            byId: (id: string) => Endpoint<Form, any>;
+            submitEntry: (id: string) => Endpoint<any, any>;
         };
     };
 };

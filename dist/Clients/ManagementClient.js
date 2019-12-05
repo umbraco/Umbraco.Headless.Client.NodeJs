@@ -342,6 +342,30 @@ var ManagementClient = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ManagementClient.prototype, "forms", {
+        /**
+         * Forms API
+         */
+        get: function () {
+            var _this = this;
+            return {
+                /**
+                 * Fetch all forms
+                 */
+                all: function () { return _this.makeRequest(Endpoints_1.Endpoints.management.forms.all()); },
+                /**
+                 * Get form by id
+                 */
+                byId: function (id) { return _this.makeRequest(Endpoints_1.Endpoints.management.forms.byId(id)); },
+                /**
+                 * Submit a new form entry
+                 */
+                submitEntry: function (formId, data) { return _this.makeRequest(Endpoints_1.Endpoints.management.forms.submitEntry(formId), data); }
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
     return ManagementClient;
 }());
 exports.ManagementClient = ManagementClient;
