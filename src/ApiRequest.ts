@@ -1,7 +1,7 @@
 import {Endpoint, EndpointSource} from "./Endpoint";
 import {Client} from "./Client";
-import fetch, {RequestInit} from "node-fetch";
 import {APIRequestError} from "./APIRequestError";
+import axios, { AxiosRequestConfig } from 'axios'
 import * as FormData from 'form-data'
 import debug from 'debug'
 
@@ -30,7 +30,9 @@ export class ApiRequest<R = any> {
       headers["Accept-Language"] = this.client.options.language
     }
 
-    const requestInit: RequestInit = {
+    const requestInit: AxiosRequestConfig= {
+      url: Endpoint.getURLAddress(this.endpoint),
+      method: this.endpoint.method,
       headers: {}
     }
 
@@ -51,9 +53,6 @@ export class ApiRequest<R = any> {
 
 
 
-    const url = Endpoint.getURLAddress(this.endpoint)
-
-
     const method = this.endpoint.method.toLowerCase()
     if((method === "post" || method === 'put') && !!this.data) {
       const requestOptions = this.endpoint.options
@@ -61,31 +60,29 @@ export class ApiRequest<R = any> {
         if((requestOptions as MultipartOptions).usingMultipart) {
           if(this.data.prototype === FormData.prototype) {
             headers["Content-Type"] = `multipart/form-data; boundary=${this.data.getBoundary()}`
-            requestInit.body = this.data
+            requestInit.data = this.data
           } else {
             throw new Error("Expected a FormData as body")
           }
         }
       }
 
-      if(!requestInit.body) {
-        requestInit.body = JSON.stringify(this.data)
+      if(!requestInit.data) {
+        requestInit.data = JSON.stringify(this.data)
       }
     }
     requestInit.headers = headers
 
-    requestInit.method = method
     log("Request init")
     log(requestInit)
-    const response = await fetch(url, requestInit)
-    const jsonResponse = response.size > 0 ? await response.json() : {}
+    const response = await axios(requestInit)
 
-    if(!response.ok) {
+    if(response.status >= 400) {
       console.log(requestInit)
-      throw new APIRequestError(response.statusText, response, jsonResponse)
+      throw new APIRequestError(response.statusText, response, response.data)
     }
 
 
-    return jsonResponse as R
+    return response.data as R
   }
 }

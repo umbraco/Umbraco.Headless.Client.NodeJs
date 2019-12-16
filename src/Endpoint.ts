@@ -16,7 +16,7 @@ export class Endpoint<R = any, Options = any> {
         public readonly source: EndpointSource,
         public readonly path: string,
         public readonly urlParams: any,
-        public readonly method: string,
+        public readonly method: 'get'|'GET'|'post'|'POST'|'put'|'PUT'|'delete'|'DELETE',
         public readonly options?: Options
     ) {
 
