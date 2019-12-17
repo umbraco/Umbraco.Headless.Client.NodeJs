@@ -93,7 +93,7 @@ class ContentClient {
      * @param options Request options
      */
     public filter = (body: ContentFilter, options?: CDNContentFilterOptions) => {
-        return this.makeRequest(Endpoints.delivery.content.filter(body, options))
+        return this.makeRequest(Endpoints.delivery.content.filter(options), body)
     }
 
     /**

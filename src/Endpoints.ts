@@ -9,7 +9,7 @@ import {
   CDNContentByURLOptions,
   CDNContentChildrenOptions,
   CDNContentDescendantsOptions,
-  CDNContentRootOptions, 
+  CDNContentRootOptions,
   CDNContentFilterOptions,
   CDNContentSearchOptions,
   CDNMediaChildrenOptions,
@@ -44,7 +44,7 @@ export const Endpoints = {
       ancestors: <T extends ContentResponseElement>(id: string | number, options?: CDNContentAncestorsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/ancestors', {id}, 'get', options),
       descendants: <T extends ContentResponseElement>(id: string | number, options?: CDNContentDescendantsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/descendants', {id}, 'get', options),
       byContentType: <T extends ContentResponseElement>(contentType: string, options?: CDNContentByContentTypeOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/type?contentType={contentType}',{contentType}, 'get', options),
-      filter: <T extends ContentResponseElement>(body: ContentFilter, options?: CDNContentFilterOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/filter', {}, 'post', options),
+      filter: <T extends ContentResponseElement>(options?: CDNContentFilterOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/filter', {}, 'post', options ),
       search: <T extends ContentResponseElement>(term: string, options?: CDNContentSearchOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/search?term={term}',{term}, 'get', options),
     },
 
