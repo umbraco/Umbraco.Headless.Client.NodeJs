@@ -5,10 +5,10 @@ import {
     CDNContentAncestorsOptions, CDNContentByContentTypeOptions,
     CDNContentByIdOptions,
     CDNContentByURLOptions, CDNContentChildrenOptions, CDNContentDescendantsOptions,
-    CDNContentRootOptions, CDNContentSearchOptions, CDNContentFilterOptions,
+    CDNContentRootOptions, CDNContentSearchOptions, CDNContentFilterOptions
 } from "../RequestOptions";
 import {ContentResponseElement} from "../Responses";
-
+import {ContentFilter} from '../RequestOptions/ContentFilterOptions';
 
 /**
  * CDNClient is used to fetch content related objects from Umbraco headless
@@ -92,7 +92,7 @@ class ContentClient {
      * @param contentFilter Filter
      * @param options Request options
      */
-    public filter = (body: object, options?: CDNContentFilterOptions) => {
+    public filter = (body: ContentFilter, options?: CDNContentFilterOptions) => {
         return this.makeRequest(Endpoints.delivery.content.filter(body, options))
     }
 
