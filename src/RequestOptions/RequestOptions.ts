@@ -12,6 +12,7 @@ export type CDNContentAncestorsOptions = HyperlinksOption & ContentTypeOptions  
 export type CDNContentChildrenOptions = HyperlinksOption & ContentTypeOptions & PageOptions  & CultureOptions
 export type CDNContentDescendantsOptions = HyperlinksOption & ContentTypeOptions & PageOptions  & CultureOptions
 export type CDNContentByContentTypeOptions = HyperlinksOption & PageOptions  & CultureOptions
+export type CDNContentFilterOptions = HyperlinksOption & PageOptions  & CultureOptions
 export type CDNContentSearchOptions = HyperlinksOption & PageOptions  & CultureOptions
 
 export type CDNMediaChildrenOptions = PageOptions

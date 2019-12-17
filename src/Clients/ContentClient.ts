@@ -5,7 +5,7 @@ import {
     CDNContentAncestorsOptions, CDNContentByContentTypeOptions,
     CDNContentByIdOptions,
     CDNContentByURLOptions, CDNContentChildrenOptions, CDNContentDescendantsOptions,
-    CDNContentRootOptions, CDNContentSearchOptions,
+    CDNContentRootOptions, CDNContentSearchOptions, CDNContentFilterOptions,
 } from "../RequestOptions";
 import {ContentResponseElement} from "../Responses";
 
@@ -84,6 +84,16 @@ class ContentClient {
      */
     public byContentType = (contentType: string, options?: CDNContentByContentTypeOptions) => {
         return this.makeRequest(Endpoints.delivery.content.byContentType(contentType, options))
+    }
+
+    /**
+     * Filter for content containing specific property values
+     * TODO: Fix add missing types all around this call
+     * @param contentFilter Filter
+     * @param options Request options
+     */
+    public filter = (body: object, options?: CDNContentFilterOptions) => {
+        return this.makeRequest(Endpoints.delivery.content.filter(body, options))
     }
 
     /**
