@@ -82,6 +82,11 @@ exports.Endpoints = {
         memberType: {
             all: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/member/type', {}, 'get'); },
             byAlias: function (alias) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/member/type/{alias}', { alias: alias }, 'get'); }
+        },
+        forms: {
+            all: function () { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/forms', {}, 'get'); },
+            byId: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/forms/{id}', { id: id }, 'get'); },
+            submitEntry: function (id) { return new Endpoint_1.Endpoint(Endpoint_1.EndpointSource.ContentManagement, '/forms/{id}/entries', { id: id }, 'post'); }
         }
     }
 };

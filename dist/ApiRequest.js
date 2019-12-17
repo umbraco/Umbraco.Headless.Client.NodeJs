@@ -59,16 +59,16 @@ var ApiRequest = /** @class */ (function () {
         this.endpoint = endpoint;
         this.data = data;
         this.promise = function () { return __awaiter(_this, void 0, void 0, function () {
-            var projectAlias, headers, requestInit, options, url, method, requestOptions, response, jsonResponse;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var projectAlias, headers, requestInit, options, url, method, requestOptions, response, jsonResponse, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         projectAlias = this.client.options.projectAlias;
                         headers = {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json+hal;v=2',
                             'umb-project-alias': projectAlias,
-                            'api-version': '2'
+                            'api-version': '2.1'
                         };
                         if (this.client.options.language) {
                             headers["Accept-Language"] = this.client.options.language;
@@ -112,10 +112,17 @@ var ApiRequest = /** @class */ (function () {
                         log(requestInit);
                         return [4 /*yield*/, node_fetch_1.default(url, requestInit)];
                     case 1:
-                        response = _a.sent();
+                        response = _b.sent();
+                        if (!(response.size > 0)) return [3 /*break*/, 3];
                         return [4 /*yield*/, response.json()];
                     case 2:
-                        jsonResponse = _a.sent();
+                        _a = _b.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        _a = {};
+                        _b.label = 4;
+                    case 4:
+                        jsonResponse = _a;
                         if (!response.ok) {
                             console.log(requestInit);
                             throw new APIRequestError_1.APIRequestError(response.statusText, response, jsonResponse);
