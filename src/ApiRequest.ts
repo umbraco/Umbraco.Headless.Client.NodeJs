@@ -75,14 +75,12 @@ export class ApiRequest<R = any> {
 
     log("Request init")
     log(requestInit)
-    const response = await axios(requestInit)
 
-    if(response.status >= 400) {
-      console.log(requestInit)
-      throw new APIRequestError(response.statusText, response, response.data)
+    try {
+      const response = await axios(requestInit)
+      return response.data as R
+    } catch (err) {
+      throw new APIRequestError(err.statusText, err.response, err.response.data)
     }
-
-
-    return response.data as R
   }
 }
