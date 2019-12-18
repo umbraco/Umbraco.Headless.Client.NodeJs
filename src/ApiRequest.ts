@@ -21,7 +21,7 @@ export class ApiRequest<R = any> {
     const projectAlias = this.client.options.projectAlias
     const headers: any = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json+hal;v=2',
+      'Accept': 'application/json+hal',
       'umb-project-alias': projectAlias,
       'api-version': '2.1'
     }
