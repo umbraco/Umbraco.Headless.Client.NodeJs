@@ -8,19 +8,15 @@ import { Client } from "@umbraco/headless-client";
 
 const app = new Koa();
 const client = new Client({
-  projectAlias: process.env.UMBRACO__PROJECTALIAS || require('./package.json').umbraco.projectAlias
+  projectAlias: process.env.UMBRACO__PROJECTALIAS || require('./package.json').umbraco.projectAlias,
+  apiKey: process.env.UMBRACO__APIKEY || require('./package.json').umbraco.apiKey
 })
-
-const apiKey = process.env.UMBRACO__APIKEY || require('./package.json').umbraco.apiKey;
-if (apiKey) {
-  client.setAPIKey(apiKey);
-}
 
 const getByUrl = async (cache: Object, path: string) => {
   const content = cache[path];
   if (content)
     return content;
-   
+
   return cache[path] = await client.delivery.content.byUrl(path);
 }
 
