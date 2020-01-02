@@ -36,14 +36,15 @@ export class ApiRequest<R = any> {
       headers: {}
     }
 
-    if(this.endpoint.source === EndpointSource.ContentManagement) {
-      if(this.client.getAPIKey() === null) {
+    if (this.endpoint.source === EndpointSource.ContentManagement) {
+      if (!this.client.options.apiKey) {
         throw new Error("API Key is missing")
       }
-
-      headers["api-key"] = `${this.client.getAPIKey()}`
     }
 
+    if (this.client.options.apiKey) {
+      headers['api-key'] = this.client.options.apiKey
+    }
 
     const options = this.endpoint.options
     log("options", options)
