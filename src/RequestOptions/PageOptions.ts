@@ -1,4 +1,4 @@
 export interface PageOptions {
-    page?: string
-    pageSize?: string
+    page?: number
+    pageSize?: number
 }
