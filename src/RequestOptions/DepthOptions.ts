@@ -1,3 +1,3 @@
 export interface DepthOptions {
-    depth?: string
+    depth?: number
 }
