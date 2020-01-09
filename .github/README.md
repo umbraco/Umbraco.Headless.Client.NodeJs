@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="img/logo.png" alt="Umbraco Heartcore Logo" />
+  <img src="https://github.com/umbraco/Umbraco.Headless.Client.NodeJs/raw/master/.github/img/logo.png" alt="Umbraco Heartcore Logo" />
 </p>
 
 <hr>
 
 # NodeJS Client Library for Umbraco Heartcore
 
-Umbraco Heartcore is the headless cms version of Umbraco as a service.
+Umbraco Heartcore is the headless CMS version of Umbraco as a Service.
 
-This repository contains the Node.js client library for the Umbraco Heartcore REST APIs.
+This repository contains the Node.JS client library for the Umbraco Heartcore REST APIs.
 
 ## Install
 
@@ -26,11 +26,10 @@ Create a client, then call commands on it
 import {Client} from '@umbraco/headless-client'
 
 const client = new Client({
-  projectAlias: 'headless-house-of-code',
-  language: 'en-US'
+  projectAlias: 'your-project-alias',
+  apiKey: 'your-api-key'
 })
 
-client.setAPIKey(`FF00FF1133FF==`)
 export default client
 
 // rootLinks.ts
