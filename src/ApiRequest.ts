@@ -9,6 +9,7 @@ const log = debug("umbraco:headless:api")
 
 import {MultipartOptions} from "./RequestOptions/index";
 
+/** @internal */
 export class ApiRequest<R = any> {
 
   constructor(

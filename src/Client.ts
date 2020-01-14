@@ -2,35 +2,67 @@ import { ManagementClient, DeliveryClient} from "./Clients";
 import {Endpoint} from "./Endpoint";
 import {ApiRequest} from "./ApiRequest";
 
+/**
+ * Client Options
+ * @public
+ */
 export interface ClientOptions {
+  /**
+   * The Project Alias is a HTTP friendly version of the Project Name under your Umbraco Cloud account.
+   */
   projectAlias: string
+  /**
+   * The default culture sent with all requests to the Content Delivery API, this can be overwritten per function
+   */
   language?: string
+  /**
+   * An API Key is requierd when interacting with the Management API and when protection is enabled for the Delivery API
+   */
   apiKey?: string
 }
 
 
 /**
- * Headless Client for managing API calls to the Umbraco Headless API
+ * Entry class for accessing the Content Delivery and Content Management APIs.
+ * @public
+ *
+ * @example
+ * ```typescript
+ * import { Client } from '@umbraco/headless-client'
+ *
+ * const client = new Client({
+ *  projectAlias: '<your-project-alias>',
+ *  apiKey: '<your-api-key>',
+ *  language: '<iso-code>',
+ * })
+ * ```
  */
 export class Client {
 
+  /**
+   * Constructs a new instance of the `Client` class with the given options.
+   * @param options - The options. See {@link ClientOptions}
+   */
   constructor(public readonly options: ClientOptions) {
 
   }
 
   /**
-   * Get Delivery client for fetching content and media from CDN
+   * Get Delivery client for fetching content and media from CDN.
+   * See {@link DeliveryClient}
    */
   public readonly delivery = new DeliveryClient(this)
 
   /**
-   * Get Manager Client for managing content on Umbraco headless
+   * Get Manager Client for managing content on Umbraco Heartcore.
+   * See {@link ManagementClient}
    */
   public readonly management = new ManagementClient(this)
 
 
   /**
    * Makes request from and [Endpoint]
+   * @internal
    */
   public makeRequest = async <R extends any>(endpoint: Endpoint<R>, data?: any): Promise<R> => {
 
@@ -58,15 +90,15 @@ export class Client {
 
   /**
    * Sets the API to be used.
-   * @param apikey API Key
-   * @deprecated Use `apiKey` on the options instead
+   * @param apikey - API Key
+   * @deprecated Use `apiKey` in the constructor options instead.
    */
   public setAPIKey = (apikey: string) => {
     this.options.apiKey = apikey
   }
 
   /**
-   * @deprecated Use `apiKey` on the options instead
+   * @deprecated Use `options.apiKey` instead.
    */
   public getAPIKey = () => this.options.apiKey
 

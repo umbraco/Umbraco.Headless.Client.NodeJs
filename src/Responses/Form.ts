@@ -1,9 +1,15 @@
+/**
+ * @public
+ */
 export interface FormConditionRule {
   field: string;
   operator: FormConditionRuleOperatorType;
   value: string;
 }
 
+/**
+ * @public
+ */
 export enum FormConditionRuleOperatorType {
   Is = "IS",
   IsNot = "IS_NOT",
@@ -14,22 +20,34 @@ export enum FormConditionRuleOperatorType {
   EndsWith = "ENDS_WITH"
 }
 
+/**
+ * @public
+ */
 export interface FormCondition {
   actionType: FormConditionActionType;
   logicType: FormConditionLogicType;
   rules: FormConditionRule[];
 }
 
+/**
+ * @public
+ */
 export enum FormConditionLogicType {
   All = "ALL",
   Any = "ANY"
 }
 
+/**
+ * @public
+ */
 export enum FormConditionActionType {
   Show = "SHOW",
   Hide = "HIDE"
 }
 
+/**
+ * @public
+ */
 export interface FormField {
   caption: string;
   alias: string;
@@ -42,23 +60,35 @@ export interface FormField {
   condition?: FormCondition;
 }
 
+/**
+ * @public
+ */
 export interface FormColumn {
   width: number;
   fields: FormField[];
   caption?: string;
 }
 
+/**
+ * @public
+ */
 export interface FormFieldset {
   columns: FormColumn[];
   caption?: string;
   condition?: FormCondition;
 }
 
+/**
+ * @public
+ */
 export interface FormPage {
   fieldsets: FormFieldset[];
   caption?: string;
 }
 
+/**
+ * @public
+ */
 export interface Form {
   _id: string;
   indicator?: string;
@@ -74,6 +104,9 @@ export interface Form {
   pages: FormPage[];
 }
 
+/**
+ * @public
+ */
 export enum FormFieldIndicationType {
   NoIndicator = "NO_INDICATOR",
   MarkMandatoryFields = "MARK_MANDATORY_FIELDS",

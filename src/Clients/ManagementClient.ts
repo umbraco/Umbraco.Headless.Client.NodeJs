@@ -4,7 +4,7 @@ import {Endpoints} from "../Endpoints";
 import {
   APIContentChildrenOptions,
   APIContentPublishOptions,
-  APIContentUnPublishOptions, APIMediaChildrenOptions,
+  APIContentUnpublishOptions, APIMediaChildrenOptions,
 } from "../RequestOptions/index";
 import {
   ContentCreateMemberType,
@@ -50,14 +50,14 @@ export class ManagementClient {
        * Gets a single published content by its id
        * @param id GUID part of an Umbraco UDI
        */
-      byId: <R extends ContentResponseElement>(id: string|number) => this.makeRequest(Endpoints.management.content.byId<R>(id)),
+      byId: <R extends ContentResponseElement>(id: string) => this.makeRequest(Endpoints.management.content.byId<R>(id)),
 
       /**
        * Get all children of a content object
        * @param id GUID part of an Umbraco UDI
        * @param options Request options if with page
        */
-      children: <R extends ContentResponseElement>(id: string|number, options?: APIContentChildrenOptions) => this.makeRequest(Endpoints.management.content.children(id, options)),
+      children: <R extends ContentResponseElement>(id: string, options?: APIContentChildrenOptions) => this.makeRequest(Endpoints.management.content.children(id, options)),
 
       /**
        * Create a content object
@@ -77,20 +77,20 @@ export class ManagementClient {
        * @param id GUID part of an Umbraco UDI
        * @param options Request options
        */
-      unPublish: <R extends ContentResponseElement>(id: string, options?: APIContentUnPublishOptions) => this.makeRequest(Endpoints.management.content.unPublish<R>(id, options)),
+      unPublish: <R extends ContentResponseElement>(id: string, options?: APIContentUnpublishOptions) => this.makeRequest(Endpoints.management.content.unPublish<R>(id, options)),
 
       /**
        * Update a content object
        * @param id GUID part of an Umbraco UDI
        * @param body Data which needs to be used for updating content
        */
-      update: <R extends ContentResponseElement>(id: string|number, body: Partial<R>) => this.makeRequest(Endpoints.management.content.update<R>(id), body),
+      update: <R extends ContentResponseElement>(id: string, body: Partial<R>) => this.makeRequest(Endpoints.management.content.update<R>(id), body),
 
       /**
        * Delete a content object
        * @param id GUID part of an Umbraco UDI
        */
-      delete: (id: string|number) => this.makeRequest(Endpoints.management.content.delete(id))
+      delete: (id: string) => this.makeRequest(Endpoints.management.content.delete(id))
     }
   }
 
@@ -127,14 +127,14 @@ export class ManagementClient {
        * Find media object by id
        * @param id GUID part of an Umbraco UDI
        */
-      byId: <R extends ContentManagerMediaType>(id: string|number) => this.makeRequest(Endpoints.management.media.byId<R>(id)),
+      byId: <R extends ContentManagerMediaType>(id: string) => this.makeRequest(Endpoints.management.media.byId<R>(id)),
 
       /**
        * Fetch all children for content object
        * @param id GUID part of an Umbraco UDI
        * @param options Request options if with page
        */
-      children: <R extends ContentManagerMediaType>(id: string|number, options?: APIMediaChildrenOptions) => this.makeRequest(Endpoints.management.media.children<R>(id, options)),
+      children: <R extends ContentManagerMediaType>(id: string, options?: APIMediaChildrenOptions) => this.makeRequest(Endpoints.management.media.children<R>(id, options)),
 
       /**
        * Create a media object
@@ -147,13 +147,13 @@ export class ManagementClient {
        * @param id GUID part of an Umbraco UDI
        * @param data Data for updating media object
        */
-      update: (id: string|number, data: any) => this.makeRequest(Endpoints.management.media.update(id), data),
+      update: (id: string, data: any) => this.makeRequest(Endpoints.management.media.update(id), data),
 
       /**
        * Delete media object
        * @param id GUID part of an Umbraco UDI
        */
-      delete: (id: string|number) => this.makeRequest(Endpoints.management.media.delete(id)),
+      delete: (id: string) => this.makeRequest(Endpoints.management.media.delete(id)),
     }
   }
 

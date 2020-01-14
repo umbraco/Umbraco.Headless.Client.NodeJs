@@ -1,3 +1,10 @@
+/**
+ * Depth Options.
+ * @public
+ */
 export interface DepthOptions {
-    depth?: number
+  /**
+   * Number of levels to retrieve.
+   */
+  depth?: number
 }

@@ -63,3 +63,8 @@ typings/
 # next.js build output
 .next
 .idea
+
+# docs
+docs/
+temp/
+tsdoc-metadata.json

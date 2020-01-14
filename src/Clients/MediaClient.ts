@@ -1,43 +1,48 @@
 import {Client} from "../Client";
 import {Endpoint} from "../Endpoint";
 import {Endpoints} from "../Endpoints";
-import {CDNMediaChildrenOptions} from "../RequestOptions/index";
+import {MediaDeliveryChildrenOptions} from "../RequestOptions/index";
+import {Media} from '../Responses/Media'
 
 /**
- * Client to fetch media related objects form Umbraco headless
+ * MediaClient is used to access the Media part of the Content Delivery API.
+ * @public
  */
 export class MediaClient {
 
-    constructor(
-        private readonly client: Client
-    ) {
+  /** @internal */
+  constructor(private readonly client: Client) {}
 
-    }
+  private makeRequest = (endpoint: Endpoint, data?: any) => {
+    return this.client.makeRequest(endpoint, data)
+  }
 
+  /**
+   * Fetch all Media at the root.
+   *
+   * @returns a `Promise` that resolves to an array of {@link Media}.
+   */
+  root<T extends Media>() {
+    return this.makeRequest(Endpoints.delivery.media.root<T>())
+  }
 
-    private makeRequest = (endpoint: Endpoint, data?: any) => {
-        return this.client.makeRequest(endpoint, data)
-    }
+  /**
+   * Fetch a single Media item by its id.
+   * @param id - GUID id of the Media item.
+   * @returns a `Promise` that resolves to a {@link Media} if found, otherwise `undefined`.
+  */
+  byId<T extends Media>(id: string) {
+    return this.makeRequest(Endpoints.delivery.media.byId<T>(id))
+  }
 
-    /**
-     * Fetch root media
-     */
-    public root = () => {
-        return this.makeRequest(Endpoints.delivery.media.root())
-    }
-
-    /**
-     * Fetch media by id
-     */
-    public byId = (id: string|number) => {
-        return this.makeRequest(Endpoints.delivery.media.byId(id))
-    }
-
-    /**
-     * Fetch media children
-     */
-    public children = (id: string|number, options?: CDNMediaChildrenOptions) => {
-        return this.makeRequest(Endpoints.delivery.media.children(id, options))
-    }
+  /**
+   * Fetch children for a Media item.
+   * @param id - GUID id of the Media item.
+   * @param options - Request options. See {@link MediaDeliveryChildrenOptions}.
+   * @returns a `Promise` that resolves to a {@link PagedResponse} of {@link Media} if found, otherwise `undefined`.
+   */
+  children<T extends Media>(id: string, options?: MediaDeliveryChildrenOptions) {
+    return this.makeRequest(Endpoints.delivery.media.children<T>(id, options))
+  }
 
 }

@@ -26,6 +26,7 @@
   },
   "scripts": {
     "build": "tsc && cp package.json .github/README.md dist",
+    "docs": "api-extractor run --local && api-documenter markdown -i dist -o docs/api/",
     "start": "tsc -w"
   },
   "dependencies": {
@@ -34,9 +35,11 @@
     "form-data": "^2.5.1"
   },
   "devDependencies": {
+    "@microsoft/api-documenter": "^7.7.6",
+    "@microsoft/api-extractor": "^7.7.3",
     "@types/debug": "^4.1.5",
     "@types/form-data": "^2.5.0",
     "@types/node": "^12.12.18",
-    "typescript": "^3.6.3"
+    "typescript": "^3.7.4"
   }
 }

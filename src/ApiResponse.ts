@@ -1,3 +1,4 @@
+/** @internal */
 export interface ApiResponse<Response = any, Links = any> {
 
     _links: Links
@@ -5,7 +6,7 @@ export interface ApiResponse<Response = any, Links = any> {
 
 }
 
-
+/** @internal */
 export interface ApiPagedResponse<Response = any> extends ApiResponse<Response> {
     _totalItems: number
     _totalPages: number

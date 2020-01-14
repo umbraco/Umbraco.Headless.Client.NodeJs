@@ -3,7 +3,9 @@
     "module": "commonjs",
     "target": "es5",
     "moduleResolution": "node",
-    "sourceMap": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
     "outDir": "dist",
     "declaration": true,
     "rootDir": "src",
@@ -13,7 +15,10 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "etc",
+    "temp",
+    "samples"
   ],
   "include": [
     "src"

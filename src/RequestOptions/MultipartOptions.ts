@@ -1,3 +1,4 @@
+/** @internal */
 export interface MultipartOptions {
-    usingMultipart: boolean
+  usingMultipart: boolean
 }

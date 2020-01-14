@@ -1,3 +1,4 @@
+/** @internal */
 export enum EndpointSource {
   CDN,
   Media,
@@ -7,6 +8,7 @@ export enum EndpointSource {
 /**
  * This class describes how and endpoint might will look,
  * it's not possible to change value
+ * @internal
  */
 export class Endpoint<R = any, Options = any> {
 

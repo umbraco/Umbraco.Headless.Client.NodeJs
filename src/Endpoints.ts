@@ -2,20 +2,22 @@ import {Endpoint, EndpointSource} from "./Endpoint";
 import {
   APIContentChildrenOptions,
   APIContentPublishOptions,
-  APIContentUnPublishOptions,
+  APIContentUnpublishOptions,
   APIMediaChildrenOptions,
-  CDNContentAncestorsOptions, CDNContentByContentTypeOptions,
-  CDNContentByIdOptions,
-  CDNContentByURLOptions,
-  CDNContentChildrenOptions,
-  CDNContentDescendantsOptions,
-  CDNContentRootOptions,
-  CDNContentFilterOptions,
-  CDNContentSearchOptions,
-  CDNMediaChildrenOptions,
+  ContentDeliveryAncestorsOptions,
+  ContentDeliveryByContentTypeOptions,
+  ContentDeliveryByIdOptions,
+  ContentDeliveryByUrlOptions,
+  ContentDeliveryChildrenOptions,
+  ContentDeliveryDescendantsOptions,
+  ContentDeliveryRootOptions,
+  ContentDeliveryFilterOptions,
+  ContentDeliverySearchOptions,
+  MediaDeliveryChildrenOptions,
   MultipartOptions
 } from "./RequestOptions";
 import {
+  Content,
   ContentLanguageType,
   ContentManagerMediaType,
   ContentMemberGroupType,
@@ -25,6 +27,7 @@ import {
   ContentRelationTypeType,
   ContentResponseElement,
   ContentTypeBase,
+  Media,
   MediaTypeContentManager,
   MediaTypeContentManagerRoot,
   PagedResponse,
@@ -32,26 +35,29 @@ import {
 } from "./Responses";
 import {ContentFilter} from './RequestOptions/ContentFilterOptions';
 
+/**
+ * @internal
+ */
 export const Endpoints = {
 
   delivery: {
 
     content: {
-      root: <T extends ContentResponseElement>(options?: CDNContentRootOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content', {}, 'get', options),
-      byId: <T extends ContentResponseElement>(id: string | number, options?: CDNContentByIdOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/{id}', {id}, 'get', options),
-      byUrl: <T extends ContentResponseElement>(url: string, options?: CDNContentByURLOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/url?url={url}', {url}, 'get', options),
-      children: <T extends ContentResponseElement>(id: string | number, options?: CDNContentChildrenOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/{id}/children', {id}, 'get', options),
-      ancestors: <T extends ContentResponseElement>(id: string | number, options?: CDNContentAncestorsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/ancestors', {id}, 'get', options),
-      descendants: <T extends ContentResponseElement>(id: string | number, options?: CDNContentDescendantsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/descendants', {id}, 'get', options),
-      byContentType: <T extends ContentResponseElement>(contentType: string, options?: CDNContentByContentTypeOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/type?contentType={contentType}',{contentType}, 'get', options),
-      filter: <T extends ContentResponseElement>(options?: CDNContentFilterOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/filter', {}, 'post', options ),
-      search: <T extends ContentResponseElement>(term: string, options?: CDNContentSearchOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/search?term={term}',{term}, 'get', options),
+      root: <T extends Content>(options?: ContentDeliveryRootOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content', {}, 'get', options),
+      byId: <T extends Content>(id: string | number, options?: ContentDeliveryByIdOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/{id}', {id}, 'get', options),
+      byUrl: <T extends Content>(url: string, options?: ContentDeliveryByUrlOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/url?url={url}', {url}, 'get', options),
+      children: <T extends Content>(id: string | number, options?: ContentDeliveryChildrenOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/{id}/children', {id}, 'get', options),
+      ancestors: <T extends Content>(id: string | number, options?: ContentDeliveryAncestorsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/ancestors', {id}, 'get', options),
+      descendants: <T extends Content>(id: string | number, options?: ContentDeliveryDescendantsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/descendants', {id}, 'get', options),
+      byContentType: <T extends Content>(contentType: string, options?: ContentDeliveryByContentTypeOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/type?contentType={contentType}',{contentType}, 'get', options),
+      filter: <T extends Content>(options?: ContentDeliveryFilterOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/filter', {}, 'post', options ),
+      search: <T extends Content>(term: string, options?: ContentDeliverySearchOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/search?term={term}',{term}, 'get', options),
     },
 
     media: {
-      root: () => new Endpoint(EndpointSource.CDN, "/media", {}, 'get'),
-      byId: (id: string | number) => new Endpoint(EndpointSource.CDN, '/media/{id}', {id}, 'get'),
-      children: (id: string | number, options?: CDNMediaChildrenOptions) => new Endpoint(EndpointSource.CDN, '/media/{id}/children', {id}, 'get', options),
+      root: <T extends Media>() => new Endpoint<T[]>(EndpointSource.CDN, "/media", {}, 'get'),
+      byId: <T extends Media>(id: string | number) => new Endpoint<T>(EndpointSource.CDN, '/media/{id}', {id}, 'get'),
+      children: <T extends Media>(id: string | number, options?: MediaDeliveryChildrenOptions) => new Endpoint<T>(EndpointSource.CDN, '/media/{id}/children', {id}, 'get', options),
     },
 
 
@@ -67,7 +73,7 @@ export const Endpoints = {
       publish: <R extends ContentResponseElement>(id: string | number, options?: APIContentPublishOptions) => {
         return new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/publish', {id}, 'put', options) as Endpoint<R, APIContentPublishOptions>
       },
-      unPublish: <R extends ContentResponseElement>(id: number|string, options?: APIContentUnPublishOptions) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/unpublish', {id}, 'put', options),
+      unPublish: <R extends ContentResponseElement>(id: number|string, options?: APIContentUnpublishOptions) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/unpublish', {id}, 'put', options),
       update: <R extends ContentResponseElement>(id: number | string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', {id}, 'put'),
       delete: (id: number | string) => new Endpoint(EndpointSource.ContentManagement, '/content/{id}', {id}, 'delete'),
     },

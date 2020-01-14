@@ -1,4 +1,14 @@
+/**
+ * Page Options
+ * @public
+ */
 export interface PageOptions {
-    page?: number
-    pageSize?: number
+  /**
+   * Page number
+   */
+  page?: number
+  /**
+   * Page size
+   */
+  pageSize?: number
 }
