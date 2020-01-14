@@ -3,9 +3,9 @@
  * @public
  */
 export interface ContentFilterProperties {
-  alias: string;
-  value: string;
-  match: ContentFilterMatch;
+  alias: string
+  value: string
+  match: ContentFilterMatch
 }
 
 /**
@@ -13,8 +13,8 @@ export interface ContentFilterProperties {
  * @public
  */
 export interface ContentFilter {
-  contentTypeAlias?: string;
-  properties: ContentFilterProperties[];
+  contentTypeAlias?: string
+  properties: ContentFilterProperties[]
 }
 
 /**
@@ -22,6 +22,6 @@ export interface ContentFilter {
  * @public
  */
 export enum ContentFilterMatch {
-  Contains = "CONTAINS",
-  Like = "LIKE"
+  Contains = 'CONTAINS',
+  Like = 'LIKE'
 }

@@ -1,26 +1,25 @@
-import {Client} from "../Client";
-import {Endpoints} from "../Endpoints";
-import {Endpoint} from "../Endpoint";
+import { Client } from '../Client'
+import { Endpoints } from '../Endpoints'
+import { Endpoint } from '../Endpoint'
 import {
   ContentDeliveryAncestorsOptions, ContentDeliveryByContentTypeOptions,
   ContentDeliveryByIdOptions,
   ContentDeliveryByUrlOptions, ContentDeliveryChildrenOptions, ContentDeliveryDescendantsOptions,
   ContentDeliveryRootOptions, ContentDeliverySearchOptions, ContentDeliveryFilterOptions
-} from "../RequestOptions";
-import {Content} from "../Responses";
-import {PagedResponse} from '../Responses/PagedResponse'
-import {ContentFilter} from '../RequestOptions/ContentFilterOptions';
+} from '../RequestOptions'
+import { Content } from '../Responses'
+import { PagedResponse } from '../Responses/PagedResponse'
+import { ContentFilter } from '../RequestOptions/ContentFilterOptions'
 
 /**
  * ContentClient is used to access the Content part af the Contint Delivery API.
  * @public
  */
 class ContentClient {
-
   /** @internal */
-  constructor(private readonly client: Client) {}
+  constructor (private readonly client: Client) {}
 
-  private makeRequest = <R>(endpoint: Endpoint<R>, data?: any): Promise<R> => {
+  private readonly makeRequest = async <R>(endpoint: Endpoint<R>, data?: any): Promise<R> => {
     return this.client.makeRequest<R>(endpoint, data)
   }
 
@@ -30,7 +29,7 @@ class ContentClient {
    * @param options - Request options. See {@link ContentDeliveryRootOptions}.
    * @returns a `Promise` that resolves to an array of {@link Content}.
    */
-  root<T extends Content>(options?: ContentDeliveryRootOptions) {
+  async root<T extends Content> (options?: ContentDeliveryRootOptions) {
     return this.makeRequest(Endpoints.delivery.content.root<T>(options))
   }
 
@@ -40,7 +39,7 @@ class ContentClient {
    * @param options - Request options. See {@link ContentDeliveryByIdOptions}.
    * @returns a `Promise` that resolves to a {@link Content} if found, otherwise `undefined`.
    */
-  byId<T extends Content>(id: string, options?: ContentDeliveryByIdOptions) {
+  async byId<T extends Content> (id: string, options?: ContentDeliveryByIdOptions) {
     return this.makeRequest(Endpoints.delivery.content.byId<T>(id, options))
   }
 
@@ -50,7 +49,7 @@ class ContentClient {
    * @param options - Request options. See {@link ContentDeliveryByUrlOptions}.
    * @returns a `Promise` that resolves to a {@link Content} if found, otherwise `undefined`.
    */
-  byUrl< T extends Content>(url: string, options?: ContentDeliveryByUrlOptions) {
+  async byUrl< T extends Content> (url: string, options?: ContentDeliveryByUrlOptions) {
     return this.makeRequest(Endpoints.delivery.content.byUrl<T>(url, options))
   }
 
@@ -60,7 +59,7 @@ class ContentClient {
    * @param options - Request options. See {@link ContentDeliveryChildrenOptions}.
    * @returns a `Promise` that resolves to a {@link PagedResponse} of {@link Content} if found, otherwise `undefined`.
    */
-  children<T extends Content>(id: string, options?: ContentDeliveryChildrenOptions): Promise<PagedResponse<T>> {
+  async children<T extends Content> (id: string, options?: ContentDeliveryChildrenOptions): Promise<PagedResponse<T>> {
     return this.makeRequest(Endpoints.delivery.content.children<T>(id, options))
   }
 
@@ -70,7 +69,7 @@ class ContentClient {
    * @param options - Request options. See {@link ContentDeliveryAncestorsOptions}.
    * @returns a `Promise` that resolves to an array of {@link Content} if found, otherwise `undefined`.
    */
-  ancestors(id: string, options?: ContentDeliveryAncestorsOptions) {
+  async ancestors (id: string, options?: ContentDeliveryAncestorsOptions) {
     return this.makeRequest(Endpoints.delivery.content.ancestors(id, options))
   }
 
@@ -80,7 +79,7 @@ class ContentClient {
    * @param options - Request options. See {@link ContentDeliveryDescendantsOptions}.
    * @returns a `Promise` that resolves to an array of {@link Content} if found, otherwise `undefined`.
    */
-  descendants(id: string, options?: ContentDeliveryDescendantsOptions) {
+  async descendants (id: string, options?: ContentDeliveryDescendantsOptions) {
     return this.makeRequest(Endpoints.delivery.content.descendants(id, options))
   }
 
@@ -90,7 +89,7 @@ class ContentClient {
    * @param options - Request options. See {@link ContentDeliveryByContentTypeOptions}
    * @returns a `Promise` that resolves to a {@link PagedResponse} of {@link Content}.
    */
-  byContentType<T extends Content>(contentType: string, options?: ContentDeliveryByContentTypeOptions): Promise<PagedResponse<T>> {
+  async byContentType<T extends Content> (contentType: string, options?: ContentDeliveryByContentTypeOptions): Promise<PagedResponse<T>> {
     return this.makeRequest(Endpoints.delivery.content.byContentType<T>(contentType, options))
   }
 
@@ -100,7 +99,7 @@ class ContentClient {
    * @param options - Request options. See {@link ContentDeliveryFilterOptions}
    * @returns a `Promise` that resolves to a {@link PagedResponse} of {@link Content}.
    */
-  filter<T extends Content>(body: ContentFilter, options?: ContentDeliveryFilterOptions): Promise<PagedResponse<T>> {
+  async filter<T extends Content> (body: ContentFilter, options?: ContentDeliveryFilterOptions): Promise<PagedResponse<T>> {
     return this.makeRequest(Endpoints.delivery.content.filter<T>(options), body)
   }
 
@@ -110,10 +109,9 @@ class ContentClient {
    * @param options - Request options. See {@link ContentDeliverySearchOptions}
    * @returns a `Promise` that resolves to a {@link PagedResponse} of {@link Content}.
    */
-    search<T extends Content>(term: string, options?: ContentDeliverySearchOptions): Promise<PagedResponse<T>> {
-        return this.makeRequest(Endpoints.delivery.content.search<T>(term, options))
-    }
-
+  async search<T extends Content> (term: string, options?: ContentDeliverySearchOptions): Promise<PagedResponse<T>> {
+    return this.makeRequest(Endpoints.delivery.content.search<T>(term, options))
+  }
 }
 
-export {ContentClient}
+export { ContentClient }

@@ -1,6 +1,6 @@
-import { ManagementClient, DeliveryClient} from "./Clients";
-import {Endpoint} from "./Endpoint";
-import {ApiRequest} from "./ApiRequest";
+import { ManagementClient, DeliveryClient } from './Clients'
+import { Endpoint } from './Endpoint'
+import { ApiRequest } from './ApiRequest'
 
 /**
  * Client Options
@@ -21,7 +21,6 @@ export interface ClientOptions {
   apiKey?: string
 }
 
-
 /**
  * Entry class for accessing the Content Delivery and Content Management APIs.
  * @public
@@ -38,12 +37,11 @@ export interface ClientOptions {
  * ```
  */
 export class Client {
-
   /**
    * Constructs a new instance of the `Client` class with the given options.
    * @param options - The options. See {@link ClientOptions}
    */
-  constructor(public readonly options: ClientOptions) {
+  constructor (public readonly options: ClientOptions) {
 
   }
 
@@ -59,20 +57,16 @@ export class Client {
    */
   public readonly management = new ManagementClient(this)
 
-
   /**
    * Makes request from and [Endpoint]
    * @internal
    */
   public makeRequest = async <R extends any>(endpoint: Endpoint<R>, data?: any): Promise<R> => {
-
-
     const response = await new ApiRequest<R>(this, endpoint, data).promise()
     const items = this.getEmbeddedData(response)
     const pageData = this.getPagedData(response)
 
-
-    if(pageData) {
+    if (pageData) {
       return {
         ...pageData,
         items
@@ -82,11 +76,7 @@ export class Client {
     } else {
       return response
     }
-
-
-
   }
-
 
   /**
    * Sets the API to be used.
@@ -102,11 +92,11 @@ export class Client {
    */
   public getAPIKey = () => this.options.apiKey
 
-  private getEmbeddedData = (response: any) => {
-    if(response.hasOwnProperty('_embedded')) {
+  private readonly getEmbeddedData = (response: any) => {
+    if (Object.prototype.hasOwnProperty.call(response, '_embedded')) {
       const keys = Object.keys(response._embedded)
       const keyCount = keys.length
-      if(keyCount === 1) {
+      if (keyCount === 1) {
         const key = keys[0]
         return response._embedded[key]
       }
@@ -115,13 +105,13 @@ export class Client {
     return null
   }
 
-  private getPagedData = (response: any) => {
-    const lookForProps = ["_totalItems", "_totalPages", "_page", "_pageSize"]
+  private readonly getPagedData = (response: any) => {
+    const lookForProps = ['_totalItems', '_totalPages', '_page', '_pageSize']
     const keys = Object.keys(response)
 
-    for(let i=0;i<lookForProps.length;i++) {
+    for (let i = 0; i < lookForProps.length; i++) {
       const needle = lookForProps[i]
-      if (keys.indexOf(needle) === -1) return null
+      if (!keys.includes(needle)) return null
     }
 
     const object: any = {}
@@ -130,9 +120,5 @@ export class Client {
     })
 
     return object
-
-
-
   }
-
 }

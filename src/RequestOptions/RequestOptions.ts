@@ -1,8 +1,8 @@
-import {HyperlinksOption} from "./HyperlinksOption";
-import {ContentTypeOptions} from "./ContentTypeOptions";
-import {DepthOptions} from "./DepthOptions";
-import {PageOptions} from "./PageOptions";
-import {CultureOptions} from "./CultureOptions";
+import { HyperlinksOption } from './HyperlinksOption'
+import { ContentTypeOptions } from './ContentTypeOptions'
+import { DepthOptions } from './DepthOptions'
+import { PageOptions } from './PageOptions'
+import { CultureOptions } from './CultureOptions'
 
 /**
  * Content Delivery Root Options.
@@ -19,7 +19,7 @@ export type ContentDeliveryRootOptions = HyperlinksOption & ContentTypeOptions &
  * @remarks
  * See {@link HyperlinksOption}, {@link DepthOptions} and {@link CultureOptions} for more details.
  */
-export type ContentDeliveryByIdOptions = HyperlinksOption & DepthOptions  & CultureOptions
+export type ContentDeliveryByIdOptions = HyperlinksOption & DepthOptions & CultureOptions
 /**
  * Content Delivery By Url Options.
  * @public
@@ -27,7 +27,7 @@ export type ContentDeliveryByIdOptions = HyperlinksOption & DepthOptions  & Cult
  * @remarks
  * See {@link HyperlinksOption}, {@link DepthOptions} and {@link CultureOptions} for more details.
  */
-export type ContentDeliveryByUrlOptions = HyperlinksOption & DepthOptions  & CultureOptions
+export type ContentDeliveryByUrlOptions = HyperlinksOption & DepthOptions & CultureOptions
 /**
  * Content Delivery Ancestors Options.
  * @public
@@ -35,7 +35,7 @@ export type ContentDeliveryByUrlOptions = HyperlinksOption & DepthOptions  & Cul
  * @remarks
  * See {@link HyperlinksOption}, {@link ContentTypeOptions} and {@link CultureOptions} for more details.
  */
-export type ContentDeliveryAncestorsOptions = HyperlinksOption & ContentTypeOptions  & CultureOptions
+export type ContentDeliveryAncestorsOptions = HyperlinksOption & ContentTypeOptions & CultureOptions
 /**
  * Content Delivery Children Options.
  * @public
@@ -43,7 +43,7 @@ export type ContentDeliveryAncestorsOptions = HyperlinksOption & ContentTypeOpti
  * @remarks
  * See {@link HyperlinksOption}, {@link ContentTypeOptions}, {@link PageOptions} and {@link CultureOptions} for more details.
  */
-export type ContentDeliveryChildrenOptions = HyperlinksOption & ContentTypeOptions & PageOptions  & CultureOptions
+export type ContentDeliveryChildrenOptions = HyperlinksOption & ContentTypeOptions & PageOptions & CultureOptions
 /**
  * Content Delivery Descendants Options.
  * @public
@@ -51,7 +51,7 @@ export type ContentDeliveryChildrenOptions = HyperlinksOption & ContentTypeOptio
  * @remarks
  * See {@link HyperlinksOption}, {@link ContentTypeOptions}, {@link PageOptions} and {@link CultureOptions} for more details.
  */
-export type ContentDeliveryDescendantsOptions = HyperlinksOption & ContentTypeOptions & PageOptions  & CultureOptions
+export type ContentDeliveryDescendantsOptions = HyperlinksOption & ContentTypeOptions & PageOptions & CultureOptions
 /**
  * Content Delivery By Content Type Options.
  * @public
@@ -59,7 +59,7 @@ export type ContentDeliveryDescendantsOptions = HyperlinksOption & ContentTypeOp
  * @remarks
  * See {@link HyperlinksOption}, {@link PageOptions} and {@link CultureOptions} for more details.
  */
-export type ContentDeliveryByContentTypeOptions = HyperlinksOption & PageOptions  & CultureOptions
+export type ContentDeliveryByContentTypeOptions = HyperlinksOption & PageOptions & CultureOptions
 /**
  * Content Delivery Filter Options.
  * @public
@@ -67,7 +67,7 @@ export type ContentDeliveryByContentTypeOptions = HyperlinksOption & PageOptions
  * @remarks
  * See {@link HyperlinksOption}, {@link PageOptions} and {@link CultureOptions} for more details.
  */
-export type ContentDeliveryFilterOptions = HyperlinksOption & PageOptions  & CultureOptions
+export type ContentDeliveryFilterOptions = HyperlinksOption & PageOptions & CultureOptions
 /**
  * Content Delivery Search Options.
  * @public
@@ -75,7 +75,7 @@ export type ContentDeliveryFilterOptions = HyperlinksOption & PageOptions  & Cul
  * @remarks
  * See {@link HyperlinksOption}, {@link PageOptions} and {@link CultureOptions} for more details.
  */
-export type ContentDeliverySearchOptions = HyperlinksOption & PageOptions  & CultureOptions
+export type ContentDeliverySearchOptions = HyperlinksOption & PageOptions & CultureOptions
 
 /**
  * Media Delivery Children Options

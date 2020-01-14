@@ -11,8 +11,7 @@ export enum EndpointSource {
  * @internal
  */
 export class Endpoint<R = any, Options = any> {
-
-  constructor(
+  constructor (
     public readonly source: EndpointSource,
     public readonly path: string,
     public readonly urlParams: any,
@@ -27,7 +26,7 @@ export class Endpoint<R = any, Options = any> {
    */
   getPath = () => {
     const keys = Object.keys(this.urlParams)
-    if(keys.length === 0) {
+    if (keys.length === 0) {
       return this.path
     }
 
@@ -37,7 +36,6 @@ export class Endpoint<R = any, Options = any> {
 
       const regEx = new RegExp(`{${key}}`)
       path = path.replace(regEx, value)
-
     })
 
     return path
@@ -69,27 +67,25 @@ export class Endpoint<R = any, Options = any> {
     const queryString = params.toString()
 
     if (queryString) {
-      url += `${url.indexOf('?') > -1 ? '&' : '?'}${queryString}`
+      url += `${url.includes('?') ? '&' : '?'}${queryString}`
     }
 
     let apiType: string
-    switch(endpoint.source) {
+    switch (endpoint.source) {
       case EndpointSource.CDN:
-        apiType = "cdn"
+        apiType = 'cdn'
         break
 
       case EndpointSource.ContentManagement:
-        apiType = "api"
+        apiType = 'api'
         break
       default:
-        apiType = "cdn"
+        apiType = 'cdn'
         break
     }
 
-    url = url.replace("{API_TYPE}", apiType)
+    url = url.replace('{API_TYPE}', apiType)
 
     return url
-
   }
-
 }

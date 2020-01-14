@@ -1,20 +1,19 @@
-import {Client} from "../Client";
-import {Endpoint} from "../Endpoint";
-import {Endpoints} from "../Endpoints";
-import {MediaDeliveryChildrenOptions} from "../RequestOptions/index";
-import {Media} from '../Responses/Media'
+import { Client } from '../Client'
+import { Endpoint } from '../Endpoint'
+import { Endpoints } from '../Endpoints'
+import { MediaDeliveryChildrenOptions } from '../RequestOptions/index'
+import { Media } from '../Responses/Media'
 
 /**
  * MediaClient is used to access the Media part of the Content Delivery API.
  * @public
  */
 export class MediaClient {
-
   /** @internal */
-  constructor(private readonly client: Client) {}
+  constructor (private readonly client: Client) {}
 
-  private makeRequest = (endpoint: Endpoint, data?: any) => {
-    return this.client.makeRequest(endpoint, data)
+  private readonly makeRequest = async <R>(endpoint: Endpoint, data?: any) => {
+    return this.client.makeRequest<R>(endpoint, data)
   }
 
   /**
@@ -22,7 +21,7 @@ export class MediaClient {
    *
    * @returns a `Promise` that resolves to an array of {@link Media}.
    */
-  root<T extends Media>() {
+  async root<T extends Media> () {
     return this.makeRequest(Endpoints.delivery.media.root<T>())
   }
 
@@ -31,7 +30,7 @@ export class MediaClient {
    * @param id - GUID id of the Media item.
    * @returns a `Promise` that resolves to a {@link Media} if found, otherwise `undefined`.
   */
-  byId<T extends Media>(id: string) {
+  async byId<T extends Media> (id: string) {
     return this.makeRequest(Endpoints.delivery.media.byId<T>(id))
   }
 
@@ -41,8 +40,7 @@ export class MediaClient {
    * @param options - Request options. See {@link MediaDeliveryChildrenOptions}.
    * @returns a `Promise` that resolves to a {@link PagedResponse} of {@link Media} if found, otherwise `undefined`.
    */
-  children<T extends Media>(id: string, options?: MediaDeliveryChildrenOptions) {
+  async children<T extends Media> (id: string, options?: MediaDeliveryChildrenOptions) {
     return this.makeRequest(Endpoints.delivery.media.children<T>(id, options))
   }
-
 }
