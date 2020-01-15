@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/umbraco/Umbraco.Headless.Client.NodeJs#readme",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "headless-client.d.ts",
   "engines": {
     "node": ">=10.x"
   },
