@@ -54,3 +54,14 @@ export interface ContentManagementContent {
   sortOrder?: number
   [key: string]: ContentLanguageProperty | any
 }
+
+/**
+ * @public
+ */
+export interface ContentManagementContentRequest {
+  name: ContentLanguageProperty
+  contentTypeAlias: string
+  parentId?: string
+  sortOrder?: number
+  [key: string]: ContentLanguageProperty | any
+}

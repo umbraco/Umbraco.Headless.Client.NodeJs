@@ -26,7 +26,7 @@ export class ApiRequest<R = any> {
       'api-version': '2.1'
     }
 
-    if (this.client.options.language) {
+    if (this.endpoint.source === EndpointSource.CDN && this.client.options.language) {
       headers['Accept-Language'] = this.client.options.language
     }
 
@@ -48,9 +48,6 @@ export class ApiRequest<R = any> {
 
     const options = this.endpoint.options
     log('options', options)
-    if (options && options.culture) {
-      headers['Accept-Language'] = options.culture
-    }
 
     const method = this.endpoint.method.toLowerCase()
     if ((method === 'post' || method === 'put') && !!this.data) {

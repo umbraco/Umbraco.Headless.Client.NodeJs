@@ -1,0 +1,215 @@
+{
+    "_totalItems": 3,
+    "_totalPages": 1,
+    "_page": 1,
+    "_pageSize": 10,
+    "_links": {
+        "self": {
+            "href": "https://api.umbraco.io/content/8007e923-e62a-4ac1-a33f-caf3052582f4/children?page=1"
+        },
+        "content": [
+            {
+                "href": "https://api.umbraco.io/content/e0c5f0e5-c1f0-4422-9ac0-6dbb536e8eb5"
+            },
+            {
+                "href": "https://api.umbraco.io/content/041067a0-74f5-4d03-92af-40c3c0aa13e7"
+            },
+            {
+                "href": "https://api.umbraco.io/content/af3e08fc-fb90-4c78-b11c-c1a0cf43bd31"
+            }
+        ]
+    },
+    "_embedded": {
+        "content": [
+            {
+                "_currentVersionState": {
+                    "$invariant": "PUBLISHED"
+                },
+                "name": {
+                    "$invariant": "This will be great"
+                },
+                "_updateDate": {
+                    "$invariant": "2019-10-07T11:52:31.143Z"
+                },
+                "_hasChildren": false,
+                "_level": 3,
+                "_createDate": "2019-10-07T11:52:31.143Z",
+                "_id": "e0c5f0e5-c1f0-4422-9ac0-6dbb536e8eb5",
+                "_links": {
+                    "self": {
+                        "href": "https://api.umbraco.io/content/e0c5f0e5-c1f0-4422-9ac0-6dbb536e8eb5"
+                    },
+                    "root": {
+                        "href": "https://api.umbraco.io/content"
+                    },
+                    "children": {
+                        "href": "https://api.umbraco.io/content/e0c5f0e5-c1f0-4422-9ac0-6dbb536e8eb5/children"
+                    },
+                    "publish": {
+                        "href": "https://api.umbraco.io/content/e0c5f0e5-c1f0-4422-9ac0-6dbb536e8eb5/publish"
+                    },
+                    "unpublish": {
+                        "href": "https://api.umbraco.io/content/e0c5f0e5-c1f0-4422-9ac0-6dbb536e8eb5/unpublish"
+                    },
+                    "contenttype": {
+                        "href": "https://api.umbraco.io/content/type/blogpost"
+                    }
+                },
+                "contentTypeAlias": "blogpost",
+                "parentId": "8007e923-e62a-4ac1-a33f-caf3052582f4",
+                "sortOrder": 0,
+                "seoMetaDescription": {
+                    "$invariant": ""
+                },
+                "keywords": {
+                    "$invariant": []
+                },
+                "umbNaviHide": {
+                    "$invariant": "0"
+                },
+                "pageTitle": {
+                    "$invariant": "This will be great"
+                },
+                "categories": {
+                    "$invariant": [
+                        "great",
+                        "umbraco"
+                    ]
+                },
+                "excerpt": {
+                    "$invariant": "Proin eget tortor risus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vivamus magna justo, lacinia eget consectetur sed"
+                },
+                "bodyText": {
+                    "$invariant": null
+                }
+            },
+            {
+                "_currentVersionState": {
+                    "$invariant": "PUBLISHED"
+                },
+                "name": {
+                    "$invariant": "Another one"
+                },
+                "_updateDate": {
+                    "$invariant": "2019-10-07T11:53:09.653Z"
+                },
+                "_hasChildren": false,
+                "_level": 3,
+                "_createDate": "2019-10-07T11:53:09.653Z",
+                "_id": "041067a0-74f5-4d03-92af-40c3c0aa13e7",
+                "_links": {
+                    "self": {
+                        "href": "https://api.umbraco.io/content/041067a0-74f5-4d03-92af-40c3c0aa13e7"
+                    },
+                    "root": {
+                        "href": "https://api.umbraco.io/content"
+                    },
+                    "children": {
+                        "href": "https://api.umbraco.io/content/041067a0-74f5-4d03-92af-40c3c0aa13e7/children"
+                    },
+                    "publish": {
+                        "href": "https://api.umbraco.io/content/041067a0-74f5-4d03-92af-40c3c0aa13e7/publish"
+                    },
+                    "unpublish": {
+                        "href": "https://api.umbraco.io/content/041067a0-74f5-4d03-92af-40c3c0aa13e7/unpublish"
+                    },
+                    "contenttype": {
+                        "href": "https://api.umbraco.io/content/type/blogpost"
+                    }
+                },
+                "contentTypeAlias": "blogpost",
+                "parentId": "8007e923-e62a-4ac1-a33f-caf3052582f4",
+                "sortOrder": 0,
+                "seoMetaDescription": {
+                    "$invariant": ""
+                },
+                "keywords": {
+                    "$invariant": []
+                },
+                "umbNaviHide": {
+                    "$invariant": "0"
+                },
+                "pageTitle": {
+                    "$invariant": "Another one"
+                },
+                "categories": {
+                    "$invariant": [
+                        "cg16",
+                        "codegarden",
+                        "umbraco"
+                    ]
+                },
+                "excerpt": {
+                    "$invariant": "Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Sed porttitor lectus nibh."
+                },
+                "bodyText": {
+                    "$invariant": "<p>Donec sollicitudin molestie malesuada. Proin eget tortor risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla porttitor accumsan tincidunt. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla porttitor accumsan tincidunt. Donec rutrum congue leo eget malesuada.</p>\n<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Pellentesque in ipsum id orci porta dapibus. Donec rutrum congue leo eget malesuada. Nulla porttitor accumsan tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Sed porttitor lectus nibh.</p>\n<p>Pellentesque in ipsum id orci porta dapibus. Curabitur aliquet quam id dui posuere blandit. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec rutrum congue leo eget malesuada. Donec rutrum congue leo eget malesuada. Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat.</p>"
+                }
+            },
+            {
+                "_currentVersionState": {
+                    "$invariant": "PUBLISHED"
+                },
+                "name": {
+                    "$invariant": "My Blog Post"
+                },
+                "_updateDate": {
+                    "$invariant": "2019-10-07T11:54:00.657Z"
+                },
+                "_hasChildren": false,
+                "_level": 3,
+                "_createDate": "2019-10-07T11:54:00.657Z",
+                "_id": "af3e08fc-fb90-4c78-b11c-c1a0cf43bd31",
+                "_links": {
+                    "self": {
+                        "href": "https://api.umbraco.io/content/af3e08fc-fb90-4c78-b11c-c1a0cf43bd31"
+                    },
+                    "root": {
+                        "href": "https://api.umbraco.io/content"
+                    },
+                    "children": {
+                        "href": "https://api.umbraco.io/content/af3e08fc-fb90-4c78-b11c-c1a0cf43bd31/children"
+                    },
+                    "publish": {
+                        "href": "https://api.umbraco.io/content/af3e08fc-fb90-4c78-b11c-c1a0cf43bd31/publish"
+                    },
+                    "unpublish": {
+                        "href": "https://api.umbraco.io/content/af3e08fc-fb90-4c78-b11c-c1a0cf43bd31/unpublish"
+                    },
+                    "contenttype": {
+                        "href": "https://api.umbraco.io/content/type/blogpost"
+                    }
+                },
+                "contentTypeAlias": "blogpost",
+                "parentId": "8007e923-e62a-4ac1-a33f-caf3052582f4",
+                "sortOrder": 0,
+                "seoMetaDescription": {
+                    "$invariant": ""
+                },
+                "keywords": {
+                    "$invariant": []
+                },
+                "umbNaviHide": {
+                    "$invariant": "0"
+                },
+                "pageTitle": {
+                    "$invariant": "My Blog Post"
+                },
+                "categories": {
+                    "$invariant": [
+                        "demo",
+                        "umbraco",
+                        "starterkit",
+                        "lorem ipsum"
+                    ]
+                },
+                "excerpt": {
+                    "$invariant": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis lorem ut libero malesuada feugiat. Donec rutrum congue leo eget malesuada. Donec rutrum congue leo eget malesuada."
+                },
+                "bodyText": {
+                    "$invariant": "<div class=\"anyipsum-output\">\n<p>Bacon ipsum dolor amet alcatra pig cow sirloin. Jerky pig kielbasa, pork chop beef spare ribs sirloin. Ham hock sausage biltong meatball pastrami capicola boudin alcatra chicken. Salami kielbasa short ribs shoulder brisket tri-tip, cupim meatball pork chop capicola. Kielbasa short ribs strip steak t-bone frankfurter. Pancetta kevin salami, turducken landjaeger sausage pig.</p>\n<p>Sausage tongue doner short ribs tri-tip pork belly. Kielbasa swine bresaola salami pork short ribs ribeye jerky ground round boudin burgdoggen. Beef ribs ribeye flank biltong cupim andouille beef kielbasa meatloaf ham sausage. Pancetta chuck picanha short loin pork t-bone ball tip, boudin buffalo biltong chicken kevin.</p>\n<p>Salami cupim sirloin turducken pancetta ground round spare ribs. Ham hock capicola prosciutto salami meatball alcatra. Ribeye t-bone pancetta burgdoggen, pork chop beef ribs cupim meatball. Tail pork belly leberkas, frankfurter burgdoggen beef ribs bresaola fatback turducken flank picanha filet mignon. Pig bresaola pancetta venison cow.</p>\n<p>Ham drumstick cupim pork belly t-bone shoulder. Prosciutto flank ham filet mignon shank. Fatback shank capicola, buffalo pig bacon kevin corned beef jerky turkey pork belly venison. Pork belly drumstick beef ribs corned beef. Short loin meatloaf capicola spare ribs chuck burgdoggen. Shankle ground round cow, biltong hamburger t-bone leberkas turkey. Swine leberkas kielbasa hamburger sirloin bacon.</p>\n<p>Cow turducken buffalo alcatra filet mignon kevin pastrami tail. Jerky short loin boudin pork chop. Corned beef tri-tip picanha pork pig boudin capicola sirloin flank. Ham hock cupim prosciutto fatback.</p>\n</div>\n<div class=\"anyipsum-form-header\">Does your lorem ipsum text long for something a little meatier? Give our generator a try… it’s tasty!</div>"
+                }
+            }
+        ]
+    }
+}

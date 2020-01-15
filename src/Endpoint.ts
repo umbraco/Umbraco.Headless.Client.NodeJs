@@ -62,6 +62,9 @@ export class Endpoint<R = any, Options = any> {
       if (typeof endpoint.options.contentType === 'string') {
         params.append('contentType', endpoint.options.contentType)
       }
+      if (typeof endpoint.options.culture === 'string') {
+        params.append('culture', endpoint.options.culture)
+      }
     }
 
     const queryString = params.toString()

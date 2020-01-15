@@ -62,7 +62,7 @@ export class Client {
    * @internal
    */
   public makeRequest = async <R extends any>(endpoint: Endpoint<R>, data?: any): Promise<R> => {
-    const response = await new ApiRequest<R>(this, endpoint, data).promise()
+    const response = await new ApiRequest<any>(this, endpoint, data).promise()
     const items = this.getEmbeddedData(response)
     const pageData = this.getPagedData(response)
 
@@ -73,9 +73,8 @@ export class Client {
       }
     } else if (!pageData && items) {
       return items
-    } else {
-      return response
     }
+    return response
   }
 
   /**

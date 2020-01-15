@@ -1,6 +1,17 @@
 /**
  * @public
  */
+export interface ContentManagementMediaRequest {
+  mediaTypeAlias: string
+  name: string
+  sortOrder?: number
+  parentId?: string
+  [key: string]: any
+}
+
+/**
+ * @public
+ */
 export interface ContentManagementMedia {
   readonly _hasChildren: boolean
   readonly _level: string
@@ -10,6 +21,7 @@ export interface ContentManagementMedia {
   readonly _updateDate: string
   mediaTypeAlias: string
   name: string
-  sortOrder: number
+  sortOrder?: number
+  parentId?: string
   [key: string]: any
 }

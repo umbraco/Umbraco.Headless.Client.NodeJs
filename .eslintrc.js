@@ -14,5 +14,14 @@ module.exports = {
   rules: {
     '@typescript-eslint/strict-boolean-expressions': ['warn'],
     '@typescript-eslint/explicit-function-return-type': ['warn'],
-  }
+  },
+  overrides: [{
+    files: ['*.spec.ts'],
+    plugins: ['mocha'],
+    extends: ['plugin:mocha/recommended'],
+    rules: {
+      'no-unused-expressions': 'off',
+      '@typescript-eslint/no-var-requires': 'off',
+    }
+  }]
 };

@@ -1,5 +1,7 @@
+import FormData from 'form-data'
+
 import { Client } from '../../Client'
-import { PagedResponse, ContentManagementContent } from '../../Responses'
+import { PagedResponse, ContentManagementContent, ContentManagementContentRequest } from '../../Responses'
 import { Endpoint } from '../../Endpoint'
 import { Endpoints } from '../../Endpoints'
 import { APIContentChildrenOptions, APIContentPublishOptions, APIContentUnpublishOptions } from '../../RequestOptions'
@@ -50,7 +52,7 @@ export class ContentManagementClient {
 
   /**
    * Create a new Content item.
-   * @param body - The Content to create. See {@link ContentManagementContent}.
+   * @param body - The Content to create. See {@link ContentManagementContentRequest}.
    * @returns a `Promise` that resolves to the newly created {@link ContentManagementContent}.
    *
    * @example
@@ -99,7 +101,7 @@ export class ContentManagementClient {
    *
    * See {@link https://our.umbraco.com/documentation/Umbraco-Heartcore/API-Documentation/Content-Management/content/#create-content} for more info on the structure of the document.
    */
-  async create<T extends ContentManagementContent> (body: T | FormData) {
+  async create<T extends ContentManagementContent> (body: ContentManagementContentRequest | FormData) {
     return this.makeRequest(Endpoints.management.content.create<T>(), body)
   }
 
@@ -126,7 +128,7 @@ export class ContentManagementClient {
   /**
    * Update a Content item.
    * @param id - GUID id of the Content item.
-   * @param body - Content to update, must be a complete Content item including all cultures. See {@link ContentManagementContent}.
+   * @param body - Content to update, must be a complete Content item including all cultures. See {@link ContentManagementContentRequest}.
    * @returns a `Promise` that resolves to a {@link ContentManagementContent} of the updated Content item if found, otherwise `undefined`.
    *
    * @example
@@ -175,7 +177,7 @@ export class ContentManagementClient {
    *
    * See {@link https://our.umbraco.com/documentation/Umbraco-Heartcore/API-Documentation/Content-Management/content/#update-content} for more info on the structure of the document.
    */
-  async update<T extends ContentManagementContent> (id: string, body: T | FormData) {
+  async update<T extends ContentManagementContent> (id: string, body: ContentManagementContentRequest | FormData) {
     return this.makeRequest(Endpoints.management.content.update<T>(id), body)
   }
 

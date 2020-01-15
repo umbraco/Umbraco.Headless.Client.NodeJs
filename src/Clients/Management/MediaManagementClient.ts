@@ -1,5 +1,7 @@
+import FormData from 'form-data'
+
 import { Client } from '../../Client'
-import { PagedResponse, ContentManagementMedia } from '../../Responses'
+import { PagedResponse, ContentManagementMedia, ContentManagementMediaRequest } from '../../Responses'
 import { Endpoint } from '../../Endpoint'
 import { Endpoints } from '../../Endpoints'
 import { APIMediaChildrenOptions } from '../../RequestOptions'
@@ -50,7 +52,7 @@ export class MediaManagementClient {
 
   /**
    * Create a new Media item.
-   * @param body - The Media to create. See {@link ContentManagementMedia}.
+   * @param body - The Media to create. See {@link ContentManagementMediaRequest}.
    * @returns a `Promise` that resolves to the newly created {@link ContentManagementMedia}.
    *
    * @example
@@ -89,14 +91,14 @@ export class MediaManagementClient {
    *
    * See {@link https://our.umbraco.com/documentation/Umbraco-Heartcore/API-Documentation/Content-Management/media/#create-content} for more info on the structure of the document.
    */
-  async create <T extends ContentManagementMedia> (body: T | FormData) {
+  async create <T extends ContentManagementMedia> (body: ContentManagementMediaRequest | FormData) {
     return this.makeRequest(Endpoints.management.media.create(), body)
   }
 
   /**
    * Update a Media item.
    * @param id - GUID id of the Content item.
-   * @param body - Media to update. See {@link ContentManagementMedia}.
+   * @param body - Media to update. See {@link ContentManagementMediaRequest}.
    * @returns a `Promise` that resolves to a {@link ContentManagementMedia} of the updated Media item if found, otherwise `undefined`.
    *
    * @example
@@ -135,7 +137,7 @@ export class MediaManagementClient {
    *
    * See {@link https://our.umbraco.com/documentation/Umbraco-Heartcore/API-Documentation/Content-Management/media/#update-media} for more info on the structure of the document.
    */
-  async update <T extends ContentManagementMedia> (id: string, body: T | FormData) {
+  async update <T extends ContentManagementMedia> (id: string, body: ContentManagementMediaRequest | FormData) {
     return this.makeRequest(Endpoints.management.media.update(id), body)
   }
 

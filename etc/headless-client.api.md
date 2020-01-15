@@ -5,6 +5,7 @@
 ```ts
 
 import { AxiosResponse } from 'axios';
+import FormData from 'form-data';
 
 // @public
 export type APIContentChildrenOptions = PageOptions;
@@ -201,12 +202,12 @@ export class ContentManagementClient {
     constructor(client: Client);
     byId<T extends ContentManagementContent>(id: string): Promise<T>;
     children<T extends ContentManagementContent>(id: string, options?: APIContentChildrenOptions): Promise<PagedResponse<T>>;
-    create<T extends ContentManagementContent>(body: T | FormData): Promise<T>;
+    create<T extends ContentManagementContent>(body: ContentManagementContentRequest | FormData): Promise<T>;
     delete<T extends ContentManagementContent>(id: string): Promise<ContentManagementContent>;
     publish<T extends ContentManagementContent>(id: string, options?: APIContentPublishOptions): Promise<T>;
     root<T extends ContentManagementContent>(): Promise<T[]>;
     unPublish<T extends ContentManagementContent>(id: string, options?: APIContentUnpublishOptions): Promise<T>;
-    update<T extends ContentManagementContent>(id: string, body: T | FormData): Promise<T>;
+    update<T extends ContentManagementContent>(id: string, body: ContentManagementContentRequest | FormData): Promise<T>;
 }
 
 // @public (undocumented)
@@ -238,6 +239,20 @@ export interface ContentManagementContent {
 }
 
 // @public (undocumented)
+export interface ContentManagementContentRequest {
+    // (undocumented)
+    [key: string]: ContentLanguageProperty | any;
+    // (undocumented)
+    contentTypeAlias: string;
+    // (undocumented)
+    name: ContentLanguageProperty;
+    // (undocumented)
+    parentId?: string;
+    // (undocumented)
+    sortOrder?: number;
+}
+
+// @public (undocumented)
 export interface ContentManagementMedia {
     // (undocumented)
     [key: string]: any;
@@ -256,9 +271,25 @@ export interface ContentManagementMedia {
     // (undocumented)
     name: string;
     // (undocumented)
-    sortOrder: number;
+    parentId?: string;
+    // (undocumented)
+    sortOrder?: number;
     // (undocumented)
     readonly _updateDate: string;
+}
+
+// @public (undocumented)
+export interface ContentManagementMediaRequest {
+    // (undocumented)
+    [key: string]: any;
+    // (undocumented)
+    mediaTypeAlias: string;
+    // (undocumented)
+    name: string;
+    // (undocumented)
+    parentId?: string;
+    // (undocumented)
+    sortOrder?: number;
 }
 
 // @public (undocumented)
@@ -801,10 +832,10 @@ export class MediaManagementClient {
     constructor(client: Client);
     byId<T extends ContentManagementMedia>(id: string): Promise<T>;
     children<T extends ContentManagementMedia>(id: string, options?: APIMediaChildrenOptions): Promise<PagedResponse<T>>;
-    create<T extends ContentManagementMedia>(body: T | FormData): Promise<ContentManagementMedia>;
+    create<T extends ContentManagementMedia>(body: ContentManagementMediaRequest | FormData): Promise<ContentManagementMedia>;
     delete<T extends ContentManagementMedia>(id: string): Promise<ContentManagementMedia>;
     root<T extends ContentManagementMedia>(): Promise<T[]>;
-    update<T extends ContentManagementMedia>(id: string, body: T | FormData): Promise<ContentManagementMedia>;
+    update<T extends ContentManagementMedia>(id: string, body: ContentManagementMediaRequest | FormData): Promise<ContentManagementMedia>;
 }
 
 // @public (undocumented)
