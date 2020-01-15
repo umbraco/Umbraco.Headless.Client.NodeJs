@@ -1,12 +1,18 @@
+/**
+ * @public
+ */
 export interface ContentLanguageProperty {
   $invariant?: any
   [key: string]: any
 }
 
-export interface CreateContentBody {
+/**
+ * @public
+ */
+export interface ContentManagementContent {
+  name: ContentLanguageProperty
   contentTypeAlias: string
   parentId?: string
   sortOrder?: number
   [key: string]: ContentLanguageProperty | any
-
 }

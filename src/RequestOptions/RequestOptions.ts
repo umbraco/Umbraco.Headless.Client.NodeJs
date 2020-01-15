@@ -95,7 +95,7 @@ export type MediaDeliveryChildrenOptions = PageOptions
  */
 export type APIContentChildrenOptions = PageOptions
 /**
- * See {@link HyperlinksOption}, {@link ContentTypeOptions} and {@link CultureOptions} for more details.
+ * See {@link CultureOptions} for more details.
  * @public
  */
 export type APIContentPublishOptions = CultureOptions

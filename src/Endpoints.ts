@@ -25,8 +25,8 @@ import {
   ContentMemberTypeType,
   ContentRelationType,
   ContentRelationTypeType,
-  ContentResponseElement,
   ContentTypeBase,
+  ContentManagementContent,
   Media,
   MediaTypeContentManager,
   MediaTypeContentManagerRoot,
@@ -63,15 +63,15 @@ export const Endpoints = {
 
   management: {
     content: {
-      root: <R extends ContentResponseElement>() => new Endpoint<R[]>(EndpointSource.ContentManagement, '/content', {}, 'get'),
-      byId: <R extends ContentResponseElement>(id: string | number) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', { id }, 'get'),
-      children: <R extends ContentResponseElement>(id: string | number, options?: APIContentChildrenOptions) => new Endpoint<PagedResponse<R>>(EndpointSource.ContentManagement, '/content/{id}/children', { id }, 'get', options),
-      create: <R extends ContentResponseElement>() => new Endpoint<R>(EndpointSource.ContentManagement, '/content', {}, 'post'),
-      publish: <R extends ContentResponseElement>(id: string | number, options?: APIContentPublishOptions) => {
+      root: <R extends ContentManagementContent>() => new Endpoint<R[]>(EndpointSource.ContentManagement, '/content', {}, 'get'),
+      byId: <R extends ContentManagementContent>(id: string | number) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', { id }, 'get'),
+      children: <R extends ContentManagementContent>(id: string | number, options?: APIContentChildrenOptions) => new Endpoint<PagedResponse<R>>(EndpointSource.ContentManagement, '/content/{id}/children', { id }, 'get', options),
+      create: <R extends ContentManagementContent>() => new Endpoint<R>(EndpointSource.ContentManagement, '/content', {}, 'post'),
+      publish: <R extends ContentManagementContent>(id: string | number, options?: APIContentPublishOptions) => {
         return new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/publish', { id }, 'put', options) as Endpoint<R, APIContentPublishOptions>
       },
-      unPublish: <R extends ContentResponseElement>(id: number|string, options?: APIContentUnpublishOptions) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/unpublish', { id }, 'put', options),
-      update: <R extends ContentResponseElement>(id: number | string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', { id }, 'put'),
+      unPublish: <R extends ContentManagementContent>(id: number|string, options?: APIContentUnpublishOptions) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/unpublish', { id }, 'put', options),
+      update: <R extends ContentManagementContent>(id: number | string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', { id }, 'put'),
       delete: (id: number | string) => new Endpoint(EndpointSource.ContentManagement, '/content/{id}', { id }, 'delete')
     },
     contentType: {

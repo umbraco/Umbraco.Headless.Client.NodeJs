@@ -80,21 +80,6 @@ export interface Content {
     _writerName: string;
 }
 
-// @public
-export class ContentClient {
-    // @internal
-    constructor(client: Client);
-    ancestors(id: string, options?: ContentDeliveryAncestorsOptions): Promise<Content[]>;
-    byContentType<T extends Content>(contentType: string, options?: ContentDeliveryByContentTypeOptions): Promise<PagedResponse<T>>;
-    byId<T extends Content>(id: string, options?: ContentDeliveryByIdOptions): Promise<T>;
-    byUrl<T extends Content>(url: string, options?: ContentDeliveryByUrlOptions): Promise<T>;
-    children<T extends Content>(id: string, options?: ContentDeliveryChildrenOptions): Promise<PagedResponse<T>>;
-    descendants(id: string, options?: ContentDeliveryDescendantsOptions): Promise<Content[]>;
-    filter<T extends Content>(body: ContentFilter, options?: ContentDeliveryFilterOptions): Promise<PagedResponse<T>>;
-    root<T extends Content>(options?: ContentDeliveryRootOptions): Promise<T[]>;
-    search<T extends Content>(term: string, options?: ContentDeliverySearchOptions): Promise<PagedResponse<T>>;
-}
-
 // @public (undocumented)
 export interface ContentCreateMemberType {
     // (undocumented)
@@ -125,6 +110,21 @@ export type ContentDeliveryByUrlOptions = HyperlinksOption & DepthOptions & Cult
 
 // @public
 export type ContentDeliveryChildrenOptions = HyperlinksOption & ContentTypeOptions & PageOptions & CultureOptions;
+
+// @public
+export class ContentDeliveryClient {
+    // @internal
+    constructor(client: Client);
+    ancestors(id: string, options?: ContentDeliveryAncestorsOptions): Promise<Content[]>;
+    byContentType<T extends Content>(contentType: string, options?: ContentDeliveryByContentTypeOptions): Promise<PagedResponse<T>>;
+    byId<T extends Content>(id: string, options?: ContentDeliveryByIdOptions): Promise<T>;
+    byUrl<T extends Content>(url: string, options?: ContentDeliveryByUrlOptions): Promise<T>;
+    children<T extends Content>(id: string, options?: ContentDeliveryChildrenOptions): Promise<PagedResponse<T>>;
+    descendants(id: string, options?: ContentDeliveryDescendantsOptions): Promise<Content[]>;
+    filter<T extends Content>(body: ContentFilter, options?: ContentDeliveryFilterOptions): Promise<PagedResponse<T>>;
+    root<T extends Content>(options?: ContentDeliveryRootOptions): Promise<T[]>;
+    search<T extends Content>(term: string, options?: ContentDeliverySearchOptions): Promise<PagedResponse<T>>;
+}
 
 // @public
 export type ContentDeliveryDescendantsOptions = HyperlinksOption & ContentTypeOptions & PageOptions & CultureOptions;
@@ -194,6 +194,34 @@ export interface ContentLanguageType {
     _links: any;
     // (undocumented)
     _updateDate: string;
+}
+
+// @public
+export class ContentManagementClient {
+    // @internal
+    constructor(client: Client);
+    byId<T extends ContentManagementContent>(id: string): Promise<T>;
+    children<T extends ContentManagementContent>(id: string, options?: APIContentChildrenOptions): Promise<PagedResponse<T>>;
+    create<T extends ContentManagementContent>(body: ContentManagementContent | FormData): Promise<T>;
+    delete(id: string): Promise<any>;
+    publish<T extends ContentManagementContent>(id: string, options?: APIContentPublishOptions): Promise<T>;
+    root<T extends ContentManagementContent>(): Promise<T[]>;
+    unPublish<T extends ContentManagementContent>(id: string, options?: APIContentUnpublishOptions): Promise<T>;
+    update<T extends ContentManagementContent>(id: string, body: ContentManagementContent | FormData): Promise<T>;
+}
+
+// @public (undocumented)
+export interface ContentManagementContent {
+    // (undocumented)
+    [key: string]: ContentLanguageProperty | any;
+    // (undocumented)
+    contentTypeAlias: string;
+    // (undocumented)
+    name: ContentLanguageProperty;
+    // (undocumented)
+    parentId?: string;
+    // (undocumented)
+    sortOrder?: number;
 }
 
 // @public (undocumented)
@@ -377,40 +405,6 @@ export interface ContentRelationTypeType {
 }
 
 // @public (undocumented)
-export interface ContentResponseElement {
-    // (undocumented)
-    _createDate: string;
-    // (undocumented)
-    _creatorName: string;
-    // (undocumented)
-    _deleteDate?: string;
-    // (undocumented)
-    _hasChildren: boolean;
-    // (undocumented)
-    _id: string;
-    // (undocumented)
-    _level: number;
-    // (undocumented)
-    _links: ContentResponseElementLinks;
-    // (undocumented)
-    _updateDate: string;
-    // (undocumented)
-    _url: string;
-    // (undocumented)
-    _writerName: string;
-}
-
-// @public (undocumented)
-export interface ContentResponseElementLinks {
-    // (undocumented)
-    [key: string]: {
-        href: string;
-        title?: string;
-        templated?: boolean;
-    };
-}
-
-// @public (undocumented)
 export interface ContentTypeBase {
     // (undocumented)
     alias: string;
@@ -466,18 +460,6 @@ export interface ContentTypeOptions {
 }
 
 // @public (undocumented)
-export interface CreateContentBody {
-    // (undocumented)
-    [key: string]: ContentLanguageProperty | any;
-    // (undocumented)
-    contentTypeAlias: string;
-    // (undocumented)
-    parentId?: string;
-    // (undocumented)
-    sortOrder?: number;
-}
-
-// @public (undocumented)
 export interface CreateContentLanguageType {
     // (undocumented)
     cultureName: string;
@@ -498,8 +480,8 @@ export interface CultureOptions {
 export class DeliveryClient {
     // @internal
     constructor(client: Client);
-    readonly content: ContentClient;
-    readonly media: MediaClient;
+    readonly content: ContentDeliveryClient;
+    readonly media: MediaDeliveryClient;
 }
 
 // @public
@@ -698,34 +680,19 @@ export interface HyperlinksOption {
     hyperlinks?: boolean;
 }
 
-// @public (undocumented)
-export interface LanguageContainer<T> {
-    // (undocumented)
-    $invariant?: T;
-    // (undocumented)
-    [key: string]: T | undefined;
-}
-
 // @public
 export class ManagementClient {
+    // @internal
     constructor(client: Client);
-    get content(): {
-        root: <R extends ContentResponseElement>() => Promise<R[]>;
-        byId: <R_1 extends ContentResponseElement>(id: string) => Promise<R_1>;
-        children: <R_2 extends ContentResponseElement>(id: string, options?: import("../RequestOptions").PageOptions | undefined) => Promise<import("../Responses").PagedResponse<ContentResponseElement>>;
-        create: <R_3 extends ContentResponseElement>(body: CreateContentBody) => Promise<R_3>;
-        publish: <R_4 extends ContentResponseElement>(id: string, options?: import("../RequestOptions").CultureOptions | undefined) => Promise<R_4>;
-        unPublish: <R_5 extends ContentResponseElement>(id: string, options?: import("../RequestOptions").CultureOptions | undefined) => Promise<R_5>;
-        update: <R_6 extends ContentResponseElement>(id: string, body: Partial<R_6>) => Promise<R_6>;
-        delete: (id: string) => Promise<any>;
-    };
+    // (undocumented)
+    readonly content: ContentManagementClient;
     get contentType(): {
         all: <R extends ContentTypeBase>() => Promise<R[]>;
         byAlias: (alias: string) => Promise<ContentTypeBase>;
     };
     get forms(): {
-        all: () => Promise<import("../Responses").Form[]>;
-        byId: (id: string) => Promise<import("../Responses").Form>;
+        all: () => Promise<import("../../Responses").Form[]>;
+        byId: (id: string) => Promise<import("../../Responses").Form>;
         submitEntry: (formId: string, data: object) => Promise<any>;
     };
     get language(): {
@@ -738,14 +705,14 @@ export class ManagementClient {
     get media(): {
         root: <R extends ContentManagerMediaType>() => Promise<R[]>;
         byId: <R_1 extends ContentManagerMediaType>(id: string) => Promise<R_1>;
-        children: <R_2 extends ContentManagerMediaType>(id: string, options?: import("../RequestOptions").PageOptions | undefined) => Promise<import("../Responses").PagedResponse<R_2>>;
+        children: <R_2 extends ContentManagerMediaType>(id: string, options?: import("../../RequestOptions").PageOptions | undefined) => Promise<import("../../Responses").PagedResponse<R_2>>;
         create: (data: any) => Promise<any>;
         update: (id: string, data: any) => Promise<any>;
         delete: (id: string) => Promise<any>;
     };
     get mediaType(): {
-        all: () => Promise<import("../Responses").MediaTypeContentManagerRoot>;
-        byAlias: (alias: string) => Promise<import("../Responses").MediaTypeContentManager>;
+        all: () => Promise<import("../../Responses").MediaTypeContentManagerRoot>;
+        byAlias: (alias: string) => Promise<import("../../Responses").MediaTypeContentManager>;
     };
     get member(): {
         byUsername: <R extends ContentMemberType>(username: string) => Promise<R>;
@@ -765,15 +732,15 @@ export class ManagementClient {
         byAlias: <R_1 extends ContentMemberTypeType>(alias: string) => Promise<R_1>;
     };
     get relation(): {
-        byId: (id: string) => Promise<import("../Responses").ContentRelationType>;
-        byAlias: (alias: string) => Promise<import("../Responses").ContentRelationType[]>;
-        byChild: (id: string) => Promise<import("../Responses").ContentRelationType[]>;
-        byParent: (id: string) => Promise<import("../Responses").ContentRelationType[]>;
-        create: (data: any) => Promise<import("../Responses").ContentRelationType>;
-        delete: (id: string) => Promise<import("../Responses").ContentRelationType>;
+        byId: (id: string) => Promise<import("../../Responses").ContentRelationType>;
+        byAlias: (alias: string) => Promise<import("../../Responses").ContentRelationType[]>;
+        byChild: (id: string) => Promise<import("../../Responses").ContentRelationType[]>;
+        byParent: (id: string) => Promise<import("../../Responses").ContentRelationType[]>;
+        create: (data: any) => Promise<import("../../Responses").ContentRelationType>;
+        delete: (id: string) => Promise<import("../../Responses").ContentRelationType>;
     };
     get relationType(): {
-        byAlias: (alias: string) => Promise<import("../Responses").ContentRelationTypeType>;
+        byAlias: (alias: string) => Promise<import("../../Responses").ContentRelationTypeType>;
     };
 }
 
@@ -808,16 +775,16 @@ export interface Media {
 }
 
 // @public
-export class MediaClient {
-    // @internal
-    constructor(client: Client);
-    byId<T extends Media>(id: string): Promise<any>;
-    children<T extends Media>(id: string, options?: MediaDeliveryChildrenOptions): Promise<any>;
-    root<T extends Media>(): Promise<any>;
-}
+export type MediaDeliveryChildrenOptions = PageOptions;
 
 // @public
-export type MediaDeliveryChildrenOptions = PageOptions;
+export class MediaDeliveryClient {
+    // @internal
+    constructor(client: Client);
+    byId<T extends Media>(id: string): Promise<unknown>;
+    children<T extends Media>(id: string, options?: MediaDeliveryChildrenOptions): Promise<unknown>;
+    root<T extends Media>(): Promise<unknown>;
+}
 
 // @public (undocumented)
 export interface MediaTypeContentManager {
@@ -880,14 +847,6 @@ export interface PropertyMediaType {
     sortOrder: number;
     // (undocumented)
     validation: any;
-}
-
-// Warning: (ae-internal-missing-underscore) The name "RootContentResponse" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export interface RootContentResponse<T extends ContentResponseElement = ContentResponseElement> {
-    // (undocumented)
-    content: T[];
 }
 
 

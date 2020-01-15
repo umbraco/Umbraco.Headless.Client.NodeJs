@@ -1,11 +1,10 @@
-import { Client } from '../Client'
-import { Endpoint } from '../Endpoint'
-import { Endpoints } from '../Endpoints'
+import { Client } from '../../Client'
+import { ContentManagementClient } from './ContentManagementClient'
+import { Endpoint } from '../../Endpoint'
+import { Endpoints } from '../../Endpoints'
 import {
-  APIContentChildrenOptions,
-  APIContentPublishOptions,
-  APIContentUnpublishOptions, APIMediaChildrenOptions
-} from '../RequestOptions/index'
+  APIMediaChildrenOptions
+} from '../../RequestOptions'
 import {
   ContentCreateMemberType,
   ContentLanguageType,
@@ -13,16 +12,18 @@ import {
   ContentMemberCreateGroupType,
   ContentMemberGroupType,
   ContentMemberType, ContentMemberTypeType,
-  ContentResponseElement,
   ContentTypeBase,
-  CreateContentBody,
   CreateContentLanguageType
-} from '../Responses/index'
+} from '../../Responses'
 
 /**
- * {ManagerClient} is being used to manage content from Umbraco headless application
+ * ManagementClient is used to access the Content Management API.
+ * @public
  */
 export class ManagementClient {
+  /**
+   * @internal
+   */
   constructor (
     private readonly client: Client
   ) {
@@ -33,63 +34,7 @@ export class ManagementClient {
     return this.client.makeRequest(endpoint, data)
   }
 
-  /**
-   * Content API
-   */
-  get content () {
-    return {
-      /**
-       * Gets all published content at the root of the tree
-       */
-      root: async <R extends ContentResponseElement>() => this.makeRequest(Endpoints.management.content.root<R>()),
-
-      /**
-       * Gets a single published content by its id
-       * @param id GUID part of an Umbraco UDI
-       */
-      byId: async <R extends ContentResponseElement>(id: string) => this.makeRequest(Endpoints.management.content.byId<R>(id)),
-
-      /**
-       * Get all children of a content object
-       * @param id GUID part of an Umbraco UDI
-       * @param options Request options if with page
-       */
-      children: async <R extends ContentResponseElement>(id: string, options?: APIContentChildrenOptions) => this.makeRequest(Endpoints.management.content.children(id, options)),
-
-      /**
-       * Create a content object
-       * @param body Data which needs to be used for creating Content
-       */
-      create: async <R extends ContentResponseElement>(body: CreateContentBody) => this.makeRequest(Endpoints.management.content.create<R>(), body),
-
-      /**
-       * Publish a content object
-       * @param id GUID part of an Umbraco UDI
-       * @param options Request options
-       */
-      publish: async <R extends ContentResponseElement>(id: string, options?: APIContentPublishOptions) => this.makeRequest(Endpoints.management.content.publish<R>(id, options)),
-
-      /**
-       * Un-publish a content object
-       * @param id GUID part of an Umbraco UDI
-       * @param options Request options
-       */
-      unPublish: async <R extends ContentResponseElement>(id: string, options?: APIContentUnpublishOptions) => this.makeRequest(Endpoints.management.content.unPublish<R>(id, options)),
-
-      /**
-       * Update a content object
-       * @param id GUID part of an Umbraco UDI
-       * @param body Data which needs to be used for updating content
-       */
-      update: async<R extends ContentResponseElement>(id: string, body: Partial<R>) => this.makeRequest(Endpoints.management.content.update<R>(id), body),
-
-      /**
-       * Delete a content object
-       * @param id GUID part of an Umbraco UDI
-       */
-      delete: async (id: string) => this.makeRequest(Endpoints.management.content.delete(id))
-    }
-  }
+  public readonly content = new ContentManagementClient(this.client)
 
   /**
    * ContentType API

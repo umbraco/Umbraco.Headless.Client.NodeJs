@@ -1,19 +1,20 @@
-import { Client } from '../Client'
-import { Endpoint } from '../Endpoint'
-import { Endpoints } from '../Endpoints'
-import { MediaDeliveryChildrenOptions } from '../RequestOptions/index'
-import { Media } from '../Responses/Media'
+import { Client } from '../../Client'
+import { Endpoint } from '../../Endpoint'
+import { Endpoints } from '../../Endpoints'
+import { MediaDeliveryChildrenOptions } from '../../RequestOptions/index'
+import { Media } from '../../Responses/Media'
 
 /**
- * MediaClient is used to access the Media part of the Content Delivery API.
+ * MediaDeliveryClient is used to access the Media part of the Content Delivery API.
  * @public
  */
-export class MediaClient {
+export class MediaDeliveryClient {
   /** @internal */
   constructor (private readonly client: Client) {}
 
   private readonly makeRequest = async <R>(endpoint: Endpoint, data?: any) => {
-    return this.client.makeRequest<R>(endpoint, data)
+    const result = await this.client.makeRequest<R>(endpoint, data)
+    return result
   }
 
   /**

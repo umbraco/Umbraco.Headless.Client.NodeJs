@@ -1,26 +1,27 @@
-import { Client } from '../Client'
-import { Endpoints } from '../Endpoints'
-import { Endpoint } from '../Endpoint'
+import { Client } from '../../Client'
+import { Endpoints } from '../../Endpoints'
+import { Endpoint } from '../../Endpoint'
 import {
   ContentDeliveryAncestorsOptions, ContentDeliveryByContentTypeOptions,
   ContentDeliveryByIdOptions,
   ContentDeliveryByUrlOptions, ContentDeliveryChildrenOptions, ContentDeliveryDescendantsOptions,
   ContentDeliveryRootOptions, ContentDeliverySearchOptions, ContentDeliveryFilterOptions
-} from '../RequestOptions'
-import { Content } from '../Responses'
-import { PagedResponse } from '../Responses/PagedResponse'
-import { ContentFilter } from '../RequestOptions/ContentFilterOptions'
+} from '../../RequestOptions'
+import { Content } from '../../Responses'
+import { PagedResponse } from '../../Responses/PagedResponse'
+import { ContentFilter } from '../../RequestOptions/ContentFilterOptions'
 
 /**
- * ContentClient is used to access the Content part af the Contint Delivery API.
+ * ContentDeliveryClient is used to access the Content part of the Content Delivery API.
  * @public
  */
-class ContentClient {
+export class ContentDeliveryClient {
   /** @internal */
   constructor (private readonly client: Client) {}
 
   private readonly makeRequest = async <R>(endpoint: Endpoint<R>, data?: any): Promise<R> => {
-    return this.client.makeRequest<R>(endpoint, data)
+    const result = await this.client.makeRequest<R>(endpoint, data)
+    return result
   }
 
   /**
@@ -113,5 +114,3 @@ class ContentClient {
     return this.makeRequest(Endpoints.delivery.content.search<T>(term, options))
   }
 }
-
-export { ContentClient }
