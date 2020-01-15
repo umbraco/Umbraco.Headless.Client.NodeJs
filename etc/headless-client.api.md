@@ -5,7 +5,6 @@
 ```ts
 
 import { AxiosResponse } from 'axios';
-import * as FormData from 'form-data';
 
 // @public
 export type APIContentChildrenOptions = PageOptions;
@@ -411,7 +410,6 @@ export enum ContentSavedState {
     Draft = "DRAFT",
     NotCreated = "NOT_CREATED",
     Published = "PUBLISHED",
-    // (undocumented)
     PublishedPendingChanges = "PUBLISHED_PENDING_CHANGES"
 }
 
@@ -631,8 +629,6 @@ export enum FormConditionRuleOperatorType {
     // (undocumented)
     StartsWith = "STARTS_WITH"
 }
-
-export { FormData }
 
 // @public (undocumented)
 export interface FormField {

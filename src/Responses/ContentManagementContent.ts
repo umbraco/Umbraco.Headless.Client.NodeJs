@@ -31,7 +31,7 @@ export enum ContentSavedState {
    * The item is published and there are no pending changes.
    */
   Published = 'PUBLISHED',
-  /*
+  /**
    * The item is published and there are pending changes.
    */
   PublishedPendingChanges = 'PUBLISHED_PENDING_CHANGES'
