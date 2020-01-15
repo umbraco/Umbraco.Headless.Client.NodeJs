@@ -1,6 +1,6 @@
-const umbraco = require("@umbraco/headless-client");
-const Client = umbraco.Client;
-const FormData = umbraco.FormData.default;
+// Remember to install the following packages
+const { Client } = require("@umbraco/headless-client");
+const FormData = require("form-data");
 const fs = require("fs");
 const path = require("path");
 
