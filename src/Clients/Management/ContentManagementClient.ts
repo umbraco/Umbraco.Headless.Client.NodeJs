@@ -32,7 +32,7 @@ export class ContentManagementClient {
   /**
    * Fetch a single Content item by its id.
    * @param id - GUID id of the Content item.
-   * @returns a `Promise` thath resolves to a {@link ContentManagementContent} if found, otherwise `undefined`.
+   * @returns a `Promise` that resolves to a {@link ContentManagementContent} if found, otherwise `undefined`.
    */
   async byId<T extends ContentManagementContent> (id: string) {
     return this.makeRequest(Endpoints.management.content.byId<T>(id))
@@ -57,10 +57,10 @@ export class ContentManagementClient {
    * ```typescript
    * const content = await client.management.content.create({
    *  name: {
-   *    $invariant: '<name>'
+   *    $invariant: '<name>',
    *  },
    *  contentTypeAlias: '<content-type-alias>',
-   *  parentId: '<parentId|undefined>'
+   *  parentId: '<parentId|undefined>',
    * })
    * ```
    *
@@ -75,13 +75,13 @@ export class ContentManagementClient {
    *
    * data.append(JSON.stringify({
    *  name: {
-   *    $invariant: '<name>'
+   *    $invariant: '<name>',
    *  },
    *  contentTypeAlias: '<content-type-alias>',
    *  parentId: '<parentId|undefined>',
    *  // if myFile is of type `Upload` and is culture variant
    *  myFile: {
-   *    'en-US': { 'my-file.txt' },
+   *    'en-US': 'my-file.txt',
    *  },
    *  // if myImage is of type `Image Cropper` and is culture invariant
    *  myImage: {
@@ -99,7 +99,7 @@ export class ContentManagementClient {
    *
    * See {@link https://our.umbraco.com/documentation/Umbraco-Heartcore/API-Documentation/Content-Management/content/#create-content} for more info on the structure of the document.
    */
-  async create<T extends ContentManagementContent> (body: ContentManagementContent | FormData) {
+  async create<T extends ContentManagementContent> (body: T | FormData) {
     return this.makeRequest(Endpoints.management.content.create<T>(), body)
   }
 
@@ -126,13 +126,56 @@ export class ContentManagementClient {
   /**
    * Update a Content item.
    * @param id - GUID id of the Content item.
-   * @param body - Content to update, must be a complete Content item including all cultures.
+   * @param body - Content to update, must be a complete Content item including all cultures. See {@link ContentManagementContent}.
    * @returns a `Promise` that resolves to a {@link ContentManagementContent} of the updated Content item if found, otherwise `undefined`.
    *
    * @example
-   * See {@link ContentManagementClient.create} for examples.
+   * ```typescript
+   * const content = await client.management.content.update('<content-id>', {
+   *  name: {
+   *    $invariant: '<name>',
+   *  },
+   *  contentTypeAlias: '<content-type-alias>',
+   *  parentId: '<parentId|undefined>',
+   * })
+   * ```
+   *
+   * If the Content Type includes an `Upload` or an `Image Cropper` property and you want to upload a file you need to pass a `FormData` object to the function instead,
+   *
+   * ```typescript
+   * import FormData from `form-data`
+   * import fs from 'fs'
+   * import path from 'path'
+   *
+   * const data = new FormData()
+   *
+   * data.append(JSON.stringify({
+   *  name: {
+   *    $invariant: '<name>',
+   *  },
+   *  contentTypeAlias: '<content-type-alias>',
+   *  parentId: '<parentId|undefined>',
+   *  // if myFile is of type `Upload` and is culture variant
+   *  myFile: {
+   *    'en-US': 'my-file.txt',
+   *  },
+   *  // if myImage is of type `Image Cropper` and is culture invariant
+   *  myImage: {
+   *    $invariant: {
+   *      src: 'my-image.jpg',
+   *    },
+   *  },
+   * }))
+   *
+   * data.append('myFile.en-US', fs.createReadStream(path.join(__dirname, 'my-file.txt')))
+   * data.append('myImage.$invariant', fs.createReadStream(path.join(__dirname, 'my-image.txt')))
+   *
+   * const content = await client.management.content.update('<content-id>', data)
+   * ```
+   *
+   * See {@link https://our.umbraco.com/documentation/Umbraco-Heartcore/API-Documentation/Content-Management/content/#update-content} for more info on the structure of the document.
    */
-  async update<T extends ContentManagementContent> (id: string, body: ContentManagementContent | FormData) {
+  async update<T extends ContentManagementContent> (id: string, body: T | FormData) {
     return this.makeRequest(Endpoints.management.content.update<T>(id), body)
   }
 
@@ -141,7 +184,7 @@ export class ContentManagementClient {
    * @param id - GUID id of the Content item.
    * @returns a `Promise` that resolves to a {@link ContentManagementContent} of the deleted Content item if found, otherwise `undefined`.
    */
-  async delete (id: string) {
+  async delete <T extends ContentManagementContent> (id: string) {
     return this.makeRequest(Endpoints.management.content.delete(id))
   }
 }

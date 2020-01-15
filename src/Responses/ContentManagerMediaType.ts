@@ -1,24 +1,3 @@
-export interface ContentManagerMediaType {
-  _hasChildren: boolean
-  _level: string
-  _createDate: string
-  _id: string
-  _updateDate: string
-  _links: any
-  mediaTypeAlias: string
-  name: string
-  sortOrder: number
-}
-
-export interface ContentManagerMediaTypeBase<T extends ContentManagerMediaType> {
-  media: T[]
-}
-
-export interface ContentManagerMediaTypeBody {
-  content: any
-  file: string
-}
-
 export interface MediaTypeContentManagerRoot {
   mediatypes: MediaTypeContentManager[]
 }

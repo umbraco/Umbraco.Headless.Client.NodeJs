@@ -1,14 +1,11 @@
 import { Client } from '../../Client'
 import { ContentManagementClient } from './ContentManagementClient'
+import { MediaManagementClient } from './MediaManagementClient'
 import { Endpoint } from '../../Endpoint'
 import { Endpoints } from '../../Endpoints'
 import {
-  APIMediaChildrenOptions
-} from '../../RequestOptions'
-import {
   ContentCreateMemberType,
   ContentLanguageType,
-  ContentManagerMediaType,
   ContentMemberCreateGroupType,
   ContentMemberGroupType,
   ContentMemberType, ContentMemberTypeType,
@@ -36,6 +33,8 @@ export class ManagementClient {
 
   public readonly content = new ContentManagementClient(this.client)
 
+  public readonly media = new MediaManagementClient(this.client)
+
   /**
    * ContentType API
    */
@@ -51,51 +50,6 @@ export class ManagementClient {
        * @param alias Alias for the content type
        */
       byAlias: async (alias: string) => this.makeRequest(Endpoints.management.contentType.byAlias(alias))
-    }
-  }
-
-  // TODO: Needs a interface for body
-  /**
-   * Media API
-   */
-  get media () {
-    return {
-      /**
-       * Fetch all media objects
-       */
-      root: async<R extends ContentManagerMediaType>() => this.makeRequest(Endpoints.management.media.root<R>()),
-
-      /**
-       * Find media object by id
-       * @param id GUID part of an Umbraco UDI
-       */
-      byId: async<R extends ContentManagerMediaType>(id: string) => this.makeRequest(Endpoints.management.media.byId<R>(id)),
-
-      /**
-       * Fetch all children for content object
-       * @param id GUID part of an Umbraco UDI
-       * @param options Request options if with page
-       */
-      children: async<R extends ContentManagerMediaType>(id: string, options?: APIMediaChildrenOptions) => this.makeRequest(Endpoints.management.media.children<R>(id, options)),
-
-      /**
-       * Create a media object
-       * @param data Data for creating media object
-       */
-      create: async (data: any) => this.makeRequest(Endpoints.management.media.create(), data),
-
-      /**
-       * Update media object
-       * @param id GUID part of an Umbraco UDI
-       * @param data Data for updating media object
-       */
-      update: async (id: string, data: any) => this.makeRequest(Endpoints.management.media.update(id), data),
-
-      /**
-       * Delete media object
-       * @param id GUID part of an Umbraco UDI
-       */
-      delete: async (id: string) => this.makeRequest(Endpoints.management.media.delete(id))
     }
   }
 

@@ -202,12 +202,12 @@ export class ContentManagementClient {
     constructor(client: Client);
     byId<T extends ContentManagementContent>(id: string): Promise<T>;
     children<T extends ContentManagementContent>(id: string, options?: APIContentChildrenOptions): Promise<PagedResponse<T>>;
-    create<T extends ContentManagementContent>(body: ContentManagementContent | FormData): Promise<T>;
-    delete(id: string): Promise<any>;
+    create<T extends ContentManagementContent>(body: T | FormData): Promise<T>;
+    delete<T extends ContentManagementContent>(id: string): Promise<ContentManagementContent>;
     publish<T extends ContentManagementContent>(id: string, options?: APIContentPublishOptions): Promise<T>;
     root<T extends ContentManagementContent>(): Promise<T[]>;
     unPublish<T extends ContentManagementContent>(id: string, options?: APIContentUnpublishOptions): Promise<T>;
-    update<T extends ContentManagementContent>(id: string, body: ContentManagementContent | FormData): Promise<T>;
+    update<T extends ContentManagementContent>(id: string, body: T | FormData): Promise<T>;
 }
 
 // @public (undocumented)
@@ -217,25 +217,41 @@ export interface ContentManagementContent {
     // (undocumented)
     contentTypeAlias: string;
     // (undocumented)
+    readonly _createDate: string;
+    // (undocumented)
+    readonly _currentVersionState: CurrentVersionSate;
+    // (undocumented)
+    readonly _deleteDate: string;
+    // (undocumented)
+    readonly _hasChildren: boolean;
+    // (undocumented)
+    readonly _id: string;
+    // (undocumented)
+    readonly _level: string;
+    // (undocumented)
     name: ContentLanguageProperty;
     // (undocumented)
     parentId?: string;
     // (undocumented)
     sortOrder?: number;
+    // (undocumented)
+    readonly _updateDate: string;
 }
 
 // @public (undocumented)
-export interface ContentManagerMediaType {
+export interface ContentManagementMedia {
     // (undocumented)
-    _createDate: string;
+    [key: string]: any;
     // (undocumented)
-    _hasChildren: boolean;
+    readonly _createDate: string;
     // (undocumented)
-    _id: string;
+    readonly _deleteDate: string;
     // (undocumented)
-    _level: string;
+    readonly _hasChildren: boolean;
     // (undocumented)
-    _links: any;
+    readonly _id: string;
+    // (undocumented)
+    readonly _level: string;
     // (undocumented)
     mediaTypeAlias: string;
     // (undocumented)
@@ -243,21 +259,7 @@ export interface ContentManagerMediaType {
     // (undocumented)
     sortOrder: number;
     // (undocumented)
-    _updateDate: string;
-}
-
-// @public (undocumented)
-export interface ContentManagerMediaTypeBase<T extends ContentManagerMediaType> {
-    // (undocumented)
-    media: T[];
-}
-
-// @public (undocumented)
-export interface ContentManagerMediaTypeBody {
-    // (undocumented)
-    content: any;
-    // (undocumented)
-    file: string;
+    readonly _updateDate: string;
 }
 
 // @public (undocumented)
@@ -404,6 +406,15 @@ export interface ContentRelationTypeType {
     _updateDate: string;
 }
 
+// @public
+export enum ContentSavedState {
+    Draft = "DRAFT",
+    NotCreated = "NOT_CREATED",
+    Published = "PUBLISHED",
+    // (undocumented)
+    PublishedPendingChanges = "PUBLISHED_PENDING_CHANGES"
+}
+
 // @public (undocumented)
 export interface ContentTypeBase {
     // (undocumented)
@@ -474,6 +485,14 @@ export interface CreateContentLanguageType {
 // @public
 export interface CultureOptions {
     culture?: string;
+}
+
+// @public (undocumented)
+export interface CurrentVersionSate {
+    // (undocumented)
+    $invariant?: any;
+    // (undocumented)
+    [key: string]: ContentSavedState;
 }
 
 // @public
@@ -702,16 +721,10 @@ export class ManagementClient {
         update: <R_3 extends ContentLanguageType>(id: string, data: CreateContentLanguageType) => Promise<R_3>;
         delete: <R_4 extends ContentLanguageType>(id: string) => Promise<R_4>;
     };
-    get media(): {
-        root: <R extends ContentManagerMediaType>() => Promise<R[]>;
-        byId: <R_1 extends ContentManagerMediaType>(id: string) => Promise<R_1>;
-        children: <R_2 extends ContentManagerMediaType>(id: string, options?: import("../../RequestOptions").PageOptions | undefined) => Promise<import("../../Responses").PagedResponse<R_2>>;
-        create: (data: any) => Promise<any>;
-        update: (id: string, data: any) => Promise<any>;
-        delete: (id: string) => Promise<any>;
-    };
+    // (undocumented)
+    readonly media: MediaManagementClient;
     get mediaType(): {
-        all: () => Promise<import("../../Responses").MediaTypeContentManagerRoot>;
+        all: () => Promise<import("../../Responses").MediaTypeContentManager[]>;
         byAlias: (alias: string) => Promise<import("../../Responses").MediaTypeContentManager>;
     };
     get member(): {
@@ -784,6 +797,18 @@ export class MediaDeliveryClient {
     byId<T extends Media>(id: string): Promise<unknown>;
     children<T extends Media>(id: string, options?: MediaDeliveryChildrenOptions): Promise<unknown>;
     root<T extends Media>(): Promise<unknown>;
+}
+
+// @public
+export class MediaManagementClient {
+    // @internal
+    constructor(client: Client);
+    byId<T extends ContentManagementMedia>(id: string): Promise<T>;
+    children<T extends ContentManagementMedia>(id: string, options?: APIMediaChildrenOptions): Promise<PagedResponse<T>>;
+    create<T extends ContentManagementMedia>(body: T | FormData): Promise<ContentManagementMedia>;
+    delete<T extends ContentManagementMedia>(id: string): Promise<ContentManagementMedia>;
+    root<T extends ContentManagementMedia>(): Promise<T[]>;
+    update<T extends ContentManagementMedia>(id: string, body: T | FormData): Promise<ContentManagementMedia>;
 }
 
 // @public (undocumented)

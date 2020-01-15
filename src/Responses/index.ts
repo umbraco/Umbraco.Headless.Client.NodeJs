@@ -1,6 +1,7 @@
 export * from './Content'
 export * from './Media'
 export * from './ContentManagementContent'
+export * from './ContentManagementMedia'
 export * from './ContentTypeBaseResponse'
 export * from './ContentManagerMediaType'
 export * from './ContentLanguageType'

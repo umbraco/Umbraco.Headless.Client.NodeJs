@@ -19,7 +19,7 @@ import {
 import {
   Content,
   ContentLanguageType,
-  ContentManagerMediaType,
+  MediaTypeContentManager,
   ContentMemberGroupType,
   ContentMemberType,
   ContentMemberTypeType,
@@ -27,9 +27,8 @@ import {
   ContentRelationTypeType,
   ContentTypeBase,
   ContentManagementContent,
+  ContentManagementMedia,
   Media,
-  MediaTypeContentManager,
-  MediaTypeContentManagerRoot,
   PagedResponse,
   Form
 } from './Responses'
@@ -43,11 +42,11 @@ export const Endpoints = {
 
     content: {
       root: <T extends Content>(options?: ContentDeliveryRootOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content', {}, 'get', options),
-      byId: <T extends Content>(id: string | number, options?: ContentDeliveryByIdOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/{id}', { id }, 'get', options),
+      byId: <T extends Content>(id: string, options?: ContentDeliveryByIdOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/{id}', { id }, 'get', options),
       byUrl: <T extends Content>(url: string, options?: ContentDeliveryByUrlOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/url?url={url}', { url }, 'get', options),
-      children: <T extends Content>(id: string | number, options?: ContentDeliveryChildrenOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/{id}/children', { id }, 'get', options),
-      ancestors: <T extends Content>(id: string | number, options?: ContentDeliveryAncestorsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/ancestors', { id }, 'get', options),
-      descendants: <T extends Content>(id: string | number, options?: ContentDeliveryDescendantsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/descendants', { id }, 'get', options),
+      children: <T extends Content>(id: string, options?: ContentDeliveryChildrenOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/{id}/children', { id }, 'get', options),
+      ancestors: <T extends Content>(id: string, options?: ContentDeliveryAncestorsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/ancestors', { id }, 'get', options),
+      descendants: <T extends Content>(id: string, options?: ContentDeliveryDescendantsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/descendants', { id }, 'get', options),
       byContentType: <T extends Content>(contentType: string, options?: ContentDeliveryByContentTypeOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/type?contentType={contentType}', { contentType }, 'get', options),
       filter: <T extends Content>(options?: ContentDeliveryFilterOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/filter', {}, 'post', options),
       search: <T extends Content>(term: string, options?: ContentDeliverySearchOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/search?term={term}', { term }, 'get', options)
@@ -55,8 +54,8 @@ export const Endpoints = {
 
     media: {
       root: <T extends Media>() => new Endpoint<T[]>(EndpointSource.CDN, '/media', {}, 'get'),
-      byId: <T extends Media>(id: string | number) => new Endpoint<T>(EndpointSource.CDN, '/media/{id}', { id }, 'get'),
-      children: <T extends Media>(id: string | number, options?: MediaDeliveryChildrenOptions) => new Endpoint<T>(EndpointSource.CDN, '/media/{id}/children', { id }, 'get', options)
+      byId: <T extends Media>(id: string) => new Endpoint<T>(EndpointSource.CDN, '/media/{id}', { id }, 'get'),
+      children: <T extends Media>(id: string, options?: MediaDeliveryChildrenOptions) => new Endpoint<T>(EndpointSource.CDN, '/media/{id}/children', { id }, 'get', options)
     }
 
   },
@@ -64,31 +63,31 @@ export const Endpoints = {
   management: {
     content: {
       root: <R extends ContentManagementContent>() => new Endpoint<R[]>(EndpointSource.ContentManagement, '/content', {}, 'get'),
-      byId: <R extends ContentManagementContent>(id: string | number) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', { id }, 'get'),
-      children: <R extends ContentManagementContent>(id: string | number, options?: APIContentChildrenOptions) => new Endpoint<PagedResponse<R>>(EndpointSource.ContentManagement, '/content/{id}/children', { id }, 'get', options),
+      byId: <R extends ContentManagementContent>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', { id }, 'get'),
+      children: <R extends ContentManagementContent>(id: string, options?: APIContentChildrenOptions) => new Endpoint<PagedResponse<R>>(EndpointSource.ContentManagement, '/content/{id}/children', { id }, 'get', options),
       create: <R extends ContentManagementContent>() => new Endpoint<R>(EndpointSource.ContentManagement, '/content', {}, 'post'),
-      publish: <R extends ContentManagementContent>(id: string | number, options?: APIContentPublishOptions) => {
+      publish: <R extends ContentManagementContent>(id: string, options?: APIContentPublishOptions) => {
         return new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/publish', { id }, 'put', options) as Endpoint<R, APIContentPublishOptions>
       },
-      unPublish: <R extends ContentManagementContent>(id: number|string, options?: APIContentUnpublishOptions) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/unpublish', { id }, 'put', options),
-      update: <R extends ContentManagementContent>(id: number | string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', { id }, 'put'),
-      delete: (id: number | string) => new Endpoint(EndpointSource.ContentManagement, '/content/{id}', { id }, 'delete')
+      unPublish: <R extends ContentManagementContent>(id: string, options?: APIContentUnpublishOptions) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/unpublish', { id }, 'put', options),
+      update: <R extends ContentManagementContent>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', { id }, 'put'),
+      delete: <R extends ContentManagementContent>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', { id }, 'delete')
     },
     contentType: {
       all: <R extends ContentTypeBase>() => new Endpoint<R[]>(EndpointSource.ContentManagement, '/content/type', {}, 'get'),
       byAlias: <R extends ContentTypeBase>(alias: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/type/{alias}', { alias }, 'get')
     },
     media: {
-      root: <R extends ContentManagerMediaType>() => new Endpoint<R[]>(EndpointSource.ContentManagement, '/media', {}, 'get'),
-      byId: <R extends ContentManagerMediaType>(id: string|number) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', { id }, 'get'),
-      children: <R extends ContentManagerMediaType>(id: string|number, options?: APIMediaChildrenOptions) => new Endpoint<PagedResponse<R>>(EndpointSource.ContentManagement, '/media/{id}/children', { id }, 'get', options),
-      create: () => new Endpoint<any, MultipartOptions>(EndpointSource.ContentManagement, '/media', {}, 'post', { usingMultipart: true }),
-      update: (id: string|number) => new Endpoint(EndpointSource.ContentManagement, '/media/{id}', { id }, 'put'),
-      delete: (id: string|number) => new Endpoint(EndpointSource.ContentManagement, '/media/{id}', { id }, 'delete')
+      root: <R extends ContentManagementMedia>() => new Endpoint<R[]>(EndpointSource.ContentManagement, '/media', {}, 'get'),
+      byId: <R extends ContentManagementMedia>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', { id }, 'get'),
+      children: <R extends ContentManagementMedia>(id: string, options?: APIMediaChildrenOptions) => new Endpoint<PagedResponse<R>>(EndpointSource.ContentManagement, '/media/{id}/children', { id }, 'get', options),
+      create: <R extends ContentManagementMedia>() => new Endpoint<R, MultipartOptions>(EndpointSource.ContentManagement, '/media', {}, 'post', { usingMultipart: true }),
+      update: <R extends ContentManagementMedia>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', { id }, 'put'),
+      delete: <R extends ContentManagementMedia>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', { id }, 'delete')
     },
 
     mediaType: {
-      all: () => new Endpoint<MediaTypeContentManagerRoot>(EndpointSource.ContentManagement, '/media/type', {}, 'get'),
+      all: () => new Endpoint<MediaTypeContentManager[]>(EndpointSource.ContentManagement, '/media/type', {}, 'get'),
       byAlias: (alias: string) => new Endpoint<MediaTypeContentManager>(EndpointSource.ContentManagement, '/media/type/{alias}', { alias }, 'get')
     },
 
