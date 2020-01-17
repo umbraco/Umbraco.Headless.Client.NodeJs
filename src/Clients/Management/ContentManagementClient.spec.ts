@@ -32,7 +32,15 @@ describe('ContentManagementClient', function () {
 
       const result = await client.management.content.byId('3de82763-c4bb-4bca-8f79-7b211b3ffffa')
 
+      expect(result).to.not.be.undefined
+      // @ts-ignore
       expect(result.name.$invariant).to.be.eq('Unicorn')
+    })
+
+    it('returns undefined when not found', async function () {
+      const result = await client.management.content.byId('3de82763-c4bb-4bca-8f79-7b211b3ffffa')
+
+      expect(result).to.be.undefined
     })
   })
 
@@ -42,7 +50,15 @@ describe('ContentManagementClient', function () {
 
       const result = await client.management.content.children('8007e923-e62a-4ac1-a33f-caf3052582f4')
 
+      expect(result).to.not.be.undefined
+      // @ts-ignore
       expect(result.items.length).to.be.eq(3)
+    })
+
+    it('returns undefined when not found', async function () {
+      const result = await client.management.content.byId('3de82763-c4bb-4bca-8f79-7b211b3ffffa/children')
+
+      expect(result).to.be.undefined
     })
   })
 
@@ -134,6 +150,12 @@ describe('ContentManagementClient', function () {
 
       expect(axiosMock.history.put.length).to.be.eq(1)
     })
+
+    it('returns undefined when not found', async function () {
+      const result = await client.management.content.publish('3de82763-c4bb-4bca-8f79-7b211b3ffffa')
+
+      expect(result).to.be.undefined
+    })
   })
 
   describe('#unPublish()', function () {
@@ -144,6 +166,12 @@ describe('ContentManagementClient', function () {
 
       expect(axiosMock.history.put.length).to.be.eq(1)
     })
+
+    it('returns undefined when not found', async function () {
+      const result = await client.management.content.unPublish('3de82763-c4bb-4bca-8f79-7b211b3ffffa')
+
+      expect(result).to.be.undefined
+    })
   })
 
   describe('#delete()', function () {
@@ -153,6 +181,12 @@ describe('ContentManagementClient', function () {
       await client.management.content.delete('3de82763-c4bb-4bca-8f79-7b211b3ffffa')
 
       expect(axiosMock.history.delete.length).to.be.eq(1)
+    })
+
+    it('returns undefined when not found', async function () {
+      const result = await client.management.content.delete('3de82763-c4bb-4bca-8f79-7b211b3ffffa')
+
+      expect(result).to.be.undefined
     })
   })
 
@@ -190,6 +224,8 @@ describe('ContentManagementClient', function () {
 
       const result = await client.management.content.update('041067a0-74f5-4d03-92af-40c3c0aa13e7', data)
 
+      expect(result).to.not.be.undefined
+      // @ts-ignore
       expect(result.name.$invariant).to.be.eq('Another one')
       expect(axiosMock.history.put.length).to.be.eq(1)
       expect(axiosMock.history.put[0].data).to.be.eq(JSON.stringify(data))
@@ -230,9 +266,24 @@ describe('ContentManagementClient', function () {
 
       const result = await client.management.content.update('041067a0-74f5-4d03-92af-40c3c0aa13e7', data)
 
+      expect(result).to.not.be.undefined
+      // @ts-ignore
       expect(result.name.$invariant).to.be.eq('Another one')
       expect(axiosMock.history.put.length).to.be.eq(1)
       expect(axiosMock.history.put[0].data).to.be.eq(JSON.stringify(data))
+    })
+
+    it('returns undefined when not found', async function () {
+      const data = {
+        name: {
+          $invariant: 'Another one'
+        },
+        contentTypeAlias: 'blogpost'
+      }
+
+      const result = await client.management.content.update('3de82763-c4bb-4bca-8f79-7b211b3ffffa', data)
+
+      expect(result).to.be.undefined
     })
   })
 })

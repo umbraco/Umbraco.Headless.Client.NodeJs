@@ -76,7 +76,7 @@ export class ApiRequest<R = any> {
       const response = await axios(requestInit)
       return response.data as R
     } catch (err) {
-      throw new APIRequestError(err.statusText, err.response, err.response.data)
+      throw new APIRequestError(err.message, err.response)
     }
   }
 }

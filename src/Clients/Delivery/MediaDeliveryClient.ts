@@ -32,7 +32,14 @@ export class MediaDeliveryClient {
    * @returns a `Promise` that resolves to a {@link Media} if found, otherwise `undefined`.
   */
   async byId<T extends Media> (id: string) {
-    return this.makeRequest(Endpoints.delivery.media.byId<T>(id))
+    try {
+      return await this.makeRequest(Endpoints.delivery.media.byId<T>(id))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
@@ -42,6 +49,13 @@ export class MediaDeliveryClient {
    * @returns a `Promise` that resolves to a {@link PagedResponse} of {@link Media} if found, otherwise `undefined`.
    */
   async children<T extends Media> (id: string, options?: MediaDeliveryChildrenOptions) {
-    return this.makeRequest(Endpoints.delivery.media.children<T>(id, options))
+    try {
+      return await this.makeRequest(Endpoints.delivery.media.children<T>(id, options))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 }

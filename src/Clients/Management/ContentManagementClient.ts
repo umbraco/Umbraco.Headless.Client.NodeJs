@@ -37,7 +37,14 @@ export class ContentManagementClient {
    * @returns a `Promise` that resolves to a {@link ContentManagementContent} if found, otherwise `undefined`.
    */
   async byId<T extends ContentManagementContent> (id: string) {
-    return this.makeRequest(Endpoints.management.content.byId<T>(id))
+    try {
+      return await this.makeRequest(Endpoints.management.content.byId<T>(id))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
@@ -46,8 +53,15 @@ export class ContentManagementClient {
    * @param options - Request options. See {@link APIContentChildrenOptions}.
    * @returns a `Promise` that resolves to a {@link PagedResponse} of {@link ContentManagementContent} if found, otherwise `undefined`.
    */
-  async children<T extends ContentManagementContent> (id: string, options?: APIContentChildrenOptions): Promise<PagedResponse<T>> {
-    return this.makeRequest(Endpoints.management.content.children(id, options))
+  async children<T extends ContentManagementContent> (id: string, options?: APIContentChildrenOptions): Promise<PagedResponse<T> | undefined> {
+    try {
+      return await this.makeRequest(Endpoints.management.content.children(id, options))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
@@ -112,7 +126,14 @@ export class ContentManagementClient {
    * @returns a `Promise` that resolves to a {@link ContentManagementContent} if found, otherwise `undefined`.
    */
   async publish<T extends ContentManagementContent> (id: string, options?: APIContentPublishOptions) {
-    return this.makeRequest(Endpoints.management.content.publish<T>(id, options))
+    try {
+      return await this.makeRequest(Endpoints.management.content.publish<T>(id, options))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
@@ -122,7 +143,14 @@ export class ContentManagementClient {
    * @returns a `Promise` that resolves to a {@link ContentManagementContent} if found, otherwise `undefined`.
    */
   async unPublish<T extends ContentManagementContent> (id: string, options?: APIContentUnpublishOptions) {
-    return this.makeRequest(Endpoints.management.content.unPublish<T>(id, options))
+    try {
+      return await this.makeRequest(Endpoints.management.content.unPublish<T>(id, options))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
@@ -178,7 +206,14 @@ export class ContentManagementClient {
    * See {@link https://our.umbraco.com/documentation/Umbraco-Heartcore/API-Documentation/Content-Management/content/#update-content} for more info on the structure of the document.
    */
   async update<T extends ContentManagementContent> (id: string, body: ContentManagementContentRequest | FormData) {
-    return this.makeRequest(Endpoints.management.content.update<T>(id), body)
+    try {
+      return await this.makeRequest(Endpoints.management.content.update<T>(id), body)
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
@@ -187,6 +222,13 @@ export class ContentManagementClient {
    * @returns a `Promise` that resolves to a {@link ContentManagementContent} of the deleted Content item if found, otherwise `undefined`.
    */
   async delete <T extends ContentManagementContent> (id: string) {
-    return this.makeRequest(Endpoints.management.content.delete(id))
+    try {
+      return await this.makeRequest(Endpoints.management.content.delete(id))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 }

@@ -37,7 +37,15 @@ export class MediaManagementClient {
    * @returns a `Promise` that resolves to a {@link ContentManagementMedia} if found, otherwise `undefined`.
    */
   async byId<T extends ContentManagementMedia> (id: string) {
-    return this.makeRequest(Endpoints.management.media.byId<T>(id))
+    try {
+      return await this.makeRequest(Endpoints.management.media.byId<T>(id))
+    } catch(err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+
+      throw err
+    }
   }
 
   /**
@@ -46,8 +54,16 @@ export class MediaManagementClient {
    * @param options - Request options. See {@link APIMediaChildrenOptions}.
    * @returns a `Promise` that resolves to a {@link PagedResponse} of {@link ContentManagementMedia} if found, otherwise `undefined`.
    */
-  async children<T extends ContentManagementMedia> (id: string, options?: APIMediaChildrenOptions): Promise<PagedResponse<T>> {
-    return this.makeRequest(Endpoints.management.media.children<T>(id, options))
+  async children<T extends ContentManagementMedia> (id: string, options?: APIMediaChildrenOptions): Promise<PagedResponse<T> | undefined> {
+    try {
+      return await this.makeRequest(Endpoints.management.media.children<T>(id, options))
+    } catch(err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+
+      throw err
+    }
   }
 
   /**
@@ -138,7 +154,15 @@ export class MediaManagementClient {
    * See {@link https://our.umbraco.com/documentation/Umbraco-Heartcore/API-Documentation/Content-Management/media/#update-media} for more info on the structure of the document.
    */
   async update <T extends ContentManagementMedia> (id: string, body: ContentManagementMediaRequest | FormData) {
-    return this.makeRequest(Endpoints.management.media.update(id), body)
+    try {
+      return await this.makeRequest(Endpoints.management.media.update(id), body)
+    } catch(err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+
+      throw err
+    }
   }
 
   /**
@@ -147,6 +171,14 @@ export class MediaManagementClient {
    * @returns a `Prommise` that resolves to a {@link ContentManagementMedia} of the deleted Media item if found', otherwise `undefined`.
    */
   async delete <T extends ContentManagementMedia> (id: string) {
-    return this.makeRequest(Endpoints.management.media.delete(id))
+    try {
+      return await this.makeRequest(Endpoints.management.media.delete(id))
+    } catch(err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+
+      throw err
+    }
   }
 }

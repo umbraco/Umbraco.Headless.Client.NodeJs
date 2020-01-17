@@ -41,7 +41,14 @@ export class ContentDeliveryClient {
    * @returns a `Promise` that resolves to a {@link Content} if found, otherwise `undefined`.
    */
   async byId<T extends Content> (id: string, options?: ContentDeliveryByIdOptions) {
-    return this.makeRequest(Endpoints.delivery.content.byId<T>(id, options))
+    try {
+      return await this.makeRequest(Endpoints.delivery.content.byId<T>(id, options))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
@@ -51,7 +58,14 @@ export class ContentDeliveryClient {
    * @returns a `Promise` that resolves to a {@link Content} if found, otherwise `undefined`.
    */
   async byUrl< T extends Content> (url: string, options?: ContentDeliveryByUrlOptions) {
-    return this.makeRequest(Endpoints.delivery.content.byUrl<T>(url, options))
+    try {
+      return await this.makeRequest(Endpoints.delivery.content.byUrl<T>(url, options))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
@@ -60,9 +74,17 @@ export class ContentDeliveryClient {
    * @param options - Request options. See {@link ContentDeliveryChildrenOptions}.
    * @returns a `Promise` that resolves to a {@link PagedResponse} of {@link Content} if found, otherwise `undefined`.
    */
-  async children<T extends Content> (id: string, options?: ContentDeliveryChildrenOptions): Promise<PagedResponse<T>> {
-    return this.makeRequest(Endpoints.delivery.content.children<T>(id, options))
+  async children<T extends Content> (id: string, options?: ContentDeliveryChildrenOptions): Promise<PagedResponse<T> | undefined> {
+    try {
+      return await this.makeRequest(Endpoints.delivery.content.children<T>(id, options))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
+
 
   /**
    * Fetch ancestors for a content item.
@@ -71,7 +93,14 @@ export class ContentDeliveryClient {
    * @returns a `Promise` that resolves to an array of {@link Content} if found, otherwise `undefined`.
    */
   async ancestors (id: string, options?: ContentDeliveryAncestorsOptions) {
-    return this.makeRequest(Endpoints.delivery.content.ancestors(id, options))
+    try {
+      return await this.makeRequest(Endpoints.delivery.content.ancestors(id, options))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
@@ -81,7 +110,14 @@ export class ContentDeliveryClient {
    * @returns a `Promise` that resolves to an array of {@link Content} if found, otherwise `undefined`.
    */
   async descendants (id: string, options?: ContentDeliveryDescendantsOptions) {
-    return this.makeRequest(Endpoints.delivery.content.descendants(id, options))
+    try {
+      return await this.makeRequest(Endpoints.delivery.content.descendants(id, options))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
