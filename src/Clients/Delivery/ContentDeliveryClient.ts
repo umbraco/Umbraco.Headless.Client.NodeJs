@@ -14,6 +14,21 @@ import { ContentFilter } from '../../RequestOptions/ContentFilterOptions'
 /**
  * ContentDeliveryClient is used to access the Content part of the Content Delivery API.
  * @public
+ *
+ * @example
+ * The {@link ContentDeliveryClient} must be accessed through {@link Client}.
+ *
+ * ```typescript
+ * import { Client } from '@umbraco/headless-client'
+ *
+ * const client = new Client({
+ *  projectAlias: '<your-project-alias>',
+ *  apiKey: '<your-api-key>',
+ *  language: '<iso-code>',
+ * })
+ *
+ * const contentClient = client.delivery.content
+ * ```
  */
 export class ContentDeliveryClient {
   /** @internal */

@@ -16,6 +16,21 @@ import {
 /**
  * ManagementClient is used to access the Content Management API.
  * @public
+ *
+ * @example
+ * The {@link ManagementClient} must be accessed through {@link Client}.
+ *
+ * ```typescript
+ * import { Client } from '@umbraco/headless-client'
+ *
+ * const client = new Client({
+ *  projectAlias: '<your-project-alias>',
+ *  apiKey: '<your-api-key>',
+ *  language: '<iso-code>',
+ * })
+ *
+ * const managementClient = client.management
+ * ```
  */
 export class ManagementClient {
   /**
@@ -31,8 +46,16 @@ export class ManagementClient {
     return this.client.makeRequest(endpoint, data)
   }
 
+  /**
+   * The Content client for the Content Management API.
+   * See {@link ContentManagementClient}
+   */
   public readonly content = new ContentManagementClient(this.client)
 
+  /**
+   * The Media client for the Media Management API.
+   * See {@link MediaManagementClient}
+   */
   public readonly media = new MediaManagementClient(this.client)
 
   /**

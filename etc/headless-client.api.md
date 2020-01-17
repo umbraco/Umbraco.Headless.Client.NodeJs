@@ -21,9 +21,10 @@ export type APIMediaChildrenOptions = PageOptions;
 
 // @public (undocumented)
 export class APIRequestError extends Error {
-    constructor(message: string, response: AxiosResponse, jsonData: any);
+    // @internal
+    constructor(message: string, response: AxiosResponse);
     // (undocumented)
-    jsonData: any;
+    data?: any;
     // (undocumented)
     response: AxiosResponse;
 }
@@ -115,12 +116,12 @@ export type ContentDeliveryChildrenOptions = HyperlinksOption & ContentTypeOptio
 export class ContentDeliveryClient {
     // @internal
     constructor(client: Client);
-    ancestors(id: string, options?: ContentDeliveryAncestorsOptions): Promise<Content[]>;
+    ancestors(id: string, options?: ContentDeliveryAncestorsOptions): Promise<Content[] | undefined>;
     byContentType<T extends Content>(contentType: string, options?: ContentDeliveryByContentTypeOptions): Promise<PagedResponse<T>>;
-    byId<T extends Content>(id: string, options?: ContentDeliveryByIdOptions): Promise<T>;
-    byUrl<T extends Content>(url: string, options?: ContentDeliveryByUrlOptions): Promise<T>;
-    children<T extends Content>(id: string, options?: ContentDeliveryChildrenOptions): Promise<PagedResponse<T>>;
-    descendants(id: string, options?: ContentDeliveryDescendantsOptions): Promise<Content[]>;
+    byId<T extends Content>(id: string, options?: ContentDeliveryByIdOptions): Promise<T | undefined>;
+    byUrl<T extends Content>(url: string, options?: ContentDeliveryByUrlOptions): Promise<T | undefined>;
+    children<T extends Content>(id: string, options?: ContentDeliveryChildrenOptions): Promise<PagedResponse<T> | undefined>;
+    descendants(id: string, options?: ContentDeliveryDescendantsOptions): Promise<Content[] | undefined>;
     filter<T extends Content>(body: ContentFilter, options?: ContentDeliveryFilterOptions): Promise<PagedResponse<T>>;
     root<T extends Content>(options?: ContentDeliveryRootOptions): Promise<T[]>;
     search<T extends Content>(term: string, options?: ContentDeliverySearchOptions): Promise<PagedResponse<T>>;
@@ -200,14 +201,14 @@ export interface ContentLanguageType {
 export class ContentManagementClient {
     // @internal
     constructor(client: Client);
-    byId<T extends ContentManagementContent>(id: string): Promise<T>;
-    children<T extends ContentManagementContent>(id: string, options?: APIContentChildrenOptions): Promise<PagedResponse<T>>;
+    byId<T extends ContentManagementContent>(id: string): Promise<T | undefined>;
+    children<T extends ContentManagementContent>(id: string, options?: APIContentChildrenOptions): Promise<PagedResponse<T> | undefined>;
     create<T extends ContentManagementContent>(body: ContentManagementContentRequest | FormData): Promise<T>;
-    delete<T extends ContentManagementContent>(id: string): Promise<ContentManagementContent>;
-    publish<T extends ContentManagementContent>(id: string, options?: APIContentPublishOptions): Promise<T>;
+    delete<T extends ContentManagementContent>(id: string): Promise<ContentManagementContent | undefined>;
+    publish<T extends ContentManagementContent>(id: string, options?: APIContentPublishOptions): Promise<T | undefined>;
     root<T extends ContentManagementContent>(): Promise<T[]>;
-    unPublish<T extends ContentManagementContent>(id: string, options?: APIContentUnpublishOptions): Promise<T>;
-    update<T extends ContentManagementContent>(id: string, body: ContentManagementContentRequest | FormData): Promise<T>;
+    unPublish<T extends ContentManagementContent>(id: string, options?: APIContentUnpublishOptions): Promise<T | undefined>;
+    update<T extends ContentManagementContent>(id: string, body: ContentManagementContentRequest | FormData): Promise<T | undefined>;
 }
 
 // @public (undocumented)
@@ -730,7 +731,6 @@ export interface HyperlinksOption {
 export class ManagementClient {
     // @internal
     constructor(client: Client);
-    // (undocumented)
     readonly content: ContentManagementClient;
     get contentType(): {
         all: <R extends ContentTypeBase>() => Promise<R[]>;
@@ -748,7 +748,6 @@ export class ManagementClient {
         update: <R_3 extends ContentLanguageType>(id: string, data: CreateContentLanguageType) => Promise<R_3>;
         delete: <R_4 extends ContentLanguageType>(id: string) => Promise<R_4>;
     };
-    // (undocumented)
     readonly media: MediaManagementClient;
     get mediaType(): {
         all: () => Promise<import("../../Responses").MediaTypeContentManager[]>;
@@ -830,12 +829,12 @@ export class MediaDeliveryClient {
 export class MediaManagementClient {
     // @internal
     constructor(client: Client);
-    byId<T extends ContentManagementMedia>(id: string): Promise<T>;
-    children<T extends ContentManagementMedia>(id: string, options?: APIMediaChildrenOptions): Promise<PagedResponse<T>>;
+    byId<T extends ContentManagementMedia>(id: string): Promise<T | undefined>;
+    children<T extends ContentManagementMedia>(id: string, options?: APIMediaChildrenOptions): Promise<PagedResponse<T> | undefined>;
     create<T extends ContentManagementMedia>(body: ContentManagementMediaRequest | FormData): Promise<ContentManagementMedia>;
-    delete<T extends ContentManagementMedia>(id: string): Promise<ContentManagementMedia>;
+    delete<T extends ContentManagementMedia>(id: string): Promise<ContentManagementMedia | undefined>;
     root<T extends ContentManagementMedia>(): Promise<T[]>;
-    update<T extends ContentManagementMedia>(id: string, body: ContentManagementMediaRequest | FormData): Promise<ContentManagementMedia>;
+    update<T extends ContentManagementMedia>(id: string, body: ContentManagementMediaRequest | FormData): Promise<ContentManagementMedia | undefined>;
 }
 
 // @public (undocumented)
@@ -901,7 +900,5 @@ export interface PropertyMediaType {
     validation: any;
 }
 
-
-// (No @packageDocumentation comment for this package)
 
 ```

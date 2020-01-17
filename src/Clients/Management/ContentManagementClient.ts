@@ -9,6 +9,21 @@ import { APIContentChildrenOptions, APIContentPublishOptions, APIContentUnpublis
 /**
  * ContentManagementClient is used to access the Content part of the Content Management API.
  * @public
+ *
+ * @example
+ * The {@link ContentManagementClient} must be accessed through {@link Client}.
+ *
+ * ```typescript
+ * import { Client } from '@umbraco/headless-client'
+ *
+ * const client = new Client({
+ *  projectAlias: '<your-project-alias>',
+ *  apiKey: '<your-api-key>',
+ *  language: '<iso-code>',
+ * })
+ *
+ * const contentClient = client.management.content
+ * ```
  */
 export class ContentManagementClient {
   /**
