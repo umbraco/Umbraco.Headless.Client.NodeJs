@@ -1,0 +1,57 @@
+{
+    "_currentVersionState": {
+        "$invariant": "DRAFT"
+    },
+    "name": {
+        "$invariant": "Another one"
+    },
+    "_updateDate": {
+        "$invariant": "2019-10-10T11:19:04.3988745+00:00"
+    },
+    "_hasChildren": false,
+    "_level": 3,
+    "_createDate": "2019-10-07T11:53:09.653Z",
+    "_id": "041067a0-74f5-4d03-92af-40c3c0aa13e7",
+    "_links": {
+        "self": {
+            "href": "https://api.umbraco.io/content/041067a0-74f5-4d03-92af-40c3c0aa13e7"
+        },
+        "root": {
+            "href": "https://api.umbraco.io/content"
+        },
+        "children": {
+            "href": "https://api.umbraco.io/content/041067a0-74f5-4d03-92af-40c3c0aa13e7/children"
+        },
+        "publish": {
+            "href": "https://api.umbraco.io/content/041067a0-74f5-4d03-92af-40c3c0aa13e7/publish"
+        },
+        "unpublish": {
+            "href": "https://api.umbraco.io/content/041067a0-74f5-4d03-92af-40c3c0aa13e7/unpublish"
+        },
+        "contenttype": {
+            "href": "https://api.umbraco.io/content/type/blogpost"
+        }
+    },
+    "contentTypeAlias": "blogpost",
+    "parentId": "8007e923-e62a-4ac1-a33f-caf3052582f4",
+    "sortOrder": 0,
+    "seoMetaDescription": {
+        "$invariant": ""
+    },
+    "keywords": {
+        "$invariant": []
+    },
+    "umbNaviHide": {
+        "$invariant": "0"
+    },
+    "pageTitle": {
+        "$invariant": "Another one"
+    },
+    "categories": {
+        "$invariant": [
+            "cg16",
+            "codegarden",
+            "umbraco"
+        ]
+    }
+}

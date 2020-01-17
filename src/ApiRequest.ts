@@ -1,18 +1,18 @@
-import {Endpoint, EndpointSource} from "./Endpoint";
-import {Client} from "./Client";
-import {APIRequestError} from "./APIRequestError";
+import { Endpoint, EndpointSource } from './Endpoint'
+import { Client } from './Client'
+import { APIRequestError } from './APIRequestError'
 import axios, { AxiosRequestConfig } from 'axios'
 import * as FormData from 'form-data'
 import debug from 'debug'
 
-const log = debug("umbraco:headless:api")
+import { MultipartOptions } from './RequestOptions/index'
 
-import {MultipartOptions} from "./RequestOptions/index";
+const log = debug('umbraco:headless:api')
 
+/** @internal */
 export class ApiRequest<R = any> {
-
-  constructor(
-    private client: Client,
+  constructor (
+    private readonly client: Client,
     public endpoint: Endpoint,
     public data?: any
   ) {}
@@ -21,16 +21,16 @@ export class ApiRequest<R = any> {
     const projectAlias = this.client.options.projectAlias
     const headers: any = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json+hal',
+      Accept: 'application/json+hal',
       'umb-project-alias': projectAlias,
       'api-version': '2.1'
     }
 
-    if (this.client.options.language) {
-      headers["Accept-Language"] = this.client.options.language
+    if (this.endpoint.source === EndpointSource.CDN && this.client.options.language) {
+      headers['Accept-Language'] = this.client.options.language
     }
 
-    const requestInit: AxiosRequestConfig= {
+    const requestInit: AxiosRequestConfig = {
       url: Endpoint.getURLAddress(this.endpoint),
       method: this.endpoint.method,
       headers: {}
@@ -38,7 +38,7 @@ export class ApiRequest<R = any> {
 
     if (this.endpoint.source === EndpointSource.ContentManagement) {
       if (!this.client.options.apiKey) {
-        throw new Error("API Key is missing")
+        throw new Error('API Key is missing')
       }
     }
 
@@ -47,41 +47,36 @@ export class ApiRequest<R = any> {
     }
 
     const options = this.endpoint.options
-    log("options", options)
-    if(options && options.culture) {
-      headers["Accept-Language"] = options.culture
-    }
-
-
+    log('options', options)
 
     const method = this.endpoint.method.toLowerCase()
-    if((method === "post" || method === 'put') && !!this.data) {
+    if ((method === 'post' || method === 'put') && !!this.data) {
       const requestOptions = this.endpoint.options
-      if(typeof requestOptions !== "undefined") {
-        if((requestOptions as MultipartOptions).usingMultipart) {
-          if(this.data.prototype === FormData.prototype) {
-            headers["Content-Type"] = `multipart/form-data; boundary=${this.data.getBoundary()}`
+      if (typeof requestOptions !== 'undefined') {
+        if ((requestOptions as MultipartOptions).usingMultipart) {
+          if (this.data.prototype === FormData.prototype) {
+            headers['Content-Type'] = `multipart/form-data; boundary=${this.data.getBoundary()}`
             requestInit.data = this.data
           } else {
-            throw new Error("Expected a FormData as body")
+            throw new Error('Expected a FormData as body')
           }
         }
       }
 
-      if(!requestInit.data) {
+      if (!requestInit.data) {
         requestInit.data = JSON.stringify(this.data)
       }
     }
     requestInit.headers = headers
 
-    log("Request init")
+    log('Request init')
     log(requestInit)
 
     try {
       const response = await axios(requestInit)
       return response.data as R
     } catch (err) {
-      throw new APIRequestError(err.statusText, err.response, err.response.data)
+      throw new APIRequestError(err.message, err.response)
     }
   }
 }

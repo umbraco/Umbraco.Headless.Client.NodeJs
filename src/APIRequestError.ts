@@ -1,11 +1,20 @@
-import { AxiosResponse } from "axios"
+import { AxiosResponse } from 'axios'
 
+/**
+ * @public
+ */
 export class APIRequestError extends Error {
+  data?: any = undefined
 
-    constructor(message: string, public response: AxiosResponse, public jsonData: any) {
-        super(message)
-        this.name = "APIRequestError"
+  /**
+   * @internal
+   */
+  constructor (message: string, public response: AxiosResponse) {
+    super(message)
+    this.name = 'APIRequestError'
 
+    if (response && response.data) {
+      this.data = response.data
     }
-
+  }
 }

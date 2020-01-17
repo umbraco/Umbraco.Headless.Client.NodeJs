@@ -1,3 +1,10 @@
+/**
+ * Content Type Options.
+ * @public
+ */
 export interface ContentTypeOptions {
-    contentType?: string
+  /**
+   * Only fetch Content with the specific Content Type.
+   */
+  contentType?: string
 }

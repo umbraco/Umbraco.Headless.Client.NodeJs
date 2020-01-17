@@ -1,3 +1,10 @@
+/**
+ * Culture Options.
+ * @public
+ */
 export interface CultureOptions {
-    culture?: string
+  /**
+   * Culture to retrieve content in.
+   */
+  culture?: string
 }

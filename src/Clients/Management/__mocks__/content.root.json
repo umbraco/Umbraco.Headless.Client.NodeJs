@@ -1,0 +1,118 @@
+{
+    "_links": {
+        "self": {
+            "href": "https://api.umbraco.io/content"
+        },
+        "content": [
+            {
+                "href": "https://api.umbraco.io/content/{id}",
+                "templated": true
+            },
+            {
+                "href": "https://api.umbraco.io/content/6eb240ce-8f78-4467-ab51-68918cde2866"
+            }
+        ],
+        "children": {
+            "href": "https://api.umbraco.io/content/{id}/children{?page,pageSize}",
+            "templated": true
+        },
+        "publish": {
+            "href": "https://api.umbraco.io/content/{id}/publish{?culture}",
+            "templated": true
+        },
+        "unpublish": {
+            "href": "https://api.umbraco.io/content/{id}/unpublish{?culture}",
+            "templated": true
+        },
+        "contenttype": {
+            "href": "https://api.umbraco.io/content/type/{alias}",
+            "templated": true
+        }
+    },
+    "_embedded": {
+        "content": [
+            {
+                "_currentVersionState": {
+                    "$invariant": "PUBLISHED"
+                },
+                "name": {
+                    "$invariant": "Home"
+                },
+                "_updateDate": {
+                    "$invariant": "2019-10-07T07:58:48.477Z"
+                },
+                "_hasChildren": true,
+                "_level": 1,
+                "_createDate": "2019-10-07T07:45:21.363Z",
+                "_id": "6eb240ce-8f78-4467-ab51-68918cde2866",
+                "_links": {
+                    "self": {
+                        "href": "https://api.umbraco.io/content/6eb240ce-8f78-4467-ab51-68918cde2866"
+                    },
+                    "root": {
+                        "href": "https://api.umbraco.io/content"
+                    },
+                    "children": {
+                        "href": "https://api.umbraco.io/content/6eb240ce-8f78-4467-ab51-68918cde2866/children"
+                    },
+                    "publish": {
+                        "href": "https://api.umbraco.io/content/6eb240ce-8f78-4467-ab51-68918cde2866/publish"
+                    },
+                    "unpublish": {
+                        "href": "https://api.umbraco.io/content/6eb240ce-8f78-4467-ab51-68918cde2866/unpublish"
+                    },
+                    "contenttype": {
+                        "href": "https://api.umbraco.io/content/type/home"
+                    }
+                },
+                "contentTypeAlias": "home",
+                "sortOrder": 4,
+                "heroHeader": {
+                    "$invariant": "Umbraco Demo"
+                },
+                "heroDescription": {
+                    "$invariant": "Moonfish, steelhead, lamprey southern flounder tadpole fish sculpin bigeye, blue-redstripe danio collared dogfish. Smalleye squaretail goldfish arowana butterflyfish pipefish wolf-herring jewel tetra, shiner; gibberfish red velvetfish. Thornyhead yellowfin pike threadsail ayu cutlassfish."
+                },
+                "heroCTACaption": {
+                    "$invariant": "Check our products"
+                },
+                "heroCTALink": {
+                    "$invariant": "umb://document/082333be34b14c2d81a6be92640094fc"
+                },
+                "bodyText": {
+                    "$invariant": null
+                },
+                "footerHeader": {
+                    "$invariant": "Umbraco Demo"
+                },
+                "footerDescription": {
+                    "$invariant": "Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vivamus suscipit tortor eget felis porttitor volutpat"
+                },
+                "footerCTACaption": {
+                    "$invariant": "Read All on the Blog"
+                },
+                "footerCTALink": {
+                    "$invariant": "umb://document/8007e923e62a4ac1a33fcaf3052582f4"
+                },
+                "footerAddress": {
+                    "$invariant": "Umbraco HQ - Unicorn Square - Haubergsvej 1 - 5000 Odense C - Denmark - +45 70 26 11 62"
+                },
+                "heroBackgroundImage": {
+                    "$invariant": "umb://media/76966940c9ba471686cef3854a7f5bd6"
+                },
+                "font": {
+                    "$invariant": "serif"
+                },
+                "colorTheme": {
+                    "$invariant": "earth"
+                },
+                "sitename": {
+                    "$invariant": "Umbraco Sample Site"
+                },
+                "logo": {
+                    "$invariant": ""
+                }
+            }
+        ]
+    }
+}
