@@ -12,9 +12,9 @@ import client from '@/client'
 
 export default Vue.extend({
   components: {
-    'frontpage': Frontpage,
-    'textpage': Textpage,
-    'notFound': NotFound
+    frontpage: Frontpage,
+    textpage: Textpage,
+    NotFound: NotFound
   },
 
   async beforeRouteEnter (to, from, next) {
@@ -22,7 +22,7 @@ export default Vue.extend({
     try {
       content = await client.delivery.content.byUrl(to.path)
     } catch (e) {
-      censole.log(e)
+      console.log(e)
       content = { contentTypeAlias: 'notFound', name: 'Not Found' }
     }
 
@@ -35,7 +35,7 @@ export default Vue.extend({
     try {
       this.content = await client.delivery.content.byUrl(to.path)
     } catch (e) {
-      censole.log(e)
+      console.log(e)
       this.content = { contentTypeAlias: 'notFound', name: 'Not Found' }
     }
     next()
