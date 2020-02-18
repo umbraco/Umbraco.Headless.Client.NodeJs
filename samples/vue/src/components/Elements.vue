@@ -11,7 +11,7 @@ import TextAndImage from '@/components/elements/TextAndImage.vue'
 
 export default Vue.extend({
   components: {
-    'textAndImage': TextAndImage
+    textAndImage: TextAndImage
   },
 
   props: {
