@@ -8,7 +8,7 @@
 }
 
 html {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Lato, Arial, Helvetica, sans-serif;
   font-size: 18px;
 }
 
@@ -31,6 +31,7 @@ h1, h2, h3, h4, h5 {
 ul {
   margin: 0;
 }
+
 a {
   color: #3544b1;
   text-decoration: none;
