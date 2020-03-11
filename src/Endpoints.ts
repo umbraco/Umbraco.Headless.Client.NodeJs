@@ -14,7 +14,6 @@ import {
   ContentDeliveryFilterOptions,
   ContentDeliverySearchOptions,
   MediaDeliveryChildrenOptions,
-  MultipartOptions
 } from './RequestOptions'
 import {
   Content,
@@ -81,7 +80,7 @@ export const Endpoints = {
       root: <R extends ContentManagementMedia>() => new Endpoint<R[]>(EndpointSource.ContentManagement, '/media', {}, 'get'),
       byId: <R extends ContentManagementMedia>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', { id }, 'get'),
       children: <R extends ContentManagementMedia>(id: string, options?: APIMediaChildrenOptions) => new Endpoint<PagedResponse<R>>(EndpointSource.ContentManagement, '/media/{id}/children', { id }, 'get', options),
-      create: <R extends ContentManagementMedia>() => new Endpoint<R, MultipartOptions>(EndpointSource.ContentManagement, '/media', {}, 'post', { usingMultipart: true }),
+      create: <R extends ContentManagementMedia>() => new Endpoint<R>(EndpointSource.ContentManagement, '/media', {}, 'post'),
       update: <R extends ContentManagementMedia>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', { id }, 'put'),
       delete: <R extends ContentManagementMedia>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', { id }, 'delete')
     },

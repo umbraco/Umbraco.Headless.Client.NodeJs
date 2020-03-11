@@ -2,10 +2,8 @@ import { Endpoint, EndpointSource } from './Endpoint'
 import { Client } from './Client'
 import { APIRequestError } from './APIRequestError'
 import axios, { AxiosRequestConfig } from 'axios'
-import * as FormData from 'form-data'
+import FormData from 'form-data'
 import debug from 'debug'
-
-import { MultipartOptions } from './RequestOptions/index'
 
 const log = debug('umbraco:headless:api')
 
@@ -52,15 +50,9 @@ export class ApiRequest<R = any> {
     const method = this.endpoint.method.toLowerCase()
     if ((method === 'post' || method === 'put') && !!this.data) {
       const requestOptions = this.endpoint.options
-      if (typeof requestOptions !== 'undefined') {
-        if ((requestOptions as MultipartOptions).usingMultipart) {
-          if (this.data.prototype === FormData.prototype) {
-            headers['Content-Type'] = `multipart/form-data; boundary=${this.data.getBoundary()}`
-            requestInit.data = this.data
-          } else {
-            throw new Error('Expected a FormData as body')
-          }
-        }
+      if (this.data instanceof FormData) {
+        headers['Content-Type'] = `multipart/form-data; boundary=${this.data.getBoundary()}`
+        requestInit.data = this.data
       }
 
       if (!requestInit.data) {
