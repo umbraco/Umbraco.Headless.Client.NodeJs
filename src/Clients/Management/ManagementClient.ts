@@ -1,14 +1,14 @@
 import { Client } from '../../Client'
 import { ContentManagementClient } from './ContentManagementClient'
 import { MediaManagementClient } from './MediaManagementClient'
+import { MemberManagementClient } from './MemberManagementClient'
 import { Endpoint } from '../../Endpoint'
 import { Endpoints } from '../../Endpoints'
 import {
-  ContentCreateMemberType,
   ContentLanguageType,
   ContentMemberCreateGroupType,
   ContentMemberGroupType,
-  ContentMemberType, ContentMemberTypeType,
+  ContentMemberTypeType,
   ContentTypeBase,
   CreateContentLanguageType
 } from '../../Responses'
@@ -57,6 +57,12 @@ export class ManagementClient {
    * See {@link MediaManagementClient}
    */
   public readonly media = new MediaManagementClient(this.client)
+
+  /**
+   * The Member client for the Member Management API.
+   * See {@link MemberManagementClient}
+   */
+  public readonly member = new MemberManagementClient(this.client)
 
   /**
    * ContentType API
@@ -185,52 +191,6 @@ export class ManagementClient {
        * @param alias Alias for the relation type queryed for
        */
       byAlias: async (alias: string) => this.makeRequest(Endpoints.management.relationType.byAlias(alias))
-    }
-  }
-
-  /**
-   * Member API
-   */
-  get member () {
-    return {
-      /**
-       * Find member by username
-       * @param username Username for the user querying for
-       */
-      byUsername: async<R extends ContentMemberType>(username: string) => this.makeRequest(Endpoints.management.member.byUsername<R>(username)),
-
-      /**
-       * Create a new member
-       * @param data Data for creating a new member
-       */
-      create: async<R extends ContentMemberType>(data: ContentCreateMemberType) => this.makeRequest(Endpoints.management.member.create<R>(), data),
-
-      /**
-       * Update user by username
-       * @param username Username for the user to be updated
-       * @param data Data for the user to be updated
-       */
-      update: async<R extends ContentMemberType>(username: string, data: ContentCreateMemberType) => this.makeRequest(Endpoints.management.member.update<R>(username), data),
-
-      /**
-       * Add group to user
-       * @param username Username on the user who gets the group added
-       * @param group Group name of the group which the user needs to be added to
-       */
-      addGroup: async (username: string, group: string) => this.makeRequest(Endpoints.management.member.addGroup(username, group)),
-
-      /**
-       * Remove group from user
-       * @param username Username on the user who need to get a group removed
-       * @param group Group name of the group which need to be removed.
-       */
-      removeGroup: async (username: string, group: string) => this.makeRequest(Endpoints.management.member.removeGroup(username, group)),
-
-      /**
-       * Delete a user
-       * @param username Username for the user that needs to be deleted
-       */
-      delete: async (username: string) => this.makeRequest(Endpoints.management.member.delete(username))
     }
   }
 

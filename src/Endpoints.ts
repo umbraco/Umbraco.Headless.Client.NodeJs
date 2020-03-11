@@ -21,7 +21,7 @@ import {
   ContentLanguageType,
   MediaTypeContentManager,
   ContentMemberGroupType,
-  ContentMemberType,
+  ContentManagementMember,
   ContentMemberTypeType,
   ContentRelationType,
   ContentRelationTypeType,
@@ -114,9 +114,9 @@ export const Endpoints = {
     },
 
     member: {
-      byUsername: <R extends ContentMemberType>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}', { username }, 'get'),
-      create: <R extends ContentMemberType>() => new Endpoint<R>(EndpointSource.ContentManagement, '/member', {}, 'post'),
-      update: <R extends ContentMemberType>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}', { username }, 'put'),
+      byUsername: <R extends ContentManagementMember>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}', { username }, 'get'),
+      create: <R extends ContentManagementMember>() => new Endpoint<R>(EndpointSource.ContentManagement, '/member', {}, 'post'),
+      update: <R extends ContentManagementMember>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}', { username }, 'put'),
       addGroup: (username: string, group: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/groups/{group}', { username, group }, 'put'),
       removeGroup: (username: string, group: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/groups/{group}', { username, group }, 'delete'),
       delete: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}', { username }, 'delete')

@@ -63,7 +63,7 @@ describe('ContentManagementClient', function () {
   })
 
   describe('#create()', function () {
-    it('should be accept a json object', async function () {
+    it('should accept a json object', async function () {
       axiosMock.onPost(API_ROOT).reply(201, require('./__mocks__/content.create.json'))
 
       const data: ContentManagementContentRequest = {
@@ -101,7 +101,7 @@ describe('ContentManagementClient', function () {
       expect(axiosMock.history.post[0].data).to.be.eq(JSON.stringify(data))
     })
 
-    it('should be accept FormData object', async function () {
+    it('should accept FormData object', async function () {
       axiosMock.onPost(API_ROOT).reply(201, require('./__mocks__/content.create.json'))
 
       const data = new FormData()
@@ -191,7 +191,7 @@ describe('ContentManagementClient', function () {
   })
 
   describe('#update()', function () {
-    it('should be accept a json object', async function () {
+    it('should accept a json object', async function () {
       axiosMock.onPut(`${API_ROOT}/041067a0-74f5-4d03-92af-40c3c0aa13e7`).reply(201, require('./__mocks__/content.create.json'))
 
       const data: ContentManagementContentRequest = {
@@ -231,7 +231,7 @@ describe('ContentManagementClient', function () {
       expect(axiosMock.history.put[0].data).to.be.eq(JSON.stringify(data))
     })
 
-    it('should be accept FormData object', async function () {
+    it('should accept FormData object', async function () {
       axiosMock.onPut(`${API_ROOT}/041067a0-74f5-4d03-92af-40c3c0aa13e7`).reply(201, require('./__mocks__/content.create.json'))
 
       const data = new FormData()
