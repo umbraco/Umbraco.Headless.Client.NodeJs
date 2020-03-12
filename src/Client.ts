@@ -72,6 +72,10 @@ export class Client {
         items
       }
     } else if (!pageData && items) {
+      const { _embedded, _links, ...data } = response
+      if (Object.keys(data).length) {
+        return { ..._embedded, ...data }
+      }
       return items
     }
     return response

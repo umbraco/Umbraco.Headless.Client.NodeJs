@@ -183,9 +183,39 @@ describe('MemberManagementClient', function () {
         newPassword: 'myNewPassword'
       }))
     })
+  })
+
+  describe('#createResetPasswordToken()', function () {
+    it('gets a reset password token', async function () {
+      axiosMock.onGet(`${API_ROOT}/jane@example.com/password/reset-token`).reply(200, require('./__mocks__/member.createResetPasswordToken.json'))
+
+      const result = await client.management.member.createResetPasswordToken('jane@example.com')
+
+      expect(axiosMock.history.get.length).to.be.eq(1)
+      expect(result).to.not.be.undefined
+      expect(result!.token).to.not.be.undefined
+      expect(result!.expires_in).to.not.be.undefined
+      expect(result!.member).to.not.be.undefined
+    })
+  })
+
+  describe('#resetPassword()', function () {
+    it('calls reset password endpoint', async function () {
+      axiosMock.onPost(`${API_ROOT}/jane@example.com/password/reset`).reply(200, require('./__mocks__/member.create.json'))
+
+      const result = await client.management.member.resetPassword('jane@example.com', 'some-token', 'myNewPassword')
+
+      expect(axiosMock.history.post.length).to.be.eq(1)
+      expect(axiosMock.history.post[0].data).to.be.eq(JSON.stringify({
+        token: 'some-token',
+        newPassword: 'myNewPassword'
+      }))
+      expect(result).to.not.be.undefined
+      expect(result!.name).to.be.eq('Jane Doe')
+    })
 
     it('returns undefined when not found', async function () {
-      const result = await client.management.member.addToGroup('john', "Club Blue Member")
+      const result = await client.management.member.resetPassword('jane@example.com', 'some-token', 'myNewPassword')
 
       expect(result).to.be.undefined
     })

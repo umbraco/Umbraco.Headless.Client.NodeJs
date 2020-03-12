@@ -32,6 +32,15 @@ export interface ContentManagementMemberRequest {
   password?: string
 }
 
+/**
+ * @public
+ */
+export interface MemberResetPasswordToken {
+  token: string
+  expires_in: number
+  member: ContentManagementMember
+}
+
 export interface ContentMemberGroupType {
   _id: string
   name: string

@@ -1,7 +1,7 @@
 import FormData from 'form-data'
 
 import { Client } from '../../Client'
-import { PagedResponse, ContentManagementMember, ContentManagementMemberRequest } from '../../Responses'
+import { PagedResponse, ContentManagementMember, ContentManagementMemberRequest, MemberResetPasswordToken } from '../../Responses'
 import { Endpoint } from '../../Endpoint'
 import { Endpoints } from '../../Endpoints'
 import { APIMediaChildrenOptions } from '../../RequestOptions'
@@ -79,7 +79,7 @@ export class MemberManagementClient {
 
   /**
    * Add member to group.
-   * @deprecated Use {@link MemberManagementClient#addToGroup()} instead.
+   * @deprecated Use {@link MemberManagementClient.addToGroup | addToGroup()} instead.
    * @param username - Username of the member.
    * @param group - Name of the group the member should be added to.
    */
@@ -105,7 +105,7 @@ export class MemberManagementClient {
 
   /**
    * Remove member from group.
-   * @deprecated Use {@link MemberManagementClient#removeFromGroup()} instead.
+   * @deprecated Use {@link MemberManagementClient.removeFromGroup | removeFromGroup()} instead.
    * @param username - Username of the member.
    * @param group - Name of the group the member should be removed from.
    */
@@ -153,6 +153,38 @@ export class MemberManagementClient {
   async changePassword(username: string, currentPassword: string, newPassword: string) {
     try {
       return await this.makeRequest(Endpoints.management.member.changePassword(username), { currentPassword, newPassword })
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
+  }
+
+  /**
+   * Create a reset tokon that can be usedh to reset the members password.
+   * @param username - Username for the member.
+   */
+  async createResetPasswordToken<R extends MemberResetPasswordToken>(username: string) {
+    try {
+      return await this.makeRequest(Endpoints.management.member.createResetPasswordToken<R>(username))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
+  }
+
+  /**
+   * Resets the members password using a reset token obtained via. {@link MemberManagementClient.createResetPasswordToken | createResetPasswordToken()}.
+   * @param username - Username for the member.
+   * @param token - The password reset token.
+   * @param newPassword - The new password.
+   */
+  async resetPassword<R extends ContentManagementMember>(username: string, token: string, newPassword: string) {
+    try {
+      return await this.makeRequest(Endpoints.management.member.resetPassword<R>(username), { token, newPassword })
     } catch (err) {
       if (err.response && err.response.status === 404) {
         return undefined

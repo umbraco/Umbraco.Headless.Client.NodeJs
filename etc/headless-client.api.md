@@ -908,12 +908,25 @@ export class MemberManagementClient {
     addGroup(username: string, group: string): Promise<void>;
     addToGroup(username: string, groupName: string): Promise<undefined>;
     byUsername<R extends ContentManagementMember>(username: string): Promise<R | undefined>;
+    changePassword(username: string, currentPassword: string, newPassword: string): Promise<any>;
     create<R extends ContentManagementMember>(data: ContentManagementMemberRequest | FormData): Promise<R>;
+    createResetPasswordToken<R extends MemberResetPasswordToken>(username: string): Promise<R | undefined>;
     delete(username: string): Promise<any>;
     removeFromGroup(username: string, groupName: string): Promise<undefined>;
     // @deprecated
     removeGroup(username: string, group: string): Promise<void>;
+    resetPassword<R extends ContentManagementMember>(username: string, token: string, newPassword: string): Promise<R | undefined>;
     update<R extends ContentManagementMember>(username: string, data: ContentManagementMemberRequest | FormData): Promise<R | undefined>;
+}
+
+// @public (undocumented)
+export interface MemberResetPasswordToken {
+    // (undocumented)
+    expires_in: number;
+    // (undocumented)
+    member: ContentManagementMember;
+    // (undocumented)
+    token: string;
 }
 
 // @public

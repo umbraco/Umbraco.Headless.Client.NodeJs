@@ -21,6 +21,7 @@ import {
   MediaTypeContentManager,
   ContentMemberGroupType,
   ContentManagementMember,
+  MemberResetPasswordToken,
   ContentMemberTypeType,
   ContentRelationType,
   ContentRelationTypeType,
@@ -120,6 +121,8 @@ export const Endpoints = {
       removeGroup: (username: string, group: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/groups/{group}', { username, group }, 'delete'),
       delete: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}', { username }, 'delete'),
       changePassword: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/password', { username }, 'POST'),
+      createResetPasswordToken: <R extends MemberResetPasswordToken>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}/password/reset-token', { username }, 'GET'),
+      resetPassword: <R extends ContentManagementMember>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}/password/reset', { username }, 'POST'),
     },
 
     memberGroup: {
