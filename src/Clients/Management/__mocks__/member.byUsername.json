@@ -1,0 +1,26 @@
+{
+    "_failedPasswordAttempts": 0,
+    "_groups": [
+        "Club Blue Members"
+    ],
+    "_lastLoginDate": "2019-10-10T12:04:24Z",
+    "_lastPasswordChangeDate": "2019-10-10T12:04:24Z",
+    "_createDate": "2019-10-10T12:04:24.203Z",
+    "_id": "153c22ad-2940-4d1c-9253-f62a2a873915",
+    "_updateDate": "2019-10-10T12:04:24.487Z",
+    "_links": {
+        "self": {
+            "href": "https://api.umbraco.io/member/john%40example.com"
+        },
+        "membertype": {
+            "href": "https://api.umbraco.io/member/type/Member"
+        }
+    },
+    "comments": "First Club Blue Member",
+    "email": "john@example.com",
+    "isApproved": true,
+    "isLockedOut": false,
+    "memberTypeAlias": "Member",
+    "username": "john@example.com",
+    "name": "John Doe"
+}

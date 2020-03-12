@@ -23,6 +23,7 @@ export interface ContentManagementMember {
  * @public
  */
 export interface ContentManagementMemberRequest {
+  comments?: string
   email: string
   isApproved: boolean
   memberTypeAlias: string

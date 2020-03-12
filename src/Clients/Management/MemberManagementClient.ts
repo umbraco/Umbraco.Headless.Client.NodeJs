@@ -39,53 +39,108 @@ export class MemberManagementClient {
   }
 
   /**
-   * Find member by username
-   * @param username -  Username for the user querying for
+   * Find member by username.
+   * @param username -  Username for the user querying for.
    */
   async byUsername<R extends ContentManagementMember>(username: string) {
-    return this.makeRequest(Endpoints.management.member.byUsername<R>(username))
+    try {
+      return await this.makeRequest(Endpoints.management.member.byUsername<R>(username))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
-   * Create a new member
-   * @param data -  Data for creating a new member
+   * Create a new member.
+   * @param data -  Data for creating a new member.
    */
   async create<R extends ContentManagementMember>(data: ContentManagementMemberRequest | FormData) {
     return this.makeRequest(Endpoints.management.member.create<R>(), data)
   }
 
   /**
-   * Update user by username
-   * @param username -  Username for the user to be updated
-   * @param data -  Data for the user to be updated
+   * Update user by username.
+   * @param username -  Username for the user to be updated.
+   * @param data -  Data for the user to be updated.
    */
   async update<R extends ContentManagementMember>(username: string, data: ContentManagementMemberRequest | FormData) {
-    return this.makeRequest(Endpoints.management.member.update<R>(username), data)
+    try {
+      return await this.makeRequest(Endpoints.management.member.update<R>(username), data)
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 
   /**
-   * Add group to user
-   * @param username -  Username on the user who gets the group added
-   * @param group -  Group name of the group which the user needs to be added to
+   * Add member to group.
+   * @deprecated Use {@link MemberManagementClient#addToGroup()} instead.
+   * @param username -  Username of the member.
+   * @param group - Name of the group the member should be added to.
    */
   async addGroup(username: string, group: string) {
-    this.makeRequest(Endpoints.management.member.addGroup(username, group))
+    this.addToGroup(username, group)
   }
 
   /**
-   * Remove group from user
-   * @param username -  Username on the user who need to get a group removed
-   * @param group -  Group name of the group which need to be removed.
+   * Add member to group.
+   * @param username -  Username of the member.
+   * @param group - Name of the group the member should be added to.
+   */
+  async addToGroup(username: string, groupName: string) {
+    try {
+      await this.makeRequest(Endpoints.management.member.addGroup(username, groupName))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
+  }
+
+  /**
+   * Remove member from group.
+   * @deprecated Use {@link MemberManagementClient#removeFromGroup()} instead.
+   * @param username -  Username of th member.
+   * @param group - Name of the group the member should be removed from.
    */
   async removeGroup(username: string, group: string) {
-    return this.makeRequest(Endpoints.management.member.removeGroup(username, group))
+    this.removeFromGroup(username, group)
   }
 
   /**
-   * Delete a user
-   * @param username -  Username for the user that needs to be deleted
+   * Remove member from group.
+   * @param username -  Username of th member.
+   * @param group - Name of the group the member should be removed from.
+   */
+  async removeFromGroup(username: string, groupName: string) {
+    try {
+      await this.makeRequest(Endpoints.management.member.removeGroup(username, groupName))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
+  }
+
+  /**
+   * Delete a user.
+   * @param username -  Username for the user that needs to be deleted.
    */
   async delete(username: string) {
-    return this.makeRequest(Endpoints.management.member.delete(username))
+    try {
+      return await this.makeRequest(Endpoints.management.member.delete(username))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
   }
 }
