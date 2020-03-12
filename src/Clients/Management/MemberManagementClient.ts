@@ -39,8 +39,8 @@ export class MemberManagementClient {
   }
 
   /**
-   * Find member by username.
-   * @param username -  Username for the user querying for.
+   * Find member by membername.
+   * @param username - Username for the member querying for.
    */
   async byUsername<R extends ContentManagementMember>(username: string) {
     try {
@@ -55,16 +55,16 @@ export class MemberManagementClient {
 
   /**
    * Create a new member.
-   * @param data -  Data for creating a new member.
+   * @param data - Data for creating a new member.
    */
   async create<R extends ContentManagementMember>(data: ContentManagementMemberRequest | FormData) {
     return this.makeRequest(Endpoints.management.member.create<R>(), data)
   }
 
   /**
-   * Update user by username.
-   * @param username -  Username for the user to be updated.
-   * @param data -  Data for the user to be updated.
+   * Update member by username.
+   * @param username - Username for the member to be updated.
+   * @param data - Data for the member to be updated.
    */
   async update<R extends ContentManagementMember>(username: string, data: ContentManagementMemberRequest | FormData) {
     try {
@@ -80,7 +80,7 @@ export class MemberManagementClient {
   /**
    * Add member to group.
    * @deprecated Use {@link MemberManagementClient#addToGroup()} instead.
-   * @param username -  Username of the member.
+   * @param username - Username of the member.
    * @param group - Name of the group the member should be added to.
    */
   async addGroup(username: string, group: string) {
@@ -89,7 +89,7 @@ export class MemberManagementClient {
 
   /**
    * Add member to group.
-   * @param username -  Username of the member.
+   * @param username - Username of the member.
    * @param group - Name of the group the member should be added to.
    */
   async addToGroup(username: string, groupName: string) {
@@ -106,7 +106,7 @@ export class MemberManagementClient {
   /**
    * Remove member from group.
    * @deprecated Use {@link MemberManagementClient#removeFromGroup()} instead.
-   * @param username -  Username of th member.
+   * @param username - Username of the member.
    * @param group - Name of the group the member should be removed from.
    */
   async removeGroup(username: string, group: string) {
@@ -115,7 +115,7 @@ export class MemberManagementClient {
 
   /**
    * Remove member from group.
-   * @param username -  Username of th member.
+   * @param username - Username of the member.
    * @param group - Name of the group the member should be removed from.
    */
   async removeFromGroup(username: string, groupName: string) {
@@ -130,12 +130,29 @@ export class MemberManagementClient {
   }
 
   /**
-   * Delete a user.
-   * @param username -  Username for the user that needs to be deleted.
+   * Delete a member.
+   * @param username - Username for the member that needs to be deleted.
    */
   async delete(username: string) {
     try {
       return await this.makeRequest(Endpoints.management.member.delete(username))
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return undefined
+      }
+      throw err
+    }
+  }
+
+  /**
+   * Change a members password.
+   * @param username - Username for the member.
+   * @param currentPassword - The current password.
+   * @param newPassword - The new password.
+   */
+  async changePassword(username: string, currentPassword: string, newPassword: string) {
+    try {
+      return await this.makeRequest(Endpoints.management.member.changePassword(username), { currentPassword, newPassword })
     } catch (err) {
       if (err.response && err.response.status === 404) {
         return undefined

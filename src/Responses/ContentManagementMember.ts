@@ -1,4 +1,4 @@
-/*
+/**
  * @public
  */
 export interface ContentManagementMember {
@@ -19,7 +19,7 @@ export interface ContentManagementMember {
   name: string
 }
 
-/*
+/**
  * @public
  */
 export interface ContentManagementMemberRequest {

@@ -170,4 +170,24 @@ describe('MemberManagementClient', function () {
       expect(result).to.be.undefined
     })
   })
+
+  describe('#changePassword()', function () {
+    it('calls password endpoint', async function () {
+      axiosMock.onPost(`${API_ROOT}/jane@example.com/password`).reply(200, {})
+
+      await client.management.member.changePassword('jane@example.com', 'myPassword', 'myNewPassword')
+
+      expect(axiosMock.history.post.length).to.be.eq(1)
+      expect(axiosMock.history.post[0].data).to.be.eq(JSON.stringify({
+        currentPassword: 'myPassword',
+        newPassword: 'myNewPassword'
+      }))
+    })
+
+    it('returns undefined when not found', async function () {
+      const result = await client.management.member.addToGroup('john', "Club Blue Member")
+
+      expect(result).to.be.undefined
+    })
+  })
 })

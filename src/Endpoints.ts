@@ -118,7 +118,8 @@ export const Endpoints = {
       update: <R extends ContentManagementMember>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}', { username }, 'put'),
       addGroup: (username: string, group: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/groups/{group}', { username, group }, 'put'),
       removeGroup: (username: string, group: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/groups/{group}', { username, group }, 'delete'),
-      delete: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}', { username }, 'delete')
+      delete: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}', { username }, 'delete'),
+      changePassword: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/password', { username }, 'POST'),
     },
 
     memberGroup: {
