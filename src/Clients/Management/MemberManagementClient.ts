@@ -41,6 +41,7 @@ export class MemberManagementClient {
   /**
    * Find member by membername.
    * @param username - Username for the member querying for.
+   * @returns a `Promise` that resolves to a {@link ContentManagementMember} if found, otherwise `undefined`.
    */
   async byUsername<R extends ContentManagementMember>(username: string) {
     try {
@@ -56,6 +57,7 @@ export class MemberManagementClient {
   /**
    * Create a new member.
    * @param data - Data for creating a new member.
+   * @returns a `Promise` that resolves to the newly created {@link ContentManagementMember}.
    */
   async create<R extends ContentManagementMember>(data: ContentManagementMemberRequest | FormData) {
     return this.makeRequest(Endpoints.management.member.create<R>(), data)
@@ -65,6 +67,7 @@ export class MemberManagementClient {
    * Update member by username.
    * @param username - Username for the member to be updated.
    * @param data - Data for the member to be updated.
+   * @returns a `Promise` that resolves to a {@link ContentManagementMember} of the updated Member item if found, otherwise `undefined`.
    */
   async update<R extends ContentManagementMember>(username: string, data: ContentManagementMemberRequest | FormData) {
     try {
@@ -149,6 +152,7 @@ export class MemberManagementClient {
    * @param username - Username for the member.
    * @param currentPassword - The current password.
    * @param newPassword - The new password.
+   * @returns a `Promise` that resolves to a {@link ContentManagementMember} if found and password is updated, otherwise `undefined`.
    */
   async changePassword(username: string, currentPassword: string, newPassword: string) {
     try {
@@ -164,6 +168,7 @@ export class MemberManagementClient {
   /**
    * Create a reset tokon that can be usedh to reset the members password.
    * @param username - Username for the member.
+   * @returns a `Promise` that resolves to a {@link MemberResetPasswordToken} if found, otherwise `undefined`.
    */
   async createResetPasswordToken<R extends MemberResetPasswordToken>(username: string) {
     try {
@@ -181,6 +186,7 @@ export class MemberManagementClient {
    * @param username - Username for the member.
    * @param token - The password reset token.
    * @param newPassword - The new password.
+   * @returns a `Promise` that resolves to a {@link ContentManagementMember} if found and password is updated, otherwise `undefined`.
    */
   async resetPassword<R extends ContentManagementMember>(username: string, token: string, newPassword: string) {
     try {

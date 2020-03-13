@@ -1,5 +1,5 @@
 import { Endpoint, EndpointSource } from './Endpoint'
-import { Client } from './Client'
+import { ClientOptions } from './Client'
 import { APIRequestError } from './APIRequestError'
 import axios, { AxiosRequestConfig } from 'axios'
 import FormData from 'form-data'
@@ -10,13 +10,13 @@ const log = debug('umbraco:headless:api')
 /** @internal */
 export class ApiRequest<R = any> {
   constructor (
-    private readonly client: Client,
+    private readonly clientOptions: ClientOptions,
     public endpoint: Endpoint,
     public data?: any
   ) {}
 
   public promise = async (): Promise<R> => {
-    const projectAlias = this.client.options.projectAlias
+    const projectAlias = this.clientOptions.projectAlias
     const headers: any = {
       'Content-Type': 'application/json',
       Accept: 'application/json+hal',
@@ -24,8 +24,8 @@ export class ApiRequest<R = any> {
       'api-version': '2.1'
     }
 
-    if (this.endpoint.source === EndpointSource.CDN && this.client.options.language) {
-      headers['Accept-Language'] = this.client.options.language
+    if (this.endpoint.source === EndpointSource.CDN && this.clientOptions.language) {
+      headers['Accept-Language'] = this.clientOptions.language
     }
 
     const requestInit: AxiosRequestConfig = {
@@ -34,32 +34,31 @@ export class ApiRequest<R = any> {
       headers: {}
     }
 
-    if (this.endpoint.source === EndpointSource.ContentManagement) {
-      if (!this.client.options.apiKey) {
-        throw new Error('API Key is missing')
-      }
+    if (this.clientOptions.apiKey) {
+      headers['api-key'] = this.clientOptions.apiKey
     }
-
-    if (this.client.options.apiKey) {
-      headers['api-key'] = this.client.options.apiKey
-    }
-
-    const options = this.endpoint.options
-    log('options', options)
 
     const method = this.endpoint.method.toLowerCase()
     if ((method === 'post' || method === 'put') && !!this.data) {
-      const requestOptions = this.endpoint.options
       if (this.data instanceof FormData) {
         headers['Content-Type'] = `multipart/form-data; boundary=${this.data.getBoundary()}`
         requestInit.data = this.data
-      }
-
-      if (!requestInit.data) {
+      } else if (this.data instanceof URLSearchParams) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        requestInit.data = this.data
+      } else {
         requestInit.data = JSON.stringify(this.data)
       }
     }
     requestInit.headers = headers
+
+    if (this.clientOptions.accessTokenResolver) {
+      // @ts-ignore
+      const token = this.clientOptions.accessTokenResolver(requestInit)
+      if (token) {
+        requestInit.headers['Authorization'] = `Bearer ${token}`
+      }
+    }
 
     log('Request init')
     log(requestInit)

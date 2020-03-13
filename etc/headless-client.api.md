@@ -30,8 +30,17 @@ export class APIRequestError extends Error {
 }
 
 // @public
+export class AuthenticationClient {
+    // @internal
+    constructor(client: Client);
+    authenticateMember(username: string, password: string): Promise<OAUthResponse>;
+    authenticateUser(username: string, password: string): Promise<OAUthResponse>;
+    }
+
+// @public
 export class Client {
     constructor(options: ClientOptions);
+    readonly authentication: AuthenticationClient;
     readonly delivery: DeliveryClient;
     // @deprecated (undocumented)
     getAPIKey: () => string | undefined;
@@ -46,6 +55,12 @@ export class Client {
 
 // @public
 export interface ClientOptions {
+    accessTokenResolver?(request: {
+        data?: any;
+        headers: any;
+        method: 'get' | 'GET' | 'post' | 'POST' | 'put' | 'PUT' | 'delete' | 'DELETE';
+        url: string;
+    }): string;
     apiKey?: string;
     language?: string;
     projectAlias: string;
@@ -928,6 +943,15 @@ export interface MemberResetPasswordToken {
     // (undocumented)
     token: string;
 }
+
+// @public (undocumented)
+export type OAUthResponse = {
+    access_token?: string;
+    token_type?: string;
+    expires_in?: number;
+    error?: string;
+    error_description?: string;
+};
 
 // @public
 export interface PagedResponse<I> {

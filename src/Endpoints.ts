@@ -30,7 +30,8 @@ import {
   ContentManagementMedia,
   Media,
   PagedResponse,
-  Form
+  Form,
+  OAUthResponse
 } from './Responses'
 
 /**
@@ -141,5 +142,9 @@ export const Endpoints = {
       byId: (id: string) => new Endpoint<Form>(EndpointSource.ContentManagement, '/forms/{id}', { id }, 'get'),
       submitEntry: (id: string) => new Endpoint(EndpointSource.ContentManagement, '/forms/{id}/entries', { id }, 'post')
     }
+  },
+  authentication: {
+    member: () => new Endpoint<OAUthResponse>(EndpointSource.CDN, '/member/oauth/token', {}, 'POST'),
+    user: () => new Endpoint<OAUthResponse>(EndpointSource.ContentManagement, '/oauth/token', {}, 'POST')
   }
 }
