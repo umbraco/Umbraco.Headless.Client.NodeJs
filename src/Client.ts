@@ -23,7 +23,7 @@ export interface ClientOptions {
    * Used to retrieve access tokens for requests to the APIs.
    * @param request - The request thats about to be sent.
    */
-  accessTokenResolver?(request :{ data?: any, headers: any, method: 'get'|'GET'|'post'|'POST'|'put'|'PUT'|'delete'|'DELETE', url: string }): string
+  accessTokenResolver?(request: { data?: any, headers: any, method: 'get'|'GET'|'post'|'POST'|'put'|'PUT'|'delete'|'DELETE', url: string }): string
 }
 
 /**

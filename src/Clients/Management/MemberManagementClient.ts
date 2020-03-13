@@ -1,10 +1,9 @@
 import FormData from 'form-data'
 
 import { Client } from '../../Client'
-import { PagedResponse, ContentManagementMember, ContentManagementMemberRequest, MemberResetPasswordToken } from '../../Responses'
+import { ContentManagementMember, ContentManagementMemberRequest, MemberResetPasswordToken } from '../../Responses'
 import { Endpoint } from '../../Endpoint'
 import { Endpoints } from '../../Endpoints'
-import { APIMediaChildrenOptions } from '../../RequestOptions'
 
 /**
  * MemberManagementClient is used to access the Member part of the Content Management API.
@@ -43,7 +42,7 @@ export class MemberManagementClient {
    * @param username - Username for the member querying for.
    * @returns a `Promise` that resolves to a {@link ContentManagementMember} if found, otherwise `undefined`.
    */
-  async byUsername<R extends ContentManagementMember>(username: string) {
+  async byUsername<R extends ContentManagementMember> (username: string) {
     try {
       return await this.makeRequest(Endpoints.management.member.byUsername<R>(username))
     } catch (err) {
@@ -59,7 +58,7 @@ export class MemberManagementClient {
    * @param data - Data for creating a new member.
    * @returns a `Promise` that resolves to the newly created {@link ContentManagementMember}.
    */
-  async create<R extends ContentManagementMember>(data: ContentManagementMemberRequest | FormData) {
+  async create<R extends ContentManagementMember> (data: ContentManagementMemberRequest | FormData) {
     return this.makeRequest(Endpoints.management.member.create<R>(), data)
   }
 
@@ -69,7 +68,7 @@ export class MemberManagementClient {
    * @param data - Data for the member to be updated.
    * @returns a `Promise` that resolves to a {@link ContentManagementMember} of the updated Member item if found, otherwise `undefined`.
    */
-  async update<R extends ContentManagementMember>(username: string, data: ContentManagementMemberRequest | FormData) {
+  async update<R extends ContentManagementMember> (username: string, data: ContentManagementMemberRequest | FormData) {
     try {
       return await this.makeRequest(Endpoints.management.member.update<R>(username), data)
     } catch (err) {
@@ -86,8 +85,8 @@ export class MemberManagementClient {
    * @param username - Username of the member.
    * @param group - Name of the group the member should be added to.
    */
-  async addGroup(username: string, group: string) {
-    this.addToGroup(username, group)
+  async addGroup (username: string, group: string) {
+    await this.addToGroup(username, group)
   }
 
   /**
@@ -95,7 +94,7 @@ export class MemberManagementClient {
    * @param username - Username of the member.
    * @param group - Name of the group the member should be added to.
    */
-  async addToGroup(username: string, groupName: string) {
+  async addToGroup (username: string, groupName: string) {
     try {
       await this.makeRequest(Endpoints.management.member.addGroup(username, groupName))
     } catch (err) {
@@ -112,8 +111,8 @@ export class MemberManagementClient {
    * @param username - Username of the member.
    * @param group - Name of the group the member should be removed from.
    */
-  async removeGroup(username: string, group: string) {
-    this.removeFromGroup(username, group)
+  async removeGroup (username: string, group: string) {
+    await this.removeFromGroup(username, group)
   }
 
   /**
@@ -121,7 +120,7 @@ export class MemberManagementClient {
    * @param username - Username of the member.
    * @param group - Name of the group the member should be removed from.
    */
-  async removeFromGroup(username: string, groupName: string) {
+  async removeFromGroup (username: string, groupName: string) {
     try {
       await this.makeRequest(Endpoints.management.member.removeGroup(username, groupName))
     } catch (err) {
@@ -136,7 +135,7 @@ export class MemberManagementClient {
    * Delete a member.
    * @param username - Username for the member that needs to be deleted.
    */
-  async delete(username: string) {
+  async delete (username: string) {
     try {
       return await this.makeRequest(Endpoints.management.member.delete(username))
     } catch (err) {
@@ -154,7 +153,7 @@ export class MemberManagementClient {
    * @param newPassword - The new password.
    * @returns a `Promise` that resolves to a {@link ContentManagementMember} if found and password is updated, otherwise `undefined`.
    */
-  async changePassword(username: string, currentPassword: string, newPassword: string) {
+  async changePassword (username: string, currentPassword: string, newPassword: string) {
     try {
       return await this.makeRequest(Endpoints.management.member.changePassword(username), { currentPassword, newPassword })
     } catch (err) {
@@ -170,7 +169,7 @@ export class MemberManagementClient {
    * @param username - Username for the member.
    * @returns a `Promise` that resolves to a {@link MemberResetPasswordToken} if found, otherwise `undefined`.
    */
-  async createResetPasswordToken<R extends MemberResetPasswordToken>(username: string) {
+  async createResetPasswordToken<R extends MemberResetPasswordToken> (username: string) {
     try {
       return await this.makeRequest(Endpoints.management.member.createResetPasswordToken<R>(username))
     } catch (err) {
@@ -188,7 +187,7 @@ export class MemberManagementClient {
    * @param newPassword - The new password.
    * @returns a `Promise` that resolves to a {@link ContentManagementMember} if found and password is updated, otherwise `undefined`.
    */
-  async resetPassword<R extends ContentManagementMember>(username: string, token: string, newPassword: string) {
+  async resetPassword<R extends ContentManagementMember> (username: string, token: string, newPassword: string) {
     try {
       return await this.makeRequest(Endpoints.management.member.resetPassword<R>(username), { token, newPassword })
     } catch (err) {

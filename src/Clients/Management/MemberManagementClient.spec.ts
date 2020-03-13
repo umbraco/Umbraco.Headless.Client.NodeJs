@@ -33,7 +33,7 @@ describe('MemberManagementClient', function () {
       const result = await client.management.member.byUsername('john@example.com')
 
       expect(result).to.not.be.undefined
-      expect(result!.name).to.be.eq('John Doe')
+      expect(result.name).to.be.eq('John Doe')
     })
 
     it('returns undefined when not found', async function () {
@@ -43,7 +43,6 @@ describe('MemberManagementClient', function () {
     })
   })
 
-
   describe('#create()', function () {
     const data: ContentManagementMemberRequest = {
       comments: 'A Valued Club Blue Member',
@@ -51,7 +50,7 @@ describe('MemberManagementClient', function () {
       isApproved: true,
       memberTypeAlias: 'Member',
       username: 'jane@example.com',
-      name: 'Jane Doe',
+      name: 'Jane Doe'
     }
 
     it('should accept a json object', async function () {
@@ -102,7 +101,7 @@ describe('MemberManagementClient', function () {
       isApproved: true,
       memberTypeAlias: 'Member',
       username: 'jane@example.com',
-      name: 'Jane Doe',
+      name: 'Jane Doe'
     }
 
     it('should accept a json object', async function () {
@@ -111,7 +110,7 @@ describe('MemberManagementClient', function () {
       const result = await client.management.member.update('jane@example.com', data)
 
       expect(result).to.not.be.undefined
-      expect(result!.name).to.be.eq('Jane Doe')
+      expect(result.name).to.be.eq('Jane Doe')
       expect(axiosMock.history.put.length).to.be.eq(1)
       expect(axiosMock.history.put[0].data).to.be.eq(JSON.stringify(data))
     })
@@ -126,7 +125,7 @@ describe('MemberManagementClient', function () {
       const result = await client.management.member.update('jane@example.com', formData)
 
       expect(result).to.not.be.undefined
-      expect(result!.name).to.be.eq('Jane Doe')
+      expect(result.name).to.be.eq('Jane Doe')
       expect(axiosMock.history.put.length).to.be.eq(1)
       expect(axiosMock.history.put[0].data).to.be.eq(formData)
     })
@@ -138,7 +137,6 @@ describe('MemberManagementClient', function () {
     })
   })
 
-
   describe('#addToGroup()', function () {
     it('calls group endpoint', async function () {
       axiosMock.onPut(`${API_ROOT}/jane@example.com/groups/Blue Club Member`).reply(200, {})
@@ -149,7 +147,7 @@ describe('MemberManagementClient', function () {
     })
 
     it('returns undefined when not found', async function () {
-      const result = await client.management.member.addToGroup('john', "Club Blue Member")
+      const result = await client.management.member.addToGroup('john', 'Club Blue Member')
 
       expect(result).to.be.undefined
     })
@@ -165,7 +163,7 @@ describe('MemberManagementClient', function () {
     })
 
     it('returns undefined when not found', async function () {
-      const result = await client.management.member.addToGroup('john', "Club Blue Member")
+      const result = await client.management.member.addToGroup('john', 'Club Blue Member')
 
       expect(result).to.be.undefined
     })
@@ -193,9 +191,9 @@ describe('MemberManagementClient', function () {
 
       expect(axiosMock.history.get.length).to.be.eq(1)
       expect(result).to.not.be.undefined
-      expect(result!.token).to.not.be.undefined
-      expect(result!.expires_in).to.not.be.undefined
-      expect(result!.member).to.not.be.undefined
+      expect(result.token).to.not.be.undefined
+      expect(result.expires_in).to.not.be.undefined
+      expect(result.member).to.not.be.undefined
     })
   })
 
@@ -211,7 +209,7 @@ describe('MemberManagementClient', function () {
         newPassword: 'myNewPassword'
       }))
       expect(result).to.not.be.undefined
-      expect(result!.name).to.be.eq('Jane Doe')
+      expect(result.name).to.be.eq('Jane Doe')
     })
 
     it('returns undefined when not found', async function () {

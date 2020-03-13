@@ -13,7 +13,7 @@ import {
   ContentDeliveryRootOptions,
   ContentDeliveryFilterOptions,
   ContentDeliverySearchOptions,
-  MediaDeliveryChildrenOptions,
+  MediaDeliveryChildrenOptions
 } from './RequestOptions'
 import {
   Content,
@@ -123,7 +123,7 @@ export const Endpoints = {
       delete: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}', { username }, 'delete'),
       changePassword: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/password', { username }, 'POST'),
       createResetPasswordToken: <R extends MemberResetPasswordToken>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}/password/reset-token', { username }, 'GET'),
-      resetPassword: <R extends ContentManagementMember>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}/password/reset', { username }, 'POST'),
+      resetPassword: <R extends ContentManagementMember>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}/password/reset', { username }, 'POST')
     },
 
     memberGroup: {

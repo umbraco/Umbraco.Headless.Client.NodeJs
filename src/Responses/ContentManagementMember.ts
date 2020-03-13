@@ -72,23 +72,6 @@ export interface ContentManagementMemberType {
   _updateData: string
 }
 
-export interface ContentMemberCreateGroupTypeProperty {
-  isSensitive: boolean
-  memberCanEdit: boolean
-  memberCanView: boolean
-  alias: string
-  label: string
-  propertyEditorAlias: string
-  sortOrder: number
-  validation: any
-}
-
-export interface ContentMemberCreateGroupType {
-  name: string
-  sortOrder: number
-  properties: ContentMemberCreateGroupTypeProperty[]
-}
-
 export interface ContentMemberTypeType {
   alias: string
   compositions: any[]

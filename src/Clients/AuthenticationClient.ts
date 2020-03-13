@@ -46,7 +46,7 @@ export class AuthenticationClient {
 
     const options = { projectAlias: this.client.options.projectAlias }
 
-    return await new ApiRequest<OAUthResponse>(options, Endpoints.authentication.member(), data).promise()
+    return new ApiRequest<OAUthResponse>(options, Endpoints.authentication.member(), data).promise()
   }
 
   /**
@@ -63,6 +63,6 @@ export class AuthenticationClient {
 
     const options = { projectAlias: this.client.options.projectAlias }
 
-    return await new ApiRequest<OAUthResponse>(options, Endpoints.authentication.user(), data).promise()
+    return new ApiRequest<OAUthResponse>(options, Endpoints.authentication.user(), data).promise()
   }
 }

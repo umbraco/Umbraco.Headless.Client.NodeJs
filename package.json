@@ -29,7 +29,7 @@
     "docs": "api-extractor run --local && api-documenter markdown -i dist -o docs/api/",
     "start": "tsc -w",
     "test": "mocha -r ts-node/register 'src/**/*.spec.ts'",
-    "lint": "eslint . --ext .js,.ts"
+    "lint": "eslint src --ext .js,.ts"
   },
   "dependencies": {
     "axios": "^0.19.0",

@@ -53,7 +53,7 @@ export class ApiRequest<R = any> {
       // @ts-ignore
       const token = this.clientOptions.accessTokenResolver(requestInit)
       if (token) {
-        requestInit.headers['Authorization'] = `Bearer ${token}`
+        requestInit.headers.Authorization = `Bearer ${token}`
       }
     }
 

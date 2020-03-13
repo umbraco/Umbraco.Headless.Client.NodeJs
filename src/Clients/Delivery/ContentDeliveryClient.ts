@@ -100,7 +100,6 @@ export class ContentDeliveryClient {
     }
   }
 
-
   /**
    * Fetch ancestors for a content item.
    * @param id - GUID id of the Content item.
