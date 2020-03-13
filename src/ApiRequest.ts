@@ -3,9 +3,6 @@ import { ClientOptions } from './Client'
 import { APIRequestError } from './APIRequestError'
 import axios, { AxiosRequestConfig } from 'axios'
 import FormData from 'form-data'
-import debug from 'debug'
-
-const log = debug('umbraco:headless:api')
 
 /** @internal */
 export class ApiRequest<R = any> {
@@ -59,9 +56,6 @@ export class ApiRequest<R = any> {
         requestInit.headers['Authorization'] = `Bearer ${token}`
       }
     }
-
-    log('Request init')
-    log(requestInit)
 
     try {
       const response = await axios(requestInit)
