@@ -21,9 +21,10 @@ export interface ClientOptions {
   apiKey?: string
   /**
    * Used to retrieve access tokens for requests to the APIs.
-   * @param request - The request thats about to be sent.
+   * @param request - The request that's about to be sent.
+   * @returns an oauth token that should be used for this request or undefined if no token should be used.
    */
-  accessTokenResolver?(request: { data?: any, headers: any, method: 'get'|'GET'|'post'|'POST'|'put'|'PUT'|'delete'|'DELETE', url: string }): string
+  accessTokenResolver?(request: { data?: any, headers: any, method: 'get'|'GET'|'post'|'POST'|'put'|'PUT'|'delete'|'DELETE', url: string }): string | undefined
 }
 
 /**

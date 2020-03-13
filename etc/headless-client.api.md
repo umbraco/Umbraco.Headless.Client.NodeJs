@@ -60,7 +60,7 @@ export interface ClientOptions {
         headers: any;
         method: 'get' | 'GET' | 'post' | 'POST' | 'put' | 'PUT' | 'delete' | 'DELETE';
         url: string;
-    }): string;
+    }): string | undefined;
     apiKey?: string;
     language?: string;
     projectAlias: string;
@@ -364,36 +364,6 @@ export interface ContentMemberCreateGroupType {
     properties: ContentMemberCreateGroupTypeProperty[];
     // (undocumented)
     sortOrder: number;
-}
-
-// @public (undocumented)
-export interface ContentMemberCreateGroupType {
-    // (undocumented)
-    name: string;
-    // (undocumented)
-    properties: ContentMemberCreateGroupTypeProperty[];
-    // (undocumented)
-    sortOrder: number;
-}
-
-// @public (undocumented)
-export interface ContentMemberCreateGroupTypeProperty {
-    // (undocumented)
-    alias: string;
-    // (undocumented)
-    isSensitive: boolean;
-    // (undocumented)
-    label: string;
-    // (undocumented)
-    memberCanEdit: boolean;
-    // (undocumented)
-    memberCanView: boolean;
-    // (undocumented)
-    propertyEditorAlias: string;
-    // (undocumented)
-    sortOrder: number;
-    // (undocumented)
-    validation: any;
 }
 
 // @public (undocumented)
@@ -945,13 +915,18 @@ export interface MemberResetPasswordToken {
 }
 
 // @public (undocumented)
-export type OAUthResponse = {
+export interface OAUthResponse {
+    // (undocumented)
     access_token?: string;
-    token_type?: string;
-    expires_in?: number;
+    // (undocumented)
     error?: string;
+    // (undocumented)
     error_description?: string;
-};
+    // (undocumented)
+    expires_in?: number;
+    // (undocumented)
+    token_type?: string;
+}
 
 // @public
 export interface PagedResponse<I> {

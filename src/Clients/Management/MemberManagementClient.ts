@@ -165,7 +165,7 @@ export class MemberManagementClient {
   }
 
   /**
-   * Create a reset tokon that can be usedh to reset the members password.
+   * Create a reset tokon that can be used to reset the members password.
    * @param username - Username for the member.
    * @returns a `Promise` that resolves to a {@link MemberResetPasswordToken} if found, otherwise `undefined`.
    */
