@@ -18,7 +18,7 @@ export class ApiRequest<R = any> {
       'Content-Type': 'application/json',
       Accept: 'application/json+hal',
       'umb-project-alias': projectAlias,
-      'api-version': '2.1'
+      'api-version': '2.2'
     }
 
     if (this.endpoint.source === EndpointSource.CDN && this.clientOptions.language) {
