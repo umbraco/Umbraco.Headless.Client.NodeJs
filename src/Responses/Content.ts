@@ -5,6 +5,7 @@
 export interface Content {
   _creatorName: string
   _url: string
+  _urls: { [culture: string]: string }
   _writerName: string
   _hasChildren: boolean
   _level: number
