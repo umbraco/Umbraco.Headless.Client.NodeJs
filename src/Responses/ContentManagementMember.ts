@@ -1,4 +1,7 @@
-export interface ContentMemberType {
+/**
+ * @public
+ */
+export interface ContentManagementMember {
   _failedPasswordAttempts: number
   _groups: string[]
   _lastLoginDate: string
@@ -16,13 +19,26 @@ export interface ContentMemberType {
   name: string
 }
 
-export interface ContentCreateMemberType {
+/**
+ * @public
+ */
+export interface ContentManagementMemberRequest {
+  comments?: string
   email: string
   isApproved: boolean
-  isLockedOut: boolean
   memberTypeAlias: string
   username: string
   name: string
+  password?: string
+}
+
+/**
+ * @public
+ */
+export interface MemberResetPasswordToken {
+  token: string
+  expires_in: number
+  member: ContentManagementMember
 }
 
 export interface ContentMemberGroupType {
@@ -47,6 +63,13 @@ export interface ContentMemberCreateGroupType {
   name: string
   sortOrder: number
   properties: ContentMemberCreateGroupTypeProperty[]
+}
+
+export interface ContentManagementMemberType {
+  _id: string
+  name: string
+  _createDate: string
+  _updateData: string
 }
 
 export interface ContentMemberTypeType {

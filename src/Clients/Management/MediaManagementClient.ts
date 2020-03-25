@@ -54,7 +54,7 @@ export class MediaManagementClient {
   async byId<T extends ContentManagementMedia> (id: string) {
     try {
       return await this.makeRequest(Endpoints.management.media.byId<T>(id))
-    } catch(err) {
+    } catch (err) {
       if (err.response && err.response.status === 404) {
         return undefined
       }
@@ -72,7 +72,7 @@ export class MediaManagementClient {
   async children<T extends ContentManagementMedia> (id: string, options?: APIMediaChildrenOptions): Promise<PagedResponse<T> | undefined> {
     try {
       return await this.makeRequest(Endpoints.management.media.children<T>(id, options))
-    } catch(err) {
+    } catch (err) {
       if (err.response && err.response.status === 404) {
         return undefined
       }
@@ -171,7 +171,7 @@ export class MediaManagementClient {
   async update <T extends ContentManagementMedia> (id: string, body: ContentManagementMediaRequest | FormData) {
     try {
       return await this.makeRequest(Endpoints.management.media.update(id), body)
-    } catch(err) {
+    } catch (err) {
       if (err.response && err.response.status === 404) {
         return undefined
       }
@@ -188,7 +188,7 @@ export class MediaManagementClient {
   async delete <T extends ContentManagementMedia> (id: string) {
     try {
       return await this.makeRequest(Endpoints.management.media.delete(id))
-    } catch(err) {
+    } catch (err) {
       if (err.response && err.response.status === 404) {
         return undefined
       }

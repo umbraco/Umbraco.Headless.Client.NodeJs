@@ -13,15 +13,15 @@ import {
   ContentDeliveryRootOptions,
   ContentDeliveryFilterOptions,
   ContentDeliverySearchOptions,
-  MediaDeliveryChildrenOptions,
-  MultipartOptions
+  MediaDeliveryChildrenOptions
 } from './RequestOptions'
 import {
   Content,
   ContentLanguageType,
   MediaTypeContentManager,
   ContentMemberGroupType,
-  ContentMemberType,
+  ContentManagementMember,
+  MemberResetPasswordToken,
   ContentMemberTypeType,
   ContentRelationType,
   ContentRelationTypeType,
@@ -30,7 +30,8 @@ import {
   ContentManagementMedia,
   Media,
   PagedResponse,
-  Form
+  Form,
+  OAUthResponse
 } from './Responses'
 
 /**
@@ -81,7 +82,7 @@ export const Endpoints = {
       root: <R extends ContentManagementMedia>() => new Endpoint<R[]>(EndpointSource.ContentManagement, '/media', {}, 'get'),
       byId: <R extends ContentManagementMedia>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', { id }, 'get'),
       children: <R extends ContentManagementMedia>(id: string, options?: APIMediaChildrenOptions) => new Endpoint<PagedResponse<R>>(EndpointSource.ContentManagement, '/media/{id}/children', { id }, 'get', options),
-      create: <R extends ContentManagementMedia>() => new Endpoint<R, MultipartOptions>(EndpointSource.ContentManagement, '/media', {}, 'post', { usingMultipart: true }),
+      create: <R extends ContentManagementMedia>() => new Endpoint<R>(EndpointSource.ContentManagement, '/media', {}, 'post'),
       update: <R extends ContentManagementMedia>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', { id }, 'put'),
       delete: <R extends ContentManagementMedia>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/media/{id}', { id }, 'delete')
     },
@@ -114,12 +115,15 @@ export const Endpoints = {
     },
 
     member: {
-      byUsername: <R extends ContentMemberType>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}', { username }, 'get'),
-      create: <R extends ContentMemberType>() => new Endpoint<R>(EndpointSource.ContentManagement, '/member', {}, 'post'),
-      update: <R extends ContentMemberType>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}', { username }, 'put'),
+      byUsername: <R extends ContentManagementMember>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}', { username }, 'get'),
+      create: <R extends ContentManagementMember>() => new Endpoint<R>(EndpointSource.ContentManagement, '/member', {}, 'post'),
+      update: <R extends ContentManagementMember>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}', { username }, 'put'),
       addGroup: (username: string, group: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/groups/{group}', { username, group }, 'put'),
       removeGroup: (username: string, group: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/groups/{group}', { username, group }, 'delete'),
-      delete: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}', { username }, 'delete')
+      delete: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}', { username }, 'delete'),
+      changePassword: (username: string) => new Endpoint(EndpointSource.ContentManagement, '/member/{username}/password', { username }, 'POST'),
+      createResetPasswordToken: <R extends MemberResetPasswordToken>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}/password/reset-token', { username }, 'GET'),
+      resetPassword: <R extends ContentManagementMember>(username: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/member/{username}/password/reset', { username }, 'POST')
     },
 
     memberGroup: {
@@ -138,5 +142,9 @@ export const Endpoints = {
       byId: (id: string) => new Endpoint<Form>(EndpointSource.ContentManagement, '/forms/{id}', { id }, 'get'),
       submitEntry: (id: string) => new Endpoint(EndpointSource.ContentManagement, '/forms/{id}/entries', { id }, 'post')
     }
+  },
+  authentication: {
+    member: () => new Endpoint<OAUthResponse>(EndpointSource.CDN, '/member/oauth/token', {}, 'POST'),
+    user: () => new Endpoint<OAUthResponse>(EndpointSource.ContentManagement, '/oauth/token', {}, 'POST')
   }
 }

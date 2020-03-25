@@ -30,8 +30,17 @@ export class APIRequestError extends Error {
 }
 
 // @public
+export class AuthenticationClient {
+    // @internal
+    constructor(client: Client);
+    authenticateMember(username: string, password: string): Promise<OAUthResponse>;
+    authenticateUser(username: string, password: string): Promise<OAUthResponse>;
+    }
+
+// @public
 export class Client {
     constructor(options: ClientOptions);
+    readonly authentication: AuthenticationClient;
     readonly delivery: DeliveryClient;
     // @deprecated (undocumented)
     getAPIKey: () => string | undefined;
@@ -46,6 +55,12 @@ export class Client {
 
 // @public
 export interface ClientOptions {
+    accessTokenResolver?(request: {
+        data?: any;
+        headers: any;
+        method: 'get' | 'GET' | 'post' | 'POST' | 'put' | 'PUT' | 'delete' | 'DELETE';
+        url: string;
+    }): string | undefined;
     apiKey?: string;
     language?: string;
     projectAlias: string;
@@ -79,22 +94,6 @@ export interface Content {
     _url: string;
     // (undocumented)
     _writerName: string;
-}
-
-// @public (undocumented)
-export interface ContentCreateMemberType {
-    // (undocumented)
-    email: string;
-    // (undocumented)
-    isApproved: boolean;
-    // (undocumented)
-    isLockedOut: boolean;
-    // (undocumented)
-    memberTypeAlias: string;
-    // (undocumented)
-    name: string;
-    // (undocumented)
-    username: string;
 }
 
 // @public
@@ -294,6 +293,70 @@ export interface ContentManagementMediaRequest {
 }
 
 // @public (undocumented)
+export interface ContentManagementMember {
+    // (undocumented)
+    comments: string;
+    // (undocumented)
+    _createDate: string;
+    // (undocumented)
+    email: string;
+    // (undocumented)
+    _failedPasswordAttempts: number;
+    // (undocumented)
+    _groups: string[];
+    // (undocumented)
+    _id: string;
+    // (undocumented)
+    isApproved: boolean;
+    // (undocumented)
+    isLockedOut: boolean;
+    // (undocumented)
+    _lastLoginDate: string;
+    // (undocumented)
+    _lastPasswordChangeDate: string;
+    // (undocumented)
+    _links: any;
+    // (undocumented)
+    memberTypeAlias: string;
+    // (undocumented)
+    name: string;
+    // (undocumented)
+    _updateDate: string;
+    // (undocumented)
+    username: string;
+}
+
+// @public (undocumented)
+export interface ContentManagementMemberRequest {
+    // (undocumented)
+    comments?: string;
+    // (undocumented)
+    email: string;
+    // (undocumented)
+    isApproved: boolean;
+    // (undocumented)
+    memberTypeAlias: string;
+    // (undocumented)
+    name: string;
+    // (undocumented)
+    password?: string;
+    // (undocumented)
+    username: string;
+}
+
+// @public (undocumented)
+export interface ContentManagementMemberType {
+    // (undocumented)
+    _createDate: string;
+    // (undocumented)
+    _id: string;
+    // (undocumented)
+    name: string;
+    // (undocumented)
+    _updateData: string;
+}
+
+// @public (undocumented)
 export interface ContentMemberCreateGroupType {
     // (undocumented)
     name: string;
@@ -333,40 +396,6 @@ export interface ContentMemberGroupType {
     name: string;
     // (undocumented)
     _updateData: string;
-}
-
-// @public (undocumented)
-export interface ContentMemberType {
-    // (undocumented)
-    comments: string;
-    // (undocumented)
-    _createDate: string;
-    // (undocumented)
-    email: string;
-    // (undocumented)
-    _failedPasswordAttempts: number;
-    // (undocumented)
-    _groups: string[];
-    // (undocumented)
-    _id: string;
-    // (undocumented)
-    isApproved: boolean;
-    // (undocumented)
-    isLockedOut: boolean;
-    // (undocumented)
-    _lastLoginDate: string;
-    // (undocumented)
-    _lastPasswordChangeDate: string;
-    // (undocumented)
-    _links: any;
-    // (undocumented)
-    memberTypeAlias: string;
-    // (undocumented)
-    name: string;
-    // (undocumented)
-    _updateDate: string;
-    // (undocumented)
-    username: string;
 }
 
 // @public (undocumented)
@@ -753,14 +782,7 @@ export class ManagementClient {
         all: () => Promise<import("../../Responses").MediaTypeContentManager[]>;
         byAlias: (alias: string) => Promise<import("../../Responses").MediaTypeContentManager>;
     };
-    get member(): {
-        byUsername: <R extends ContentMemberType>(username: string) => Promise<R>;
-        create: <R_1 extends ContentMemberType>(data: ContentCreateMemberType) => Promise<R_1>;
-        update: <R_2 extends ContentMemberType>(username: string, data: ContentCreateMemberType) => Promise<R_2>;
-        addGroup: (username: string, group: string) => Promise<any>;
-        removeGroup: (username: string, group: string) => Promise<any>;
-        delete: (username: string) => Promise<any>;
-    };
+    readonly member: MemberManagementClient;
     get memberGroup(): {
         byName: (name: string) => Promise<ContentMemberGroupType>;
         create: (data: ContentMemberCreateGroupType) => Promise<ContentMemberGroupType>;
@@ -863,12 +885,47 @@ export interface MediaTypeContentManagerRoot {
     mediatypes: MediaTypeContentManager[];
 }
 
-// Warning: (ae-internal-missing-underscore) The name "MultipartOptions" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export interface MultipartOptions {
+// @public
+export class MemberManagementClient {
+    // @internal
+    constructor(client: Client);
+    // @deprecated
+    addGroup(username: string, group: string): Promise<void>;
+    addToGroup(username: string, groupName: string): Promise<undefined>;
+    byUsername<R extends ContentManagementMember>(username: string): Promise<R | undefined>;
+    changePassword(username: string, currentPassword: string, newPassword: string): Promise<any>;
+    create<R extends ContentManagementMember>(data: ContentManagementMemberRequest | FormData): Promise<R>;
+    createResetPasswordToken<R extends MemberResetPasswordToken>(username: string): Promise<R | undefined>;
+    delete(username: string): Promise<any>;
+    removeFromGroup(username: string, groupName: string): Promise<undefined>;
+    // @deprecated
+    removeGroup(username: string, group: string): Promise<void>;
+    resetPassword<R extends ContentManagementMember>(username: string, token: string, newPassword: string): Promise<R | undefined>;
+    update<R extends ContentManagementMember>(username: string, data: ContentManagementMemberRequest | FormData): Promise<R | undefined>;
+}
+
+// @public (undocumented)
+export interface MemberResetPasswordToken {
     // (undocumented)
-    usingMultipart: boolean;
+    expires_in: number;
+    // (undocumented)
+    member: ContentManagementMember;
+    // (undocumented)
+    token: string;
+}
+
+// @public (undocumented)
+export interface OAUthResponse {
+    // (undocumented)
+    access_token?: string;
+    // (undocumented)
+    error?: string;
+    // (undocumented)
+    error_description?: string;
+    // (undocumented)
+    expires_in?: number;
+    // (undocumented)
+    token_type?: string;
 }
 
 // @public

@@ -1,4 +1,4 @@
-import { ManagementClient, DeliveryClient } from './Clients'
+import { ManagementClient, DeliveryClient, AuthenticationClient } from './Clients'
 import { Endpoint } from './Endpoint'
 import { ApiRequest } from './ApiRequest'
 
@@ -19,6 +19,12 @@ export interface ClientOptions {
    * An API Key is requierd when interacting with the Management API and when protection is enabled for the Delivery API
    */
   apiKey?: string
+  /**
+   * Used to retrieve access tokens for requests to the APIs.
+   * @param request - The request that's about to be sent.
+   * @returns an oauth token that should be used for this request or undefined if no token should be used.
+   */
+  accessTokenResolver?(request: { data?: any, headers: any, method: 'get'|'GET'|'post'|'POST'|'put'|'PUT'|'delete'|'DELETE', url: string }): string | undefined
 }
 
 /**
@@ -58,11 +64,17 @@ export class Client {
   public readonly management = new ManagementClient(this)
 
   /**
+   * Get Authentication Client for authenticating members and Backoffice users.
+   * See {@link AuthenticationClient}
+   */
+  public readonly authentication = new AuthenticationClient(this)
+
+  /**
    * Makes request from and [Endpoint]
    * @internal
    */
   public makeRequest = async <R extends any>(endpoint: Endpoint<R>, data?: any): Promise<R> => {
-    const response = await new ApiRequest<any>(this, endpoint, data).promise()
+    const response = await new ApiRequest<any>(this.options, endpoint, data).promise()
     const items = this.getEmbeddedData(response)
     const pageData = this.getPagedData(response)
 
@@ -72,6 +84,10 @@ export class Client {
         items
       }
     } else if (!pageData && items) {
+      const { _embedded, _links, ...data } = response
+      if (Object.keys(data).length) {
+        return { ..._embedded, ...data }
+      }
       return items
     }
     return response

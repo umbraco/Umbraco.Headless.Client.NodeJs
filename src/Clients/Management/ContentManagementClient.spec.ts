@@ -10,8 +10,17 @@ import { ContentManagementContentRequest } from '../../Responses'
 const API_ROOT = 'https://api.umbraco.io/content'
 
 describe('ContentManagementClient', function () {
-  const client = new Client({ projectAlias: 'my-project', apiKey: 'my-api-key' })
-  const axiosMock = new MockAdapter(axios)
+  let client: Client
+  let axiosMock: MockAdapter
+
+  before(function () {
+    client = new Client({ projectAlias: 'my-project', apiKey: 'my-api-key' })
+    axiosMock = new MockAdapter(axios)
+  })
+
+  after(function () {
+    axiosMock.restore()
+  })
 
   afterEach(function () {
     axiosMock.reset()
@@ -63,7 +72,7 @@ describe('ContentManagementClient', function () {
   })
 
   describe('#create()', function () {
-    it('should be accept a json object', async function () {
+    it('should accept a json object', async function () {
       axiosMock.onPost(API_ROOT).reply(201, require('./__mocks__/content.create.json'))
 
       const data: ContentManagementContentRequest = {
@@ -101,7 +110,7 @@ describe('ContentManagementClient', function () {
       expect(axiosMock.history.post[0].data).to.be.eq(JSON.stringify(data))
     })
 
-    it('should be accept FormData object', async function () {
+    it('should accept FormData object', async function () {
       axiosMock.onPost(API_ROOT).reply(201, require('./__mocks__/content.create.json'))
 
       const data = new FormData()
@@ -138,7 +147,7 @@ describe('ContentManagementClient', function () {
 
       expect(result.name.$invariant).to.be.eq('Another one')
       expect(axiosMock.history.post.length).to.be.eq(1)
-      expect(axiosMock.history.post[0].data).to.be.eq(JSON.stringify(data))
+      expect(axiosMock.history.post[0].data).to.be.eq(data)
     })
   })
 
@@ -191,7 +200,7 @@ describe('ContentManagementClient', function () {
   })
 
   describe('#update()', function () {
-    it('should be accept a json object', async function () {
+    it('should accept a json object', async function () {
       axiosMock.onPut(`${API_ROOT}/041067a0-74f5-4d03-92af-40c3c0aa13e7`).reply(201, require('./__mocks__/content.create.json'))
 
       const data: ContentManagementContentRequest = {
@@ -231,7 +240,7 @@ describe('ContentManagementClient', function () {
       expect(axiosMock.history.put[0].data).to.be.eq(JSON.stringify(data))
     })
 
-    it('should be accept FormData object', async function () {
+    it('should accept FormData object', async function () {
       axiosMock.onPut(`${API_ROOT}/041067a0-74f5-4d03-92af-40c3c0aa13e7`).reply(201, require('./__mocks__/content.create.json'))
 
       const data = new FormData()
@@ -270,7 +279,7 @@ describe('ContentManagementClient', function () {
       // @ts-ignore
       expect(result.name.$invariant).to.be.eq('Another one')
       expect(axiosMock.history.put.length).to.be.eq(1)
-      expect(axiosMock.history.put[0].data).to.be.eq(JSON.stringify(data))
+      expect(axiosMock.history.put[0].data).to.be.eq(data)
     })
 
     it('returns undefined when not found', async function () {
