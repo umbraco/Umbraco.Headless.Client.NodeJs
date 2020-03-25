@@ -33,6 +33,7 @@ describe('MemberManagementClient', function () {
       const result = await client.management.member.byUsername('john@example.com')
 
       expect(result).to.not.be.undefined
+      // @ts-ignore
       expect(result.name).to.be.eq('John Doe')
     })
 
@@ -58,6 +59,7 @@ describe('MemberManagementClient', function () {
 
       const result = await client.management.member.create(data)
 
+      // @ts-ignore
       expect(result.name).to.be.eq('Jane Doe')
       expect(axiosMock.history.post.length).to.be.eq(1)
       expect(axiosMock.history.post[0].data).to.be.eq(JSON.stringify(data))
@@ -72,6 +74,7 @@ describe('MemberManagementClient', function () {
 
       const result = await client.management.member.create(formData)
 
+      // @ts-ignore
       expect(result.name).to.be.eq('Jane Doe')
       expect(axiosMock.history.post.length).to.be.eq(1)
       expect(axiosMock.history.post[0].data).to.be.eq(formData)
@@ -110,6 +113,7 @@ describe('MemberManagementClient', function () {
       const result = await client.management.member.update('jane@example.com', data)
 
       expect(result).to.not.be.undefined
+      // @ts-ignore
       expect(result.name).to.be.eq('Jane Doe')
       expect(axiosMock.history.put.length).to.be.eq(1)
       expect(axiosMock.history.put[0].data).to.be.eq(JSON.stringify(data))
@@ -125,6 +129,7 @@ describe('MemberManagementClient', function () {
       const result = await client.management.member.update('jane@example.com', formData)
 
       expect(result).to.not.be.undefined
+      // @ts-ignore
       expect(result.name).to.be.eq('Jane Doe')
       expect(axiosMock.history.put.length).to.be.eq(1)
       expect(axiosMock.history.put[0].data).to.be.eq(formData)
@@ -191,8 +196,11 @@ describe('MemberManagementClient', function () {
 
       expect(axiosMock.history.get.length).to.be.eq(1)
       expect(result).to.not.be.undefined
+      // @ts-ignore
       expect(result.token).to.not.be.undefined
+      // @ts-ignore
       expect(result.expires_in).to.not.be.undefined
+      // @ts-ignore
       expect(result.member).to.not.be.undefined
     })
   })
@@ -209,6 +217,7 @@ describe('MemberManagementClient', function () {
         newPassword: 'myNewPassword'
       }))
       expect(result).to.not.be.undefined
+      // @ts-ignore
       expect(result.name).to.be.eq('Jane Doe')
     })
 
