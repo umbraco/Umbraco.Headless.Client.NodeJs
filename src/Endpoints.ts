@@ -68,7 +68,7 @@ export const Endpoints = {
       children: <R extends ContentManagementContent>(id: string, options?: APIContentChildrenOptions) => new Endpoint<PagedResponse<R>>(EndpointSource.ContentManagement, '/content/{id}/children', { id }, 'get', options),
       create: <R extends ContentManagementContent>() => new Endpoint<R>(EndpointSource.ContentManagement, '/content', {}, 'post'),
       publish: <R extends ContentManagementContent>(id: string, options?: APIContentPublishOptions) => {
-        return new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/publish', { id }, 'put', options) as Endpoint<R, APIContentPublishOptions>
+        return new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/publish', { id }, 'put', options)
       },
       unPublish: <R extends ContentManagementContent>(id: string, options?: APIContentUnpublishOptions) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}/unpublish', { id }, 'put', options),
       update: <R extends ContentManagementContent>(id: string) => new Endpoint<R>(EndpointSource.ContentManagement, '/content/{id}', { id }, 'put'),
