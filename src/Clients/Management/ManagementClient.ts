@@ -10,7 +10,11 @@ import {
   ContentMemberGroupType,
   ContentMemberTypeType,
   ContentTypeBase,
-  CreateContentLanguageType
+  ContentRelationType,
+  ContentRelationTypeType,
+  CreateContentLanguageType,
+  MediaTypeContentManager,
+  Form
 } from '../../Responses'
 
 /**
@@ -78,7 +82,7 @@ export class ManagementClient {
        * Find content type by alias
        * @param alias Alias for the content type
        */
-      byAlias: async (alias: string) => this.makeRequest(Endpoints.management.contentType.byAlias(alias))
+      byAlias: async (alias: string) : Promise<ContentTypeBase> => this.makeRequest(Endpoints.management.contentType.byAlias(alias))
     }
   }
 
@@ -90,13 +94,13 @@ export class ManagementClient {
       /**
        * Fetch all media types
        */
-      all: async () => this.makeRequest(Endpoints.management.mediaType.all()),
+      all: async () : Promise<MediaTypeContentManager[]> => this.makeRequest(Endpoints.management.mediaType.all()),
 
       /**
        * Find media type by alias
        * @param alias Alias of the media type querying for
        */
-      byAlias: async (alias: string) => this.makeRequest(Endpoints.management.mediaType.byAlias(alias))
+      byAlias: async (alias: string) : Promise<MediaTypeContentManager> => this.makeRequest(Endpoints.management.mediaType.byAlias(alias))
     }
   }
 
@@ -147,37 +151,37 @@ export class ManagementClient {
        * Find relation by id
        * @param id GUID part of an Umbraco UDI
        */
-      byId: async (id: string) => this.makeRequest(Endpoints.management.relation.byId(id)),
+      byId: async (id: string) : Promise<ContentRelationType> => this.makeRequest(Endpoints.management.relation.byId(id)),
 
       /**
        * Find relation by alias
        * @param alias Alias of the relation querying for
        */
-      byAlias: async (alias: string) => this.makeRequest(Endpoints.management.relation.byAlias(alias)),
+      byAlias: async (alias: string) : Promise<ContentRelationType[]> => this.makeRequest(Endpoints.management.relation.byAlias(alias)),
 
       /**
        * Fetch child for relation with id
        * @param id GUID part of an Umbraco UDI
        */
-      byChild: async (id: string) => this.makeRequest(Endpoints.management.relation.byChild(id)),
+      byChild: async (id: string) : Promise<ContentRelationType[]> => this.makeRequest(Endpoints.management.relation.byChild(id)),
 
       /**
        * Fetch parent for relation with id
        * @param id GUID part of an Umbraco UDI
        */
-      byParent: async (id: string) => this.makeRequest(Endpoints.management.relation.byParent(id)),
+      byParent: async (id: string) : Promise<ContentRelationType[]> => this.makeRequest(Endpoints.management.relation.byParent(id)),
 
       /**
        * Create a relation
        * @param data Data for creating relation object
        */
-      create: async (data: any) => this.makeRequest(Endpoints.management.relation.create(), data),
+      create: async (data: any) : Promise<ContentRelationType> => this.makeRequest(Endpoints.management.relation.create(), data),
 
       /**
        * Delete relation with id
        * @param id GUID part of an Umbraco UDI
        */
-      delete: async (id: string) => this.makeRequest(Endpoints.management.relation.delete(id))
+      delete: async (id: string) : Promise<ContentRelationType> => this.makeRequest(Endpoints.management.relation.delete(id))
     }
   }
 
@@ -190,7 +194,7 @@ export class ManagementClient {
        * Fetch relation type by alias
        * @param alias Alias for the relation type queryed for
        */
-      byAlias: async (alias: string) => this.makeRequest(Endpoints.management.relationType.byAlias(alias))
+      byAlias: async (alias: string) : Promise<ContentRelationTypeType> => this.makeRequest(Endpoints.management.relationType.byAlias(alias))
     }
   }
 
@@ -245,12 +249,12 @@ export class ManagementClient {
       /**
        * Fetch all forms
        */
-      all: async () => this.makeRequest(Endpoints.management.forms.all()),
+      all: async () : Promise<Form[]> => this.makeRequest(Endpoints.management.forms.all()),
 
       /**
        * Get form by id
        */
-      byId: async (id: string) => this.makeRequest(Endpoints.management.forms.byId(id)),
+      byId: async (id: string) : Promise<Form> => this.makeRequest(Endpoints.management.forms.byId(id)),
 
       /**
        * Submit a new form entry

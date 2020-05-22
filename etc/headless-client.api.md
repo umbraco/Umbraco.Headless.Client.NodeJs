@@ -93,6 +93,10 @@ export interface Content {
     // (undocumented)
     _url: string;
     // (undocumented)
+    _urls: {
+        [culture: string]: string;
+    };
+    // (undocumented)
     _writerName: string;
 }
 
@@ -766,8 +770,8 @@ export class ManagementClient {
         byAlias: (alias: string) => Promise<ContentTypeBase>;
     };
     get forms(): {
-        all: () => Promise<import("../../Responses").Form[]>;
-        byId: (id: string) => Promise<import("../../Responses").Form>;
+        all: () => Promise<Form[]>;
+        byId: (id: string) => Promise<Form>;
         submitEntry: (formId: string, data: object) => Promise<any>;
     };
     get language(): {
@@ -779,8 +783,8 @@ export class ManagementClient {
     };
     readonly media: MediaManagementClient;
     get mediaType(): {
-        all: () => Promise<import("../../Responses").MediaTypeContentManager[]>;
-        byAlias: (alias: string) => Promise<import("../../Responses").MediaTypeContentManager>;
+        all: () => Promise<MediaTypeContentManager[]>;
+        byAlias: (alias: string) => Promise<MediaTypeContentManager>;
     };
     readonly member: MemberManagementClient;
     get memberGroup(): {
@@ -793,15 +797,15 @@ export class ManagementClient {
         byAlias: <R_1 extends ContentMemberTypeType>(alias: string) => Promise<R_1>;
     };
     get relation(): {
-        byId: (id: string) => Promise<import("../../Responses").ContentRelationType>;
-        byAlias: (alias: string) => Promise<import("../../Responses").ContentRelationType[]>;
-        byChild: (id: string) => Promise<import("../../Responses").ContentRelationType[]>;
-        byParent: (id: string) => Promise<import("../../Responses").ContentRelationType[]>;
-        create: (data: any) => Promise<import("../../Responses").ContentRelationType>;
-        delete: (id: string) => Promise<import("../../Responses").ContentRelationType>;
+        byId: (id: string) => Promise<ContentRelationType>;
+        byAlias: (alias: string) => Promise<ContentRelationType[]>;
+        byChild: (id: string) => Promise<ContentRelationType[]>;
+        byParent: (id: string) => Promise<ContentRelationType[]>;
+        create: (data: any) => Promise<ContentRelationType>;
+        delete: (id: string) => Promise<ContentRelationType>;
     };
     get relationType(): {
-        byAlias: (alias: string) => Promise<import("../../Responses").ContentRelationTypeType>;
+        byAlias: (alias: string) => Promise<ContentRelationTypeType>;
     };
 }
 

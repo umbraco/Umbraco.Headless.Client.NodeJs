@@ -22,7 +22,6 @@ export default Vue.extend({
     try {
       content = await client.delivery.content.byUrl(to.path)
     } catch (e) {
-      console.log(e)
       content = { contentTypeAlias: 'notFound', name: 'Not Found' }
     }
 
@@ -35,7 +34,6 @@ export default Vue.extend({
     try {
       this.content = await client.delivery.content.byUrl(to.path)
     } catch (e) {
-      console.log(e)
       this.content = { contentTypeAlias: 'notFound', name: 'Not Found' }
     }
     next()
