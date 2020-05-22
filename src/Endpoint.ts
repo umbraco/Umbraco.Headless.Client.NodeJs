@@ -1,3 +1,12 @@
+import {
+  ContentDeliveryFilterOptions,
+  ContentTypeOptions,
+  CultureOptions,
+  DepthOptions,
+  HyperlinksOption,
+  PageOptions
+} from './RequestOptions'
+
 /** @internal */
 export enum EndpointSource {
   CDN,
@@ -5,12 +14,14 @@ export enum EndpointSource {
   ContentManagement
 }
 
+type Options = ContentDeliveryFilterOptions | ContentTypeOptions | CultureOptions | DepthOptions | HyperlinksOption | PageOptions
+
 /**
  * This class describes how and endpoint might will look,
  * it's not possible to change value
  * @internal
  */
-export class Endpoint<R = any, Options = any> {
+export class Endpoint<R = any> {
   constructor (
     public readonly source: EndpointSource,
     public readonly path: string,
@@ -38,57 +49,35 @@ export class Endpoint<R = any, Options = any> {
       path = path.replace(regEx, value)
     })
 
-    return path
-  }
-
-  static getURLAddress = (endpoint: Endpoint) => {
-    let url = 'https://{API_TYPE}.umbraco.io' + endpoint.getPath()
-
     const params = new URLSearchParams()
 
-    if (endpoint.options) {
-      if (typeof endpoint.options.pageSize === 'number') {
-        params.append('pageSize', endpoint.options.pageSize)
+    if (this.options) {
+      if ('pageSize' in this.options && typeof this.options.pageSize === 'number') {
+        params.append('pageSize', this.options.pageSize.toString())
       }
-      if (typeof endpoint.options.page === 'number') {
-        params.append('page', endpoint.options.page)
+      if ('page' in this.options && typeof this.options.page === 'number') {
+        params.append('page', this.options.page.toString())
       }
-      if (typeof endpoint.options.depth === 'number') {
-        params.append('depth', endpoint.options.depth)
+      if ('depth' in this.options && typeof this.options.depth === 'number') {
+        params.append('depth', this.options.depth.toString())
       }
-      if (typeof endpoint.options.hyperlinks === 'boolean') {
-        params.append('hyperlinks', endpoint.options.hyperlinks)
+      if ('hyperlinks' in this.options && typeof this.options.hyperlinks === 'boolean') {
+        params.append('hyperlinks', this.options.hyperlinks ? 'true' : 'false')
       }
-      if (typeof endpoint.options.contentType === 'string') {
-        params.append('contentType', endpoint.options.contentType)
+      if ('contentType' in this.options && typeof this.options.contentType === 'string') {
+        params.append('contentType', this.options.contentType)
       }
-      if (typeof endpoint.options.culture === 'string') {
-        params.append('culture', endpoint.options.culture)
+      if ('culture' in this.options && typeof this.options.culture === 'string') {
+        params.append('culture', this.options.culture)
       }
     }
 
     const queryString = params.toString()
 
     if (queryString) {
-      url += `${url.includes('?') ? '&' : '?'}${queryString}`
+      path += `${path.includes('?') ? '&' : '?'}${queryString}`
     }
 
-    let apiType: string
-    switch (endpoint.source) {
-      case EndpointSource.CDN:
-        apiType = 'cdn'
-        break
-
-      case EndpointSource.ContentManagement:
-        apiType = 'api'
-        break
-      default:
-        apiType = 'cdn'
-        break
-    }
-
-    url = url.replace('{API_TYPE}', apiType)
-
-    return url
+    return path
   }
 }

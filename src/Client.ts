@@ -28,10 +28,32 @@ export interface ClientOptions {
 }
 
 /**
+ * Proxy options
+ * @public
+ */
+export interface ProxyOptions {
+  /**
+   * A custom url for the Content Delivery endpoint.
+   */
+  cdnProxyUrl: string
+  /**
+   * A custom url for the Content Management endpoint.
+   */
+  apiProxyUrl: string
+  /**
+   * The default culture sent with all requests to the Content Delivery API, this can be overwritten per function
+   */
+  language?: string
+}
+
+/**
  * Entry class for accessing the Content Delivery and Content Management APIs.
  * @public
  *
  * @example
+ *
+ * To get started you need create a new instance of the `Client` passing {@link ClientOptions}.
+ *
  * ```typescript
  * import { Client } from '@umbraco/headless-client'
  *
@@ -41,13 +63,27 @@ export interface ClientOptions {
  *  language: '<iso-code>',
  * })
  * ```
+ *
+ * You might want to proxy your request through a server to hide the project alias and the api key,
+ * this can be done by creating a new instance of the `Client` class passing in {@link ProxyOptions}.
+ *
+ * ```typescript
+ * import { Client } from '@umbraco/headless-client'
+ *
+ * const client = new Client({
+ *  apiProxyUrl: '<proxy-url>',
+ *  cdnProxyUrl: '<proxy-url>',
+ *  language: '<iso-code>',
+ * })
+ * ```
+ *
  */
 export class Client {
   /**
    * Constructs a new instance of the `Client` class with the given options.
-   * @param options - The options. See {@link ClientOptions}
+   * @param options - The options. See {@link ClientOptions} or {@link ProxyOptions}.
    */
-  constructor (public readonly options: ClientOptions) {
+  constructor (public readonly options: ClientOptions | ProxyOptions) {
 
   }
 
@@ -99,13 +135,23 @@ export class Client {
    * @deprecated Use `apiKey` in the constructor options instead.
    */
   public setAPIKey = (apikey: string) => {
-    this.options.apiKey = apikey
+    if('apiKey' in this.options) {
+      this.options.apiKey = apikey
+    } else {
+      throw Error('Cannot set apiKey on ProxyOptions')
+    }
   }
 
   /**
    * @deprecated Use `options.apiKey` instead.
    */
-  public getAPIKey = () => this.options.apiKey
+  public getAPIKey = () => {
+    if('apiKey' in this.options) {
+      return this.options.apiKey
+    } else {
+      throw Error('Cannot set apiKey on ProxyOptions')
+    }
+  }
 
   private readonly getEmbeddedData = (response: any) => {
     if (Object.prototype.hasOwnProperty.call(response, '_embedded')) {

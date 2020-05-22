@@ -1,4 +1,4 @@
-import { Client } from '../Client'
+import { Client, ClientOptions } from '../Client'
 import { ApiRequest } from '../ApiRequest'
 import { Endpoints } from '../Endpoints'
 import { OAUthResponse } from '../Responses'
@@ -44,7 +44,10 @@ export class AuthenticationClient {
     data.append('username', username)
     data.append('password', password)
 
-    const options = { projectAlias: this.client.options.projectAlias }
+    const options = { projectAlias: '' }
+    if ('projectAlias' in this.client.options) {
+      options.projectAlias = this.client.options.projectAlias
+    }
 
     return new ApiRequest<OAUthResponse>(options, Endpoints.authentication.member(), data).promise()
   }
@@ -61,7 +64,10 @@ export class AuthenticationClient {
     data.append('username', username)
     data.append('password', password)
 
-    const options = { projectAlias: this.client.options.projectAlias }
+    const options = { projectAlias: '' }
+    if ('projectAlias' in this.client.options) {
+      options.projectAlias = this.client.options.projectAlias
+    }
 
     return new ApiRequest<OAUthResponse>(options, Endpoints.authentication.user(), data).promise()
   }

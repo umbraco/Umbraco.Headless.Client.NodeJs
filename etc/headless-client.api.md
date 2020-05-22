@@ -39,16 +39,16 @@ export class AuthenticationClient {
 
 // @public
 export class Client {
-    constructor(options: ClientOptions);
+    constructor(options: ClientOptions | ProxyOptions);
     readonly authentication: AuthenticationClient;
     readonly delivery: DeliveryClient;
     // @deprecated (undocumented)
     getAPIKey: () => string | undefined;
     // @internal
-    makeRequest: <R extends any>(endpoint: Endpoint<R, any>, data?: any) => Promise<R>;
+    makeRequest: <R extends any>(endpoint: Endpoint<R>, data?: any) => Promise<R>;
     readonly management: ManagementClient;
     // (undocumented)
-    readonly options: ClientOptions;
+    readonly options: ClientOptions | ProxyOptions;
     // @deprecated
     setAPIKey: (apikey: string) => void;
 }
@@ -574,15 +574,13 @@ export interface DepthOptions {
 // Warning: (ae-internal-missing-underscore) The name "Endpoint" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal
-export class Endpoint<R = any, Options = any> {
-    constructor(source: EndpointSource, path: string, urlParams: any, method: 'get' | 'GET' | 'post' | 'POST' | 'put' | 'PUT' | 'delete' | 'DELETE', options?: Options | undefined);
+export class Endpoint<R = any> {
+    constructor(source: EndpointSource, path: string, urlParams: any, method: 'get' | 'GET' | 'post' | 'POST' | 'put' | 'PUT' | 'delete' | 'DELETE', options?: DepthOptions | PageOptions | HyperlinksOption | ContentTypeOptions | CultureOptions | ContentDeliveryFilterOptions | undefined);
     getPath: () => string;
-    // (undocumented)
-    static getURLAddress: (endpoint: Endpoint<any, any>) => string;
     // (undocumented)
     readonly method: 'get' | 'GET' | 'post' | 'POST' | 'put' | 'PUT' | 'delete' | 'DELETE';
     // (undocumented)
-    readonly options?: Options | undefined;
+    readonly options?: DepthOptions | PageOptions | HyperlinksOption | ContentTypeOptions | CultureOptions | ContentDeliveryFilterOptions | undefined;
     // (undocumented)
     readonly path: string;
     // (undocumented)
@@ -959,6 +957,13 @@ export interface PropertyMediaType {
     sortOrder: number;
     // (undocumented)
     validation: any;
+}
+
+// @public
+export interface ProxyOptions {
+    apiProxyUrl: string;
+    cdnProxyUrl: string;
+    language?: string;
 }
 
 

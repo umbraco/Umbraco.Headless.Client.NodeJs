@@ -1,5 +1,5 @@
 import { Endpoint, EndpointSource } from './Endpoint'
-import { ClientOptions } from './Client'
+import { ClientOptions, ProxyOptions } from './Client'
 import { APIRequestError } from './APIRequestError'
 import axios, { AxiosRequestConfig } from 'axios'
 import FormData from 'form-data'
@@ -7,32 +7,49 @@ import FormData from 'form-data'
 /** @internal */
 export class ApiRequest<R = any> {
   constructor (
-    private readonly clientOptions: ClientOptions,
+    private readonly options: ClientOptions | ProxyOptions,
     public endpoint: Endpoint,
     public data?: any
   ) {}
 
   public promise = async (): Promise<R> => {
-    const projectAlias = this.clientOptions.projectAlias
     const headers: any = {
       'Content-Type': 'application/json',
       Accept: 'application/json+hal',
-      'umb-project-alias': projectAlias,
       'api-version': '2.2'
     }
 
-    if (this.endpoint.source === EndpointSource.CDN && this.clientOptions.language) {
-      headers['Accept-Language'] = this.clientOptions.language
+    if ('projectAlias' in this.options) {
+      headers['umb-project-alias'] = this.options.projectAlias
     }
+
+    if (this.endpoint.source === EndpointSource.CDN && this.options.language) {
+      headers['Accept-Language'] = this.options.language
+    }
+
+    if ('apiKey' in this.options) {
+      headers['api-key'] = this.options.apiKey
+    }
+
+    const path = this.endpoint.getPath()
+    let url = `https://cdn.umbraco.io`
+
+    if (this.endpoint.source === EndpointSource.ContentManagement) {
+      url = 'apiProxyUrl' in this.options
+        ? `${this.options.cdnProxyUrl}`
+        : `https://api.umbraco.io`
+    }
+
+    if ('cdnProxyUrl' in this.options) {
+      url = `${this.options.cdnProxyUrl}`
+    }
+
+    url = url.endsWith('/') ? `${url}${path.substr(1)}` : `${url}${path}`
 
     const requestInit: AxiosRequestConfig = {
-      url: Endpoint.getURLAddress(this.endpoint),
+      url: url,
       method: this.endpoint.method,
       headers: {}
-    }
-
-    if (this.clientOptions.apiKey) {
-      headers['api-key'] = this.clientOptions.apiKey
     }
 
     const method = this.endpoint.method.toLowerCase()
@@ -49,9 +66,9 @@ export class ApiRequest<R = any> {
     }
     requestInit.headers = headers
 
-    if (this.clientOptions.accessTokenResolver) {
+    if ('accessTokenResolver' in this.options) {
       // @ts-ignore
-      const token = this.clientOptions.accessTokenResolver(requestInit)
+      const token = this.options.accessTokenResolver(requestInit)
       if (token) {
         requestInit.headers.Authorization = `Bearer ${token}`
       }
