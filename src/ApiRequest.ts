@@ -27,7 +27,7 @@ export class ApiRequest<R = any> {
       headers['Accept-Language'] = this.options.language
     }
 
-    if ('apiKey' in this.options) {
+    if ('apiKey' in this.options && this.options.apiKey) {
       headers['api-key'] = this.options.apiKey
     }
 
