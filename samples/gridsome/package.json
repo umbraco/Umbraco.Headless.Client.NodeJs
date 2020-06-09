@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@umbraco/headless-client": "../../dist",
-    "gridsome": "^0.7.13"
+    "gridsome": "^0.7.17"
   },
   "devDependencies": {
     "gridsome-plugin-typescript": "^0.4.0",

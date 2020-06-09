@@ -13,12 +13,12 @@
     "apiKey": ""
   },
   "dependencies": {
-    "@umbraco/headless-client": "../../",
+    "@umbraco/headless-client": "../../dist",
     "koa": "^2.11.0",
     "koa-logger": "^3.2.1",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.1",
-    "nunjucks": "^3.2.0"
+    "nunjucks": "^3.2.1"
   },
   "devDependencies": {
     "@types/koa": "^2.0.51",
