@@ -31,7 +31,9 @@ import {Client} from '@umbraco/headless-client'
 
 const client = new Client({
   projectAlias: 'your-project-alias',
-  apiKey: 'your-api-key'
+  apiKey: 'your-api-key',
+  language: 'iso-code', // can be overwritten per method
+  preview: true // true/false if the preview API should be used
 })
 
 export default client
