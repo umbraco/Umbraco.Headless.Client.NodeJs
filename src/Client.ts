@@ -20,6 +20,13 @@ export interface ClientOptions {
    */
   apiKey?: string
   /**
+   * Determines if the {@link DeliveryClient} should call the Preview API or the Content Delivery endpoints.
+   *
+   * @remarks
+   * If true an apiKey must be supplied.
+   */
+  preview?: boolean
+  /**
    * Used to retrieve access tokens for requests to the APIs.
    * @param request - The request that's about to be sent.
    * @returns an oauth token that should be used for this request or undefined if no token should be used.

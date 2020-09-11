@@ -32,16 +32,16 @@ export class ApiRequest<R = any> {
     }
 
     const path = this.endpoint.getPath()
-    let url = `https://cdn.umbraco.io`
+    let url = 'https://cdn.umbraco.io'
 
     if (this.endpoint.source === EndpointSource.ContentManagement) {
       url = 'apiProxyUrl' in this.options
-        ? `${this.options.cdnProxyUrl}`
-        : `https://api.umbraco.io`
-    }
-
-    if ('cdnProxyUrl' in this.options) {
-      url = `${this.options.cdnProxyUrl}`
+        ? this.options.apiProxyUrl
+        : 'https://api.umbraco.io'
+    } else if ('cdnProxyUrl' in this.options) {
+      url = this.options.cdnProxyUrl
+    } else if (this.options.preview) {
+      url = 'https://preview.umbraco.io'
     }
 
     url = url.endsWith('/') ? `${url}${path.substr(1)}` : `${url}${path}`

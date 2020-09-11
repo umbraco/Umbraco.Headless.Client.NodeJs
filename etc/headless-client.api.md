@@ -5,7 +5,7 @@
 ```ts
 
 import { AxiosResponse } from 'axios';
-import FormData from 'form-data';
+import { default as FormData_2 } from 'form-data';
 
 // @public
 export type APIContentChildrenOptions = PageOptions;
@@ -45,7 +45,7 @@ export class Client {
     // @deprecated (undocumented)
     getAPIKey: () => string | undefined;
     // @internal
-    makeRequest: <R extends any>(endpoint: Endpoint<R>, data?: any) => Promise<R>;
+    makeRequest: <R extends unknown>(endpoint: Endpoint<R>, data?: any) => Promise<R>;
     readonly management: ManagementClient;
     // (undocumented)
     readonly options: ClientOptions | ProxyOptions;
@@ -63,6 +63,7 @@ export interface ClientOptions {
     }): string | undefined;
     apiKey?: string;
     language?: string;
+    preview?: boolean;
     projectAlias: string;
 }
 
@@ -206,12 +207,12 @@ export class ContentManagementClient {
     constructor(client: Client);
     byId<T extends ContentManagementContent>(id: string): Promise<T | undefined>;
     children<T extends ContentManagementContent>(id: string, options?: APIContentChildrenOptions): Promise<PagedResponse<T> | undefined>;
-    create<T extends ContentManagementContent>(body: ContentManagementContentRequest | FormData): Promise<T>;
+    create<T extends ContentManagementContent>(body: ContentManagementContentRequest | FormData_2): Promise<T>;
     delete<T extends ContentManagementContent>(id: string): Promise<ContentManagementContent | undefined>;
     publish<T extends ContentManagementContent>(id: string, options?: APIContentPublishOptions): Promise<T | undefined>;
     root<T extends ContentManagementContent>(): Promise<T[]>;
     unPublish<T extends ContentManagementContent>(id: string, options?: APIContentUnpublishOptions): Promise<T | undefined>;
-    update<T extends ContentManagementContent>(id: string, body: ContentManagementContentRequest | FormData): Promise<T | undefined>;
+    update<T extends ContentManagementContent>(id: string, body: ContentManagementContentRequest | FormData_2): Promise<T | undefined>;
 }
 
 // @public (undocumented)
@@ -855,10 +856,10 @@ export class MediaManagementClient {
     constructor(client: Client);
     byId<T extends ContentManagementMedia>(id: string): Promise<T | undefined>;
     children<T extends ContentManagementMedia>(id: string, options?: APIMediaChildrenOptions): Promise<PagedResponse<T> | undefined>;
-    create<T extends ContentManagementMedia>(body: ContentManagementMediaRequest | FormData): Promise<ContentManagementMedia>;
+    create<T extends ContentManagementMedia>(body: ContentManagementMediaRequest | FormData_2): Promise<ContentManagementMedia>;
     delete<T extends ContentManagementMedia>(id: string): Promise<ContentManagementMedia | undefined>;
     root<T extends ContentManagementMedia>(): Promise<T[]>;
-    update<T extends ContentManagementMedia>(id: string, body: ContentManagementMediaRequest | FormData): Promise<ContentManagementMedia | undefined>;
+    update<T extends ContentManagementMedia>(id: string, body: ContentManagementMediaRequest | FormData_2): Promise<ContentManagementMedia | undefined>;
 }
 
 // @public (undocumented)
@@ -896,14 +897,14 @@ export class MemberManagementClient {
     addToGroup(username: string, groupName: string): Promise<undefined>;
     byUsername<R extends ContentManagementMember>(username: string): Promise<R | undefined>;
     changePassword(username: string, currentPassword: string, newPassword: string): Promise<any>;
-    create<R extends ContentManagementMember>(data: ContentManagementMemberRequest | FormData): Promise<R>;
+    create<R extends ContentManagementMember>(data: ContentManagementMemberRequest | FormData_2): Promise<R>;
     createResetPasswordToken<R extends MemberResetPasswordToken>(username: string): Promise<R | undefined>;
     delete(username: string): Promise<any>;
     removeFromGroup(username: string, groupName: string): Promise<undefined>;
     // @deprecated
     removeGroup(username: string, group: string): Promise<void>;
     resetPassword<R extends ContentManagementMember>(username: string, token: string, newPassword: string): Promise<R | undefined>;
-    update<R extends ContentManagementMember>(username: string, data: ContentManagementMemberRequest | FormData): Promise<R | undefined>;
+    update<R extends ContentManagementMember>(username: string, data: ContentManagementMemberRequest | FormData_2): Promise<R | undefined>;
 }
 
 // @public (undocumented)
