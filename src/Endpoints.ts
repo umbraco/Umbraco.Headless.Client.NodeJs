@@ -47,7 +47,7 @@ export const Endpoints = {
       byUrl: <T extends Content>(url: string, options?: ContentDeliveryByUrlOptions) => new Endpoint<T>(EndpointSource.CDN, '/content/url?url={url}', { url }, 'get', options),
       children: <T extends Content>(id: string, options?: ContentDeliveryChildrenOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/{id}/children', { id }, 'get', options),
       ancestors: <T extends Content>(id: string, options?: ContentDeliveryAncestorsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/ancestors', { id }, 'get', options),
-      descendants: <T extends Content>(id: string, options?: ContentDeliveryDescendantsOptions) => new Endpoint<T[]>(EndpointSource.CDN, '/content/{id}/descendants', { id }, 'get', options),
+      descendants: <T extends Content>(id: string, options?: ContentDeliveryDescendantsOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/{id}/descendants', { id }, 'get', options),
       byContentType: <T extends Content>(contentType: string, options?: ContentDeliveryByContentTypeOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/type?contentType={contentType}', { contentType }, 'get', options),
       filter: <T extends Content>(options?: ContentDeliveryFilterOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/filter', {}, 'post', options),
       search: <T extends Content>(term: string, options?: ContentDeliverySearchOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/content/search?term={term}', { term }, 'get', options)
