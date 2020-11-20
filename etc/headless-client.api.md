@@ -125,7 +125,7 @@ export class ContentDeliveryClient {
     byId<T extends Content>(id: string, options?: ContentDeliveryByIdOptions): Promise<T | undefined>;
     byUrl<T extends Content>(url: string, options?: ContentDeliveryByUrlOptions): Promise<T | undefined>;
     children<T extends Content>(id: string, options?: ContentDeliveryChildrenOptions): Promise<PagedResponse<T> | undefined>;
-    descendants(id: string, options?: ContentDeliveryDescendantsOptions): Promise<Content[] | undefined>;
+    descendants(id: string, options?: ContentDeliveryDescendantsOptions): Promise<PagedResponse<Content> | undefined>;
     filter<T extends Content>(body: ContentFilter, options?: ContentDeliveryFilterOptions): Promise<PagedResponse<T>>;
     root<T extends Content>(options?: ContentDeliveryRootOptions): Promise<T[]>;
     search<T extends Content>(term: string, options?: ContentDeliverySearchOptions): Promise<PagedResponse<T>>;
