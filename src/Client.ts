@@ -121,7 +121,7 @@ export class Client {
     const items = this.getEmbeddedData(response)
     const pageData = this.getPagedData(response)
 
-    if (pageData) {
+    if (pageData && items) {
       return {
         ...pageData,
         items

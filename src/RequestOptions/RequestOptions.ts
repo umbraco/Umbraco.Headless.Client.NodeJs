@@ -78,6 +78,14 @@ export type ContentDeliveryFilterOptions = HyperlinksOption & PageOptions & Cult
 export type ContentDeliverySearchOptions = HyperlinksOption & PageOptions & CultureOptions
 
 /**
+ * Content Delivery Redirect Options.
+ * @public
+ *
+ * @remarks
+ * See {@link HyperlinksOption}, {@link PageOptions} and {@link CultureOptions} for more details.
+ */
+export type ContentDeliveryRedirectOptions = HyperlinksOption & PageOptions & CultureOptions
+/**
  * Media Delivery Children Options
  * @public
  *
