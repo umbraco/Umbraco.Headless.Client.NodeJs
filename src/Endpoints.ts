@@ -13,7 +13,8 @@ import {
   ContentDeliveryRootOptions,
   ContentDeliveryFilterOptions,
   ContentDeliverySearchOptions,
-  MediaDeliveryChildrenOptions
+  MediaDeliveryChildrenOptions,
+  ContentDeliveryRedirectOptions
 } from './RequestOptions'
 import {
   Content,
@@ -33,6 +34,7 @@ import {
   Form,
   OAUthResponse
 } from './Responses'
+import { Redirect } from './Responses/Redirect'
 
 /**
  * @internal
@@ -57,6 +59,10 @@ export const Endpoints = {
       root: <T extends Media>() => new Endpoint<T[]>(EndpointSource.CDN, '/media', {}, 'get'),
       byId: <T extends Media>(id: string) => new Endpoint<T>(EndpointSource.CDN, '/media/{id}', { id }, 'get'),
       children: <T extends Media>(id: string, options?: MediaDeliveryChildrenOptions) => new Endpoint<T>(EndpointSource.CDN, '/media/{id}/children', { id }, 'get', options)
+    },
+
+    redirect: {
+      getAll: <T extends Redirect>(options?: ContentDeliveryRedirectOptions) => new Endpoint<PagedResponse<T>>(EndpointSource.CDN, '/redirect', {}, 'get', options),
     }
 
   },

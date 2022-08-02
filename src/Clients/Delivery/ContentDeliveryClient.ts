@@ -5,8 +5,7 @@ import {
   ContentDeliveryAncestorsOptions, ContentDeliveryByContentTypeOptions,
   ContentDeliveryByIdOptions,
   ContentDeliveryByUrlOptions, ContentDeliveryChildrenOptions, ContentDeliveryDescendantsOptions,
-  ContentDeliveryRootOptions, ContentDeliverySearchOptions, ContentDeliveryFilterOptions
-} from '../../RequestOptions'
+  ContentDeliveryRootOptions, ContentDeliverySearchOptions, ContentDeliveryFilterOptions} from '../../RequestOptions'
 import { Content } from '../../Responses'
 import { PagedResponse } from '../../Responses/PagedResponse'
 import { ContentFilter } from '../../RequestOptions/ContentFilterOptions'
