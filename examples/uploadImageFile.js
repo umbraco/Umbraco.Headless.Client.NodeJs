@@ -28,6 +28,10 @@ form.append(
   })
 );
 
+// Note: By default, the alias for an upload field will be 'umbracoFile', which is
+// why the file stream is attached to this field. The management api expects the file to be a stream.
+// The client library will send the payload as 'multipart/form-data'.
+
 // Send file in 'umbracoFile' field
 form.append(
   "umbracoFile",
